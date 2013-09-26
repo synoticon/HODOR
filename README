@@ -1,2 +1,9 @@
 Commit Kommentar bitte wie folgt struktureren:
-- erste Zeile (
+- erste Zeile (gelbe Schrift) Datum TT.MM.JJJJ - Uhrzeit SS:MM
+- zweite Zeile (rot hinterlegt) euer Kürzel
+- Aenderungs Kommentar
+
+Bsp.:
+26.09.2013 - 20:12
+TJP
+Dies ist ein Commit Beispiel.
