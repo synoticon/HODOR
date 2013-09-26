@@ -1,0 +1,249 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="HODORModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+  <EntityContainer Name="HODOR_entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Benutzers" EntityType="HODORModel.Benutzer" />
+    <EntitySet Name="Download_History" EntityType="HODORModel.Download_History" />
+    <EntitySet Name="Lizenzs" EntityType="HODORModel.Lizenz" />
+    <EntitySet Name="Programms" EntityType="HODORModel.Programm" />
+    <EntitySet Name="Rechtes" EntityType="HODORModel.Rechte" />
+    <EntitySet Name="Releases" EntityType="HODORModel.Release" />
+    <EntitySet Name="Rolles" EntityType="HODORModel.Rolle" />
+    <AssociationSet Name="FK_Download_Zu_Benutzer" Association="HODORModel.FK_Download_Zu_Benutzer">
+      <End Role="Benutzer" EntitySet="Benutzers" />
+      <End Role="Download_History" EntitySet="Download_History" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Rolle" Association="HODORModel.FK_Rolle">
+      <End Role="Rolle" EntitySet="Rolles" />
+      <End Role="Benutzer" EntitySet="Benutzers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Build_Zu_Oberrelease" Association="HODORModel.FK_Build_Zu_Oberrelease">
+      <End Role="Subrelease" EntitySet="Releases" />
+      <End Role="Build" EntitySet="Releases" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Download_Zu_Build" Association="HODORModel.FK_Download_Zu_Build">
+      <End Role="Build" EntitySet="Releases" />
+      <End Role="Download_History" EntitySet="Download_History" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Lizensiertes_Release" Association="HODORModel.FK_Lizensiertes_Release">
+      <End Role="Release" EntitySet="Releases" />
+      <End Role="Lizenz_Versionsorientiert" EntitySet="Lizenzs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Lizensiertes_Programm" Association="HODORModel.FK_Lizensiertes_Programm">
+      <End Role="Programm" EntitySet="Programms" />
+      <End Role="Lizenz_Zeitlich" EntitySet="Lizenzs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Release_Von_Programm" Association="HODORModel.FK_Release_Von_Programm">
+      <End Role="Programm" EntitySet="Programms" />
+      <End Role="Release" EntitySet="Releases" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Subrelease_Zu_OberRelease" Association="HODORModel.FK_Subrelease_Zu_OberRelease">
+      <End Role="Release" EntitySet="Releases" />
+      <End Role="Subrelease" EntitySet="Releases" />
+    </AssociationSet>
+    <AssociationSet Name="Benutzer_Zu_Lizenz" Association="HODORModel.Benutzer_Zu_Lizenz">
+      <End Role="Benutzer" EntitySet="Benutzers" />
+      <End Role="Lizenz" EntitySet="Lizenzs" />
+    </AssociationSet>
+    <AssociationSet Name="Rolle_Zu_Rechte" Association="HODORModel.Rolle_Zu_Rechte">
+      <End Role="Rechte" EntitySet="Rechtes" />
+      <End Role="Rolle" EntitySet="Rolles" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Benutzer">
+    <Key>
+      <PropertyRef Name="BenutzerID" />
+    </Key>
+    <Property Type="Int32" Name="BenutzerID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="NutzerNr" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Email" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="PasswortHash" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="RolleID" Nullable="false" />
+    <NavigationProperty Name="Download_History" Relationship="HODORModel.FK_Download_Zu_Benutzer" FromRole="Benutzer" ToRole="Download_History" />
+    <NavigationProperty Name="Rolle" Relationship="HODORModel.FK_Rolle" FromRole="Benutzer" ToRole="Rolle" />
+    <NavigationProperty Name="Lizenzs" Relationship="HODORModel.Benutzer_Zu_Lizenz" FromRole="Benutzer" ToRole="Lizenz" />
+  </EntityType>
+  <EntityType Name="Build" BaseType="HODORModel.Release">
+    <Property Type="Int32" Name="BuildVonSubrelease" Nullable="false" />
+    <Property Type="String" Name="Datendateipfad" MaxLength="255" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Subrelease" Relationship="HODORModel.FK_Build_Zu_Oberrelease" FromRole="Build" ToRole="Subrelease" />
+    <NavigationProperty Name="Download_History" Relationship="HODORModel.FK_Download_Zu_Build" FromRole="Build" ToRole="Download_History" />
+  </EntityType>
+  <EntityType Name="Download_History">
+    <Key>
+      <PropertyRef Name="DownloadHistoryID" />
+    </Key>
+    <Property Type="Int32" Name="DownloadHistoryID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Int32" Name="BenutzerID" Nullable="false" />
+    <Property Type="Int32" Name="BuildID" Nullable="false" />
+    <Property Type="DateTime" Name="DownloadDatum" Nullable="false" />
+    <NavigationProperty Name="Benutzer" Relationship="HODORModel.FK_Download_Zu_Benutzer" FromRole="Download_History" ToRole="Benutzer" />
+    <NavigationProperty Name="Build" Relationship="HODORModel.FK_Download_Zu_Build" FromRole="Download_History" ToRole="Build" />
+  </EntityType>
+  <EntityType Name="Lizenz" Abstract="true">
+    <Key>
+      <PropertyRef Name="LizenzID" />
+    </Key>
+    <Property Type="Int32" Name="LizenzID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="Benutzers" Relationship="HODORModel.Benutzer_Zu_Lizenz" FromRole="Lizenz" ToRole="Benutzer" />
+  </EntityType>
+  <EntityType Name="Lizenz_Versionsorientiert" BaseType="HODORModel.Lizenz">
+    <Property Type="Int32" Name="Versionserhöhung" Nullable="false" />
+    <Property Type="Int32" Name="LizensiertRelease" Nullable="false" />
+    <NavigationProperty Name="Release" Relationship="HODORModel.FK_Lizensiertes_Release" FromRole="Lizenz_Versionsorientiert" ToRole="Release" />
+  </EntityType>
+  <EntityType Name="Lizenz_Zeitlich" BaseType="HODORModel.Lizenz">
+    <Property Type="Int32" Name="LizensiertProgramm" Nullable="false" />
+    <Property Type="DateTime" Name="StartDatum" Nullable="false" />
+    <Property Type="DateTime" Name="EndDatum" Nullable="false" />
+    <NavigationProperty Name="Programm" Relationship="HODORModel.FK_Lizensiertes_Programm" FromRole="Lizenz_Zeitlich" ToRole="Programm" />
+  </EntityType>
+  <EntityType Name="Programm">
+    <Key>
+      <PropertyRef Name="ProgrammID" />
+    </Key>
+    <Property Type="Int32" Name="ProgrammID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Lizenz_Zeitlich" Relationship="HODORModel.FK_Lizensiertes_Programm" FromRole="Programm" ToRole="Lizenz_Zeitlich" />
+    <NavigationProperty Name="Releases" Relationship="HODORModel.FK_Release_Von_Programm" FromRole="Programm" ToRole="Release" />
+  </EntityType>
+  <EntityType Name="Rechte">
+    <Key>
+      <PropertyRef Name="RechteID" />
+    </Key>
+    <Property Type="Int32" Name="RechteID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="Beschreibung" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Name" MaxLength="255" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Rolles" Relationship="HODORModel.Rolle_Zu_Rechte" FromRole="Rechte" ToRole="Rolle" />
+  </EntityType>
+  <EntityType Name="Release">
+    <Key>
+      <PropertyRef Name="ReleaseID" />
+    </Key>
+    <Property Type="Int32" Name="ReleaseID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Int32" Name="ReleaseVonProgramm" Nullable="false" />
+    <Property Type="DateTime" Name="Releasedatum" Nullable="false" />
+    <Property Type="Int32" Name="Releasenummer" Nullable="false" />
+    <NavigationProperty Name="Lizenz_Versionsorientiert" Relationship="HODORModel.FK_Lizensiertes_Release" FromRole="Release" ToRole="Lizenz_Versionsorientiert" />
+    <NavigationProperty Name="Programm" Relationship="HODORModel.FK_Release_Von_Programm" FromRole="Release" ToRole="Programm" />
+    <NavigationProperty Name="Subreleases" Relationship="HODORModel.FK_Subrelease_Zu_OberRelease" FromRole="Release" ToRole="Subrelease" />
+  </EntityType>
+  <EntityType Name="Rolle">
+    <Key>
+      <PropertyRef Name="RolleID" />
+    </Key>
+    <Property Type="Int32" Name="RolleID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="Rollenname" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Benutzers" Relationship="HODORModel.FK_Rolle" FromRole="Rolle" ToRole="Benutzer" />
+    <NavigationProperty Name="Rechtes" Relationship="HODORModel.Rolle_Zu_Rechte" FromRole="Rolle" ToRole="Rechte" />
+  </EntityType>
+  <EntityType Name="Subrelease" BaseType="HODORModel.Release">
+    <Property Type="Int32" Name="SubreleaseVonRelease" Nullable="false" />
+    <NavigationProperty Name="Builds" Relationship="HODORModel.FK_Build_Zu_Oberrelease" FromRole="Subrelease" ToRole="Build" />
+    <NavigationProperty Name="Release" Relationship="HODORModel.FK_Subrelease_Zu_OberRelease" FromRole="Subrelease" ToRole="Release" />
+  </EntityType>
+  <Association Name="FK_Download_Zu_Benutzer">
+    <End Type="HODORModel.Benutzer" Role="Benutzer" Multiplicity="1" />
+    <End Type="HODORModel.Download_History" Role="Download_History" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Benutzer">
+        <PropertyRef Name="BenutzerID" />
+      </Principal>
+      <Dependent Role="Download_History">
+        <PropertyRef Name="BenutzerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Rolle">
+    <End Type="HODORModel.Rolle" Role="Rolle" Multiplicity="1" />
+    <End Type="HODORModel.Benutzer" Role="Benutzer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Rolle">
+        <PropertyRef Name="RolleID" />
+      </Principal>
+      <Dependent Role="Benutzer">
+        <PropertyRef Name="RolleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Build_Zu_Oberrelease">
+    <End Type="HODORModel.Subrelease" Role="Subrelease" Multiplicity="1" />
+    <End Type="HODORModel.Build" Role="Build" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Subrelease">
+        <PropertyRef Name="ReleaseID" />
+      </Principal>
+      <Dependent Role="Build">
+        <PropertyRef Name="BuildVonSubrelease" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Download_Zu_Build">
+    <End Type="HODORModel.Build" Role="Build" Multiplicity="1" />
+    <End Type="HODORModel.Download_History" Role="Download_History" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Build">
+        <PropertyRef Name="ReleaseID" />
+      </Principal>
+      <Dependent Role="Download_History">
+        <PropertyRef Name="BuildID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Lizensiertes_Release">
+    <End Type="HODORModel.Release" Role="Release" Multiplicity="1" />
+    <End Type="HODORModel.Lizenz_Versionsorientiert" Role="Lizenz_Versionsorientiert" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Release">
+        <PropertyRef Name="ReleaseID" />
+      </Principal>
+      <Dependent Role="Lizenz_Versionsorientiert">
+        <PropertyRef Name="LizensiertRelease" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Lizensiertes_Programm">
+    <End Type="HODORModel.Programm" Role="Programm" Multiplicity="1" />
+    <End Type="HODORModel.Lizenz_Zeitlich" Role="Lizenz_Zeitlich" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Programm">
+        <PropertyRef Name="ProgrammID" />
+      </Principal>
+      <Dependent Role="Lizenz_Zeitlich">
+        <PropertyRef Name="LizensiertProgramm" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Release_Von_Programm">
+    <End Type="HODORModel.Programm" Role="Programm" Multiplicity="1" />
+    <End Type="HODORModel.Release" Role="Release" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Programm">
+        <PropertyRef Name="ProgrammID" />
+      </Principal>
+      <Dependent Role="Release">
+        <PropertyRef Name="ReleaseVonProgramm" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Subrelease_Zu_OberRelease">
+    <End Type="HODORModel.Release" Role="Release" Multiplicity="1" />
+    <End Type="HODORModel.Subrelease" Role="Subrelease" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Release">
+        <PropertyRef Name="ReleaseID" />
+      </Principal>
+      <Dependent Role="Subrelease">
+        <PropertyRef Name="SubreleaseVonRelease" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Benutzer_Zu_Lizenz">
+    <End Type="HODORModel.Benutzer" Role="Benutzer" Multiplicity="*" />
+    <End Type="HODORModel.Lizenz" Role="Lizenz" Multiplicity="*" />
+  </Association>
+  <Association Name="Rolle_Zu_Rechte">
+    <End Type="HODORModel.Rechte" Role="Rechte" Multiplicity="*" />
+    <End Type="HODORModel.Rolle" Role="Rolle" Multiplicity="*" />
+  </Association>
+</Schema>

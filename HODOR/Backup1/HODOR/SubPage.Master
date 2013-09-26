@@ -1,0 +1,22 @@
+﻿<%@ Master Language="C#" MasterPageFile="~/HODOR.Master" AutoEventWireup="true" CodeFile="SubPage.master.cs"
+    Inherits="HODOR.SubPage" %>
+
+<asp:Content ID="NaviContent" ContentPlaceHolderID="NaviContentPlaceHolder" runat="server">
+    <asp:Menu ID="Menu1" runat="server" Orientation="Horizontal">
+        <Items>
+            <asp:MenuItem NavigateUrl="~/Startseite.aspx" Text="Login" 
+                Value="Login">
+            </asp:MenuItem>
+        </Items>
+    </asp:Menu>
+</asp:Content>
+<asp:Content ID="MainContent" ContentPlaceHolderID="MainContentPlaceHolder" runat="server">
+    <h1>
+        <asp:ContentPlaceHolder ID="TitlePlaceHolder" runat="server">
+        </asp:ContentPlaceHolder>
+    </h1>
+    <p>
+        <asp:ContentPlaceHolder ID="ContentPlaceHolder" runat="server">
+        </asp:ContentPlaceHolder>
+    </p>
+</asp:Content>

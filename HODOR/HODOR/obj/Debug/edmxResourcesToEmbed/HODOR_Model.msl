@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="HODORModelStoreContainer" CdmEntityContainer="HODOR_entities">
+    <EntitySetMapping Name="Benutzers">
+      <EntityTypeMapping TypeName="HODORModel.Benutzer">
+        <MappingFragment StoreEntitySet="Benutzer">
+          <ScalarProperty Name="RolleID" ColumnName="RolleID" />
+          <ScalarProperty Name="PasswortHash" ColumnName="PasswortHash" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="NutzerNr" ColumnName="NutzerNr" />
+          <ScalarProperty Name="BenutzerID" ColumnName="BenutzerID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Download_History">
+      <EntityTypeMapping TypeName="HODORModel.Download_History">
+        <MappingFragment StoreEntitySet="Download_History">
+          <ScalarProperty Name="DownloadDatum" ColumnName="DownloadDatum" />
+          <ScalarProperty Name="BuildID" ColumnName="BuildID" />
+          <ScalarProperty Name="BenutzerID" ColumnName="BenutzerID" />
+          <ScalarProperty Name="DownloadHistoryID" ColumnName="DownloadHistoryID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Lizenzs">
+      <EntityTypeMapping TypeName="IsTypeOf(HODORModel.Lizenz)">
+        <MappingFragment StoreEntitySet="Lizenz">
+          <ScalarProperty Name="LizenzID" ColumnName="LizenzID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(HODORModel.Lizenz_Zeitlich)">
+        <MappingFragment StoreEntitySet="Lizenz_Zeitlich">
+          <ScalarProperty Name="LizenzID" ColumnName="LizenzID" />
+          <ScalarProperty Name="LizensiertProgramm" ColumnName="LizensiertProgramm" />
+          <ScalarProperty Name="StartDatum" ColumnName="StartDatum" />
+          <ScalarProperty Name="EndDatum" ColumnName="EndDatum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(HODORModel.Lizenz_Versionsorientiert)">
+        <MappingFragment StoreEntitySet="Lizenz_Versionsorientiert">
+          <ScalarProperty Name="LizenzID" ColumnName="LizenzID" />
+          <ScalarProperty Name="Versionserhöhung" ColumnName="Versionserhöhung" />
+          <ScalarProperty Name="LizensiertRelease" ColumnName="LizensiertRelease" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Programms">
+      <EntityTypeMapping TypeName="HODORModel.Programm">
+        <MappingFragment StoreEntitySet="Programm">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ProgrammID" ColumnName="ProgrammID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Rechtes">
+      <EntityTypeMapping TypeName="HODORModel.Rechte">
+        <MappingFragment StoreEntitySet="Rechte">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Beschreibung" ColumnName="Beschreibung" />
+          <ScalarProperty Name="RechteID" ColumnName="RechteID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Releases">
+      <EntityTypeMapping TypeName="IsTypeOf(HODORModel.Release)">
+        <MappingFragment StoreEntitySet="Release">
+          <ScalarProperty Name="ReleaseID" ColumnName="ReleaseID" />
+          <ScalarProperty Name="Releasenummer" ColumnName="Releasenummer" />
+          <ScalarProperty Name="Releasedatum" ColumnName="Releasedatum" />
+          <ScalarProperty Name="ReleaseVonProgramm" ColumnName="ReleaseVonProgramm" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(HODORModel.Subrelease)">
+        <MappingFragment StoreEntitySet="Subrelease">
+          <ScalarProperty Name="ReleaseID" ColumnName="ReleaseID" />
+          <ScalarProperty Name="SubreleaseVonRelease" ColumnName="SubreleaseVonRelease" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(HODORModel.Build)">
+        <MappingFragment StoreEntitySet="Build">
+          <ScalarProperty Name="ReleaseID" ColumnName="ReleaseID" />
+          <ScalarProperty Name="BuildVonSubrelease" ColumnName="BuildVonSubrelease" />
+          <ScalarProperty Name="Datendateipfad" ColumnName="Datendateipfad" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Rolles">
+      <EntityTypeMapping TypeName="HODORModel.Rolle">
+        <MappingFragment StoreEntitySet="Rolle">
+          <ScalarProperty Name="Rollenname" ColumnName="Rollenname" />
+          <ScalarProperty Name="RolleID" ColumnName="RolleID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="Benutzer_Zu_Lizenz" TypeName="HODORModel.Benutzer_Zu_Lizenz" StoreEntitySet="Benutzer_Zu_Lizenz">
+      <EndProperty Name="Lizenz">
+        <ScalarProperty Name="LizenzID" ColumnName="LizenzID" />
+      </EndProperty>
+      <EndProperty Name="Benutzer">
+        <ScalarProperty Name="BenutzerID" ColumnName="BenutzerID" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="Rolle_Zu_Rechte" TypeName="HODORModel.Rolle_Zu_Rechte" StoreEntitySet="Rolle_Zu_Rechte">
+      <EndProperty Name="Rolle">
+        <ScalarProperty Name="RolleID" ColumnName="RolleID" />
+      </EndProperty>
+      <EndProperty Name="Rechte">
+        <ScalarProperty Name="RechteID" ColumnName="RechteID" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>

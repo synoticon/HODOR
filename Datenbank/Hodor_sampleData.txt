@@ -1,0 +1,19 @@
+--Rolle
+INSERT INTO gr1.Rolle (RolleID, Rollenname) VALUES (1, 'Administrator');
+
+--Benutzer
+INSERT INTO gr1.Benutzer (BenutzerID, Nutzer_Nr, Name, PasswortHash, RolleID) VALUES (1, 'Hodor', 'HODOR!', '622fc5b35377fe9ce3636361f6c7de9a', 1);
+
+--Programm
+INSERT INTO gr1.Programm (ProgrammID, Name) VALUES (1, 'HODOR - Hyper Organised Deployment Order Revisioning');
+
+--Release
+INSERT INTO gr1.Release (ReleaseID, Release_Von_Programm, Releasedatum, Releasenummer) VALUES (1, 1, '20130915', 1);
+
+--Subrelease
+INSERT INTO gr1.Release (ReleaseID, Release_Von_Programm, Releasedatum, Releasenummer) VALUES (2, 1, '20130915', 0);
+INSERT INTO gr1.Subrelease (ReleaseID, Subrelease_Von_Release ) VALUES (2, 1);
+
+--Build
+INSERT INTO gr1.Release (ReleaseID, Release_Von_Programm, Releasedatum, Releasenummer) VALUES (3, 1, '20130915', 1);
+INSERT INTO gr1.Build (ReleaseID, Build_von_Subrelease, Datendateipfad) VALUES (3, 2, 'C:\ThisWill404\ooopsie.exe');

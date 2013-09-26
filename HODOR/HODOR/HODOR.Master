@@ -1,0 +1,50 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="HODOR.master.cs" Inherits="HODOR.HODOR" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+
+    <script type="text/javascript" src="/Stylesheet/Stylesheet1.css"></script>
+
+    <link rel="Stylesheet" href="/Stylesheet/Stylesheet1.css" type="text/css" />
+    <title>HODOR - Hyper Organised Deployment Order Revisioning</title>
+</head>
+<body>
+    <form id="form1" runat="server" action="">
+    <asp:ScriptManager ID="MainScriptManager" runat="server" EnablePartialRendering="true">
+    </asp:ScriptManager>
+    <div id="header">
+        <div id="content-header-location" class="content-header-location">
+            <asp:SiteMapPath ID="SiteMapPath1" runat="server" />
+        </div>
+        <div class="content-header-logo">
+            <div class="content-header-logo-img">
+                <a href="../Startseite.aspx">
+                    <img alt="HODOR - Startseite" src="../images/HODOR_Logo.png" />
+                </a>
+            </div>
+        </div>
+    </div>
+    <div id="wrapper">
+        <div id="navi">
+            <div id="main-menu">
+                <asp:ContentPlaceHolder runat="server" ID="NaviContentPlaceHolder">
+                </asp:ContentPlaceHolder>
+            </div>
+        </div>
+        <div id="main">
+            <asp:ContentPlaceHolder ID="MainContentPlaceHolder" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+        <div id="footer">
+            <div id="support">
+                <a href="Kontakt.aspx" class="supporttextklein">Kontakt</a> <a class="supporttextklein">
+                    &bull;</a> <a href="Impresum.aspx" class="supporttextklein">Impresum</a>
+                <a class="supporttextklein">&bull;</a> <a href="FAQ.aspx" class="supporttextklein">
+                    FAQ</a>
+            </div>
+        </div>
+    </div>
+    </form>
+</body>
+</html>
