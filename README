@@ -1,9 +1,1 @@
-Commit Kommentar bitte wie folgt struktureren:
-- erste Zeile (gelbe Schrift) Datum TT.MM.JJJJ - Uhrzeit SS:MM
-- zweite Zeile (rot hinterlegt) euer Kürzel
-- Aenderungs Kommentar
-
-Bsp.:
-26.09.2013 - 20:12
-TJP
-Dies ist ein Commit Beispiel.
+Hier handelt es sich um die Applikation HODOR, mit welcher ein Schulprojekt realisiert wird.Mitwirkende:- David Schimig- Aaron Schmischke- Timo Jeremy PinzautiWissenswertes:Bei "Commit" bitte wie folgt vorgehen ->- erste (gelbe) Zeile Datum TT.MM.JJJJ - Uhrzeit SS:MM eintragen- zweite (rot hinterlegte) Zeile euren Kuerzel eintragen (DS, AS, TJP)- dritte (graue) Zeile euren Kommentar eintragenBsp.:26.09.2013 - 21:06TJPDies ist eine Commit Beispiel.
