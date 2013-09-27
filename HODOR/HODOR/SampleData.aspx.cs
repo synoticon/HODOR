@@ -24,11 +24,11 @@ namespace HODOR
             Subrelease subrelease = SubreleaseDAO.createAndGetSubrelease(release);
             Build build = BuildDAO.createAndGetBuild(subrelease);
 
-            Rechte permission = RechteDAO.createAndGetRechte("MayViewUsers");
-            permission.Beschreibung = "May view the all users page";
+            //Rechte permission = RechteDAO.createAndGetRechte("MayViewUsers");
+            //permission.Beschreibung = "May view the all users page";
 
             Rolle role = RolleDAO.createAndGetRolle("Useradmin");
-            role.Rechtes.Add(permission);
+            //role.Rechtes.Add(permission);
 
             Benutzer user = BenutzerDAO.createAndGetUser("Hodor!", "Hodor", new System.Net.Mail.MailAddress("hodor@hodor.com"), "Hodor123", role);
 
@@ -65,11 +65,11 @@ namespace HODOR
                 Build build5 = BuildDAO.createAndGetBuild(subrelease2_1);
                 Build build6 = BuildDAO.createAndGetBuild(subrelease2_2);
 
-                Rechte permission = RechteDAO.createAndGetRechte("MayViewUsers"+i);
-                permission.Beschreibung = "May view the all users page"+i;
+                //Rechte permission = RechteDAO.createAndGetRechte("MayViewUsers"+i);
+                //permission.Beschreibung = "May view the all users page"+i;
 
                 Rolle role = RolleDAO.createAndGetRolle("Useradmin"+i);
-                role.Rechtes.Add(permission);
+                //role.Rechtes.Add(permission);
 
                 Benutzer user = BenutzerDAO.createAndGetUser("Hodor!"+i, "Hodor"+i, new System.Net.Mail.MailAddress("hodor"+i+"@hodor.com"), "Hodor123"+i, role);
 

@@ -53,15 +53,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Rechtes">
-      <EntityTypeMapping TypeName="HODORModel.Rechte">
-        <MappingFragment StoreEntitySet="Rechte">
-          <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="Beschreibung" ColumnName="Beschreibung" />
-          <ScalarProperty Name="RechteID" ColumnName="RechteID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Releases">
       <EntityTypeMapping TypeName="IsTypeOf(HODORModel.Release)">
         <MappingFragment StoreEntitySet="Release">
@@ -99,14 +90,6 @@
       </EndProperty>
       <EndProperty Name="Benutzer">
         <ScalarProperty Name="BenutzerID" ColumnName="BenutzerID" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <AssociationSetMapping Name="Rolle_Zu_Rechte" TypeName="HODORModel.Rolle_Zu_Rechte" StoreEntitySet="Rolle_Zu_Rechte">
-      <EndProperty Name="Rolle">
-        <ScalarProperty Name="RolleID" ColumnName="RolleID" />
-      </EndProperty>
-      <EndProperty Name="Rechte">
-        <ScalarProperty Name="RechteID" ColumnName="RechteID" />
       </EndProperty>
     </AssociationSetMapping>
   </EntityContainerMapping>

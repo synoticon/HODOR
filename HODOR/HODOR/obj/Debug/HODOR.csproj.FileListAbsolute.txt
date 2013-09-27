@@ -23,3 +23,8 @@ C:\Users\pinzauti_timo\Documents\Visual Studio 2010\Projects\HODOR\HODOR\obj\Deb
 C:\Users\pinzauti_timo\Documents\Visual Studio 2010\Projects\HODOR\HODOR\obj\Debug\HODOR.dll
 C:\Users\synC'\Documents\Visual Studio 2012\Projects\HODOR\HODOR\obj\Debug\HODOR.csprojResolveAssemblyReference.cache
 C:\Users\synC'\Documents\Visual Studio 2012\Projects\HODOR\HODOR\obj\Debug\HODOR.dll
+F:\Berufsschule\HODOR\Git\GitPortable\App\Git\.hodor-repo\HODOR\HODOR\HODOR\obj\Debug\HODOR.csprojResolveAssemblyReference.cache
+F:\Berufsschule\HODOR\Git\GitPortable\App\Git\.hodor-repo\HODOR\HODOR\HODOR\obj\Debug\HODOR.dll
+F:\Berufsschule\HODOR\Git\GitPortable\App\Git\.hodor-repo\HODOR\HODOR\HODOR\bin\HODOR.dll
+F:\Berufsschule\HODOR\Git\GitPortable\App\Git\.hodor-repo\HODOR\HODOR\HODOR\bin\HODOR.pdb
+F:\Berufsschule\HODOR\Git\GitPortable\App\Git\.hodor-repo\HODOR\HODOR\HODOR\obj\Debug\HODOR.pdb

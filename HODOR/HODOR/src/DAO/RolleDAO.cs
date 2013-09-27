@@ -10,7 +10,8 @@ namespace HODOR.src.DAO
     {
         public static Rolle createAndGetRolle(String roleName)
         {
-            Rolle role = Rolle.CreateRolle(roleName);
+            Rolle role = new Rolle(); //Rolle.CreateRolle(roleName);
+            role.Rollenname = roleName;
 
             HodorGlobals.getHodorContext().Rolles.AddObject(role);
             HodorGlobals.save();

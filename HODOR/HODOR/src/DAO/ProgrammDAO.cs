@@ -10,9 +10,11 @@ namespace HODOR.src.DAO
     {
         public static Programm createAndGetProgramm(String programmName)
         {
-            Programm prog = Programm.CreateProgramm(programmName);
+            Programm prog = new Programm();//Programm.CreateProgramm(programmName);
+            prog.Name = programmName;
+
             HodorGlobals.getHodorContext().Programms.AddObject(prog);
-            HodorGlobals.save(); //strange.. all other DAO's need this... here it creates errors, because it is already persisted but the ObjectState isn't correct o_O
+            //HodorGlobals.save(); //strange.. all other DAO's need this... here it creates errors, because it is already persisted but the ObjectState isn't correct o_O
             return prog;
         }
 

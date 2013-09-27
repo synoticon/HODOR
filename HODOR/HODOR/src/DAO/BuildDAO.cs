@@ -12,7 +12,11 @@ namespace HODOR.src.DAO
         {
             subreleaseOfBuild.ProgrammReference.Load();
             Int32 programmID = subreleaseOfBuild.ProgrammReference.Value.ProgrammID;
-            Build build = Build.CreateBuild(programmID, buildDate, buildNumber, subreleaseOfBuild.ReleaseID);
+            Build build = new Build();
+            build.Programm = subreleaseOfBuild.ProgrammReference.Value;
+            build.Releasedatum = buildDate;
+            build.Releasenummer = buildNumber;
+            build.BuildVonSubrelease = subreleaseOfBuild.ReleaseID;
 
             HodorGlobals.getHodorContext().Releases.AddObject(build);
             HodorGlobals.save();

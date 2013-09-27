@@ -11,7 +11,12 @@ namespace HODOR.src.DAO
         public static Subrelease createAndGetSubrelease(Release releaseOfSubrelease, DateTime releaseDate, Int32 releaseNumber)
         {
             releaseOfSubrelease.ProgrammReference.Load();
-            Subrelease sub = Subrelease.CreateSubrelease(releaseOfSubrelease.ProgrammReference.Value.ProgrammID, releaseDate, releaseNumber, releaseOfSubrelease.ReleaseID);
+            Subrelease sub = new Subrelease();//Subrelease.CreateSubrelease(releaseOfSubrelease.ProgrammReference.Value.ProgrammID, releaseDate, releaseNumber, releaseOfSubrelease.ReleaseID);
+            sub.ReleaseVonProgramm = releaseOfSubrelease.ProgrammReference.Value.ProgrammID;
+            sub.Releasedatum = releaseDate;
+            sub.Releasenummer = releaseNumber;
+            sub.SubreleaseVonRelease = releaseOfSubrelease.ReleaseID;
+
             HodorGlobals.getHodorContext().Releases.AddObject(sub);
             HodorGlobals.save();
 

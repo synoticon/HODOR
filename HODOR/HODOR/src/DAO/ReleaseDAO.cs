@@ -10,7 +10,11 @@ namespace HODOR.src.DAO
     {
         public static Release createAndGetRelease(Programm ofProgramm, DateTime dateAndTimeOfRelease, int releaseNumber)
         {
-            Release rel = Release.CreateRelease(ofProgramm.ProgrammID, dateAndTimeOfRelease, releaseNumber);
+            Release rel = new Release(); //Release.CreateRelease(ofProgramm.ProgrammID, dateAndTimeOfRelease, releaseNumber);
+            rel.ReleaseVonProgramm = ofProgramm.ProgrammID;
+            rel.Releasedatum = dateAndTimeOfRelease;
+            rel.Releasenummer = releaseNumber;
+
             HodorGlobals.getHodorContext().Releases.AddObject(rel);
             HodorGlobals.save();
 

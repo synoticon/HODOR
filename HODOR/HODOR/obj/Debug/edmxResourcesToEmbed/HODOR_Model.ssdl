@@ -9,10 +9,8 @@
     <EntitySet Name="Lizenz_Versionsorientiert" EntityType="HODORModel.Store.Lizenz_Versionsorientiert" store:Type="Tables" Schema="gr1" />
     <EntitySet Name="Lizenz_Zeitlich" EntityType="HODORModel.Store.Lizenz_Zeitlich" store:Type="Tables" Schema="gr1" />
     <EntitySet Name="Programm" EntityType="HODORModel.Store.Programm" store:Type="Tables" Schema="gr1" />
-    <EntitySet Name="Rechte" EntityType="HODORModel.Store.Rechte" store:Type="Tables" Schema="gr1" />
     <EntitySet Name="Release" EntityType="HODORModel.Store.Release" store:Type="Tables" Schema="gr1" />
     <EntitySet Name="Rolle" EntityType="HODORModel.Store.Rolle" store:Type="Tables" Schema="gr1" />
-    <EntitySet Name="Rolle_Zu_Rechte" EntityType="HODORModel.Store.Rolle_Zu_Rechte" store:Type="Tables" Schema="gr1" />
     <EntitySet Name="Subrelease" EntityType="HODORModel.Store.Subrelease" store:Type="Tables" Schema="gr1" />
     <AssociationSet Name="FK_Build_Zu_Oberrelease" Association="HODORModel.Store.FK_Build_Zu_Oberrelease">
       <End Role="Subrelease" EntitySet="Subrelease" />
@@ -53,14 +51,6 @@
     <AssociationSet Name="FK_Rolle" Association="HODORModel.Store.FK_Rolle">
       <End Role="Rolle" EntitySet="Rolle" />
       <End Role="Benutzer" EntitySet="Benutzer" />
-    </AssociationSet>
-    <AssociationSet Name="FK_RzR_Rechte" Association="HODORModel.Store.FK_RzR_Rechte">
-      <End Role="Rechte" EntitySet="Rechte" />
-      <End Role="Rolle_Zu_Rechte" EntitySet="Rolle_Zu_Rechte" />
-    </AssociationSet>
-    <AssociationSet Name="FK_RzR_Rolle" Association="HODORModel.Store.FK_RzR_Rolle">
-      <End Role="Rolle" EntitySet="Rolle" />
-      <End Role="Rolle_Zu_Rechte" EntitySet="Rolle_Zu_Rechte" />
     </AssociationSet>
     <AssociationSet Name="FK_Subrelease_Zu_OberRelease" Association="HODORModel.Store.FK_Subrelease_Zu_OberRelease">
       <End Role="Release" EntitySet="Release" />
@@ -145,14 +135,6 @@
     <Property Name="ProgrammID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="Name" Type="varchar" Nullable="false" MaxLength="255" />
   </EntityType>
-  <EntityType Name="Rechte">
-    <Key>
-      <PropertyRef Name="RechteID" />
-    </Key>
-    <Property Name="RechteID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-    <Property Name="Beschreibung" Type="varchar" MaxLength="255" />
-    <Property Name="Name" Type="varchar" MaxLength="255" />
-  </EntityType>
   <EntityType Name="Release">
     <Key>
       <PropertyRef Name="ReleaseID" />
@@ -168,14 +150,6 @@
     </Key>
     <Property Name="RolleID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="Rollenname" Type="varchar" Nullable="false" MaxLength="255" />
-  </EntityType>
-  <EntityType Name="Rolle_Zu_Rechte">
-    <Key>
-      <PropertyRef Name="RolleID" />
-      <PropertyRef Name="RechteID" />
-    </Key>
-    <Property Name="RolleID" Type="int" Nullable="false" />
-    <Property Name="RechteID" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Subrelease">
     <Key>
@@ -300,30 +274,6 @@
         <PropertyRef Name="RolleID" />
       </Principal>
       <Dependent Role="Benutzer">
-        <PropertyRef Name="RolleID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_RzR_Rechte">
-    <End Role="Rechte" Type="HODORModel.Store.Rechte" Multiplicity="1" />
-    <End Role="Rolle_Zu_Rechte" Type="HODORModel.Store.Rolle_Zu_Rechte" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Rechte">
-        <PropertyRef Name="RechteID" />
-      </Principal>
-      <Dependent Role="Rolle_Zu_Rechte">
-        <PropertyRef Name="RechteID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_RzR_Rolle">
-    <End Role="Rolle" Type="HODORModel.Store.Rolle" Multiplicity="1" />
-    <End Role="Rolle_Zu_Rechte" Type="HODORModel.Store.Rolle_Zu_Rechte" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Rolle">
-        <PropertyRef Name="RolleID" />
-      </Principal>
-      <Dependent Role="Rolle_Zu_Rechte">
         <PropertyRef Name="RolleID" />
       </Dependent>
     </ReferentialConstraint>

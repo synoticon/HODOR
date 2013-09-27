@@ -10,8 +10,10 @@ namespace HODOR.src.DAO
     {
         public static Download_History createAndGetDownloadHistory(Benutzer downloadingUser, Build downloadedBuild, DateTime downloadDate)
         {
-            Download_History dh = Download_History.CreateDownload_History(downloadingUser.BenutzerID, downloadedBuild.ReleaseID, downloadDate);
-
+            Download_History dh = new Download_History();
+            dh.BenutzerID = downloadingUser.BenutzerID;
+            dh.BuildID = downloadedBuild.ReleaseID;
+            dh.DownloadDatum = downloadDate;
             HodorGlobals.getHodorContext().Download_History.AddObject(dh);
             HodorGlobals.save();
 

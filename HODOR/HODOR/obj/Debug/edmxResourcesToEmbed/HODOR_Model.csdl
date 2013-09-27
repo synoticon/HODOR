@@ -5,7 +5,6 @@
     <EntitySet Name="Download_History" EntityType="HODORModel.Download_History" />
     <EntitySet Name="Lizenzs" EntityType="HODORModel.Lizenz" />
     <EntitySet Name="Programms" EntityType="HODORModel.Programm" />
-    <EntitySet Name="Rechtes" EntityType="HODORModel.Rechte" />
     <EntitySet Name="Releases" EntityType="HODORModel.Release" />
     <EntitySet Name="Rolles" EntityType="HODORModel.Rolle" />
     <AssociationSet Name="FK_Download_Zu_Benutzer" Association="HODORModel.FK_Download_Zu_Benutzer">
@@ -44,16 +43,12 @@
       <End Role="Benutzer" EntitySet="Benutzers" />
       <End Role="Lizenz" EntitySet="Lizenzs" />
     </AssociationSet>
-    <AssociationSet Name="Rolle_Zu_Rechte" Association="HODORModel.Rolle_Zu_Rechte">
-      <End Role="Rechte" EntitySet="Rechtes" />
-      <End Role="Rolle" EntitySet="Rolles" />
-    </AssociationSet>
   </EntityContainer>
   <EntityType Name="Benutzer">
     <Key>
       <PropertyRef Name="BenutzerID" />
     </Key>
-    <Property Type="Int32" Name="BenutzerID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Int32" Name="BenutzerID" Nullable="false" annotation:StoreGeneratedPattern="Identity" a:SetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
     <Property Type="String" Name="NutzerNr" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
     <Property Type="String" Name="Email" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
     <Property Type="String" Name="Name" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
@@ -84,7 +79,7 @@
     <Key>
       <PropertyRef Name="LizenzID" />
     </Key>
-    <Property Type="Int32" Name="LizenzID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Int32" Name="LizenzID" Nullable="false" annotation:StoreGeneratedPattern="Identity" a:SetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
     <NavigationProperty Name="Benutzers" Relationship="HODORModel.Benutzer_Zu_Lizenz" FromRole="Lizenz" ToRole="Benutzer" />
   </EntityType>
   <EntityType Name="Lizenz_Versionsorientiert" BaseType="HODORModel.Lizenz">
@@ -107,15 +102,6 @@
     <NavigationProperty Name="Lizenz_Zeitlich" Relationship="HODORModel.FK_Lizensiertes_Programm" FromRole="Programm" ToRole="Lizenz_Zeitlich" />
     <NavigationProperty Name="Releases" Relationship="HODORModel.FK_Release_Von_Programm" FromRole="Programm" ToRole="Release" />
   </EntityType>
-  <EntityType Name="Rechte">
-    <Key>
-      <PropertyRef Name="RechteID" />
-    </Key>
-    <Property Type="Int32" Name="RechteID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Type="String" Name="Beschreibung" MaxLength="255" FixedLength="false" Unicode="false" />
-    <Property Type="String" Name="Name" MaxLength="255" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="Rolles" Relationship="HODORModel.Rolle_Zu_Rechte" FromRole="Rechte" ToRole="Rolle" />
-  </EntityType>
   <EntityType Name="Release">
     <Key>
       <PropertyRef Name="ReleaseID" />
@@ -135,7 +121,6 @@
     <Property Type="Int32" Name="RolleID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Type="String" Name="Rollenname" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="Benutzers" Relationship="HODORModel.FK_Rolle" FromRole="Rolle" ToRole="Benutzer" />
-    <NavigationProperty Name="Rechtes" Relationship="HODORModel.Rolle_Zu_Rechte" FromRole="Rolle" ToRole="Rechte" />
   </EntityType>
   <EntityType Name="Subrelease" BaseType="HODORModel.Release">
     <Property Type="Int32" Name="SubreleaseVonRelease" Nullable="false" />
@@ -241,9 +226,5 @@
   <Association Name="Benutzer_Zu_Lizenz">
     <End Type="HODORModel.Benutzer" Role="Benutzer" Multiplicity="*" />
     <End Type="HODORModel.Lizenz" Role="Lizenz" Multiplicity="*" />
-  </Association>
-  <Association Name="Rolle_Zu_Rechte">
-    <End Type="HODORModel.Rechte" Role="Rechte" Multiplicity="*" />
-    <End Type="HODORModel.Rolle" Role="Rolle" Multiplicity="*" />
   </Association>
 </Schema>

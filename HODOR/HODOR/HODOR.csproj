@@ -155,7 +155,6 @@
     <Compile Include="src\DAO\DownloadHistoryDAO.cs" />
     <Compile Include="src\DAO\LizenzDAO.cs" />
     <Compile Include="src\DAO\ProgrammDAO.cs" />
-    <Compile Include="src\DAO\RechteDAO.cs" />
     <Compile Include="src\DAO\ReleaseDAO.cs" />
     <Compile Include="src\DAO\RolleDAO.cs" />
     <Compile Include="src\DAO\SubreleaseDAO.cs" />

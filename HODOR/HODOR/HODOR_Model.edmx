@@ -14,10 +14,8 @@
           <EntitySet Name="Lizenz_Versionsorientiert" EntityType="HODORModel.Store.Lizenz_Versionsorientiert" store:Type="Tables" Schema="gr1" />
           <EntitySet Name="Lizenz_Zeitlich" EntityType="HODORModel.Store.Lizenz_Zeitlich" store:Type="Tables" Schema="gr1" />
           <EntitySet Name="Programm" EntityType="HODORModel.Store.Programm" store:Type="Tables" Schema="gr1" />
-          <EntitySet Name="Rechte" EntityType="HODORModel.Store.Rechte" store:Type="Tables" Schema="gr1" />
           <EntitySet Name="Release" EntityType="HODORModel.Store.Release" store:Type="Tables" Schema="gr1" />
           <EntitySet Name="Rolle" EntityType="HODORModel.Store.Rolle" store:Type="Tables" Schema="gr1" />
-          <EntitySet Name="Rolle_Zu_Rechte" EntityType="HODORModel.Store.Rolle_Zu_Rechte" store:Type="Tables" Schema="gr1" />
           <EntitySet Name="Subrelease" EntityType="HODORModel.Store.Subrelease" store:Type="Tables" Schema="gr1" />
           <AssociationSet Name="FK_Build_Zu_Oberrelease" Association="HODORModel.Store.FK_Build_Zu_Oberrelease">
             <End Role="Subrelease" EntitySet="Subrelease" />
@@ -58,14 +56,6 @@
           <AssociationSet Name="FK_Rolle" Association="HODORModel.Store.FK_Rolle">
             <End Role="Rolle" EntitySet="Rolle" />
             <End Role="Benutzer" EntitySet="Benutzer" />
-          </AssociationSet>
-          <AssociationSet Name="FK_RzR_Rechte" Association="HODORModel.Store.FK_RzR_Rechte">
-            <End Role="Rechte" EntitySet="Rechte" />
-            <End Role="Rolle_Zu_Rechte" EntitySet="Rolle_Zu_Rechte" />
-          </AssociationSet>
-          <AssociationSet Name="FK_RzR_Rolle" Association="HODORModel.Store.FK_RzR_Rolle">
-            <End Role="Rolle" EntitySet="Rolle" />
-            <End Role="Rolle_Zu_Rechte" EntitySet="Rolle_Zu_Rechte" />
           </AssociationSet>
           <AssociationSet Name="FK_Subrelease_Zu_OberRelease" Association="HODORModel.Store.FK_Subrelease_Zu_OberRelease">
             <End Role="Release" EntitySet="Release" />
@@ -150,14 +140,6 @@
           <Property Name="ProgrammID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="varchar" Nullable="false" MaxLength="255" />
         </EntityType>
-        <EntityType Name="Rechte">
-          <Key>
-            <PropertyRef Name="RechteID" />
-          </Key>
-          <Property Name="RechteID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Beschreibung" Type="varchar" MaxLength="255" />
-          <Property Name="Name" Type="varchar" MaxLength="255" />
-        </EntityType>
         <EntityType Name="Release">
           <Key>
             <PropertyRef Name="ReleaseID" />
@@ -173,14 +155,6 @@
           </Key>
           <Property Name="RolleID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Rollenname" Type="varchar" Nullable="false" MaxLength="255" />
-        </EntityType>
-        <EntityType Name="Rolle_Zu_Rechte">
-          <Key>
-            <PropertyRef Name="RolleID" />
-            <PropertyRef Name="RechteID" />
-          </Key>
-          <Property Name="RolleID" Type="int" Nullable="false" />
-          <Property Name="RechteID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Subrelease">
           <Key>
@@ -309,30 +283,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_RzR_Rechte">
-          <End Role="Rechte" Type="HODORModel.Store.Rechte" Multiplicity="1" />
-          <End Role="Rolle_Zu_Rechte" Type="HODORModel.Store.Rolle_Zu_Rechte" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Rechte">
-              <PropertyRef Name="RechteID" />
-            </Principal>
-            <Dependent Role="Rolle_Zu_Rechte">
-              <PropertyRef Name="RechteID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_RzR_Rolle">
-          <End Role="Rolle" Type="HODORModel.Store.Rolle" Multiplicity="1" />
-          <End Role="Rolle_Zu_Rechte" Type="HODORModel.Store.Rolle_Zu_Rechte" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Rolle">
-              <PropertyRef Name="RolleID" />
-            </Principal>
-            <Dependent Role="Rolle_Zu_Rechte">
-              <PropertyRef Name="RolleID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Subrelease_Zu_OberRelease">
           <End Role="Release" Type="HODORModel.Store.Release" Multiplicity="1" />
           <End Role="Subrelease" Type="HODORModel.Store.Subrelease" Multiplicity="*" />
@@ -390,7 +340,6 @@
           <EntitySet Name="Download_History" EntityType="HODORModel.Download_History" />
           <EntitySet Name="Lizenzs" EntityType="HODORModel.Lizenz" />
           <EntitySet Name="Programms" EntityType="HODORModel.Programm" />
-          <EntitySet Name="Rechtes" EntityType="HODORModel.Rechte" />
           <EntitySet Name="Releases" EntityType="HODORModel.Release" />
           <EntitySet Name="Rolles" EntityType="HODORModel.Rolle" />
           <AssociationSet Name="FK_Download_Zu_Benutzer" Association="HODORModel.FK_Download_Zu_Benutzer">
@@ -429,16 +378,12 @@
             <End Role="Benutzer" EntitySet="Benutzers" />
             <End Role="Lizenz" EntitySet="Lizenzs" />
           </AssociationSet>
-          <AssociationSet Name="Rolle_Zu_Rechte" Association="HODORModel.Rolle_Zu_Rechte">
-            <End Role="Rechte" EntitySet="Rechtes" />
-            <End Role="Rolle" EntitySet="Rolles" />
-          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Benutzer">
           <Key>
             <PropertyRef Name="BenutzerID" />
           </Key>
-          <Property Type="Int32" Name="BenutzerID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="BenutzerID" Nullable="false" annotation:StoreGeneratedPattern="Identity" a:SetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
           <Property Type="String" Name="NutzerNr" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="Email" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="Name" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
@@ -469,7 +414,7 @@
           <Key>
             <PropertyRef Name="LizenzID" />
           </Key>
-          <Property Type="Int32" Name="LizenzID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="LizenzID" Nullable="false" annotation:StoreGeneratedPattern="Identity" a:SetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
           <NavigationProperty Name="Benutzers" Relationship="HODORModel.Benutzer_Zu_Lizenz" FromRole="Lizenz" ToRole="Benutzer" />
         </EntityType>
         <EntityType Name="Lizenz_Versionsorientiert" BaseType="HODORModel.Lizenz">
@@ -492,15 +437,6 @@
           <NavigationProperty Name="Lizenz_Zeitlich" Relationship="HODORModel.FK_Lizensiertes_Programm" FromRole="Programm" ToRole="Lizenz_Zeitlich" />
           <NavigationProperty Name="Releases" Relationship="HODORModel.FK_Release_Von_Programm" FromRole="Programm" ToRole="Release" />
         </EntityType>
-        <EntityType Name="Rechte">
-          <Key>
-            <PropertyRef Name="RechteID" />
-          </Key>
-          <Property Type="Int32" Name="RechteID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="Beschreibung" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="Name" MaxLength="255" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Rolles" Relationship="HODORModel.Rolle_Zu_Rechte" FromRole="Rechte" ToRole="Rolle" />
-        </EntityType>
         <EntityType Name="Release">
           <Key>
             <PropertyRef Name="ReleaseID" />
@@ -520,7 +456,6 @@
           <Property Type="Int32" Name="RolleID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="String" Name="Rollenname" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Benutzers" Relationship="HODORModel.FK_Rolle" FromRole="Rolle" ToRole="Benutzer" />
-          <NavigationProperty Name="Rechtes" Relationship="HODORModel.Rolle_Zu_Rechte" FromRole="Rolle" ToRole="Rechte" />
         </EntityType>
         <EntityType Name="Subrelease" BaseType="HODORModel.Release">
           <Property Type="Int32" Name="SubreleaseVonRelease" Nullable="false" />
@@ -627,10 +562,6 @@
           <End Type="HODORModel.Benutzer" Role="Benutzer" Multiplicity="*" />
           <End Type="HODORModel.Lizenz" Role="Lizenz" Multiplicity="*" />
         </Association>
-        <Association Name="Rolle_Zu_Rechte">
-          <End Type="HODORModel.Rechte" Role="Rechte" Multiplicity="*" />
-          <End Type="HODORModel.Rolle" Role="Rolle" Multiplicity="*" />
-        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -689,15 +620,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Rechtes">
-            <EntityTypeMapping TypeName="HODORModel.Rechte">
-              <MappingFragment StoreEntitySet="Rechte">
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Beschreibung" ColumnName="Beschreibung" />
-                <ScalarProperty Name="RechteID" ColumnName="RechteID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Releases">
             <EntityTypeMapping TypeName="IsTypeOf(HODORModel.Release)">
               <MappingFragment StoreEntitySet="Release">
@@ -737,14 +659,6 @@
               <ScalarProperty Name="BenutzerID" ColumnName="BenutzerID" />
             </EndProperty>
           </AssociationSetMapping>
-          <AssociationSetMapping Name="Rolle_Zu_Rechte" TypeName="HODORModel.Rolle_Zu_Rechte" StoreEntitySet="Rolle_Zu_Rechte">
-            <EndProperty Name="Rolle">
-              <ScalarProperty Name="RolleID" ColumnName="RolleID" />
-            </EndProperty>
-            <EndProperty Name="Rechte">
-              <ScalarProperty Name="RechteID" ColumnName="RechteID" />
-            </EndProperty>
-          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -773,7 +687,6 @@
         <EntityTypeShape EntityType="HODORModel.Lizenz_Versionsorientiert" Width="1.5" PointX="9.125" PointY="0.5" Height="1.59568359375" />
         <EntityTypeShape EntityType="HODORModel.Lizenz_Zeitlich" Width="1.5" PointX="6.625" PointY="1.375" Height="1.787985026041667" />
         <EntityTypeShape EntityType="HODORModel.Programm" Width="1.5" PointX="7.375" PointY="4.25" Height="1.9802864583333246" />
-        <EntityTypeShape EntityType="HODORModel.Rechte" Width="1.5" PointX="0.5" PointY="7" Height="1.7879850260416674" />
         <EntityTypeShape EntityType="HODORModel.Release" Width="1.5" PointX="4.5" PointY="4" Height="2.7494921875000102" />
         <EntityTypeShape EntityType="HODORModel.Rolle" Width="1.5" PointX="0.5" PointY="4.375" Height="1.7879850260416674" />
         <EntityTypeShape EntityType="HODORModel.Subrelease" Width="1.5" PointX="5.375" PointY="7.625" Height="1.7879850260416657" />
@@ -817,10 +730,6 @@
         <AssociationConnector Association="HODORModel.Benutzer_Zu_Lizenz" >
           <ConnectorPoint PointX="2.375" PointY="2.0189925130208337" />
           <ConnectorPoint PointX="4.5" PointY="2.0189925130208337" />
-        </AssociationConnector>
-        <AssociationConnector Association="HODORModel.Rolle_Zu_Rechte" >
-          <ConnectorPoint PointX="1.25" PointY="7" />
-          <ConnectorPoint PointX="1.25" PointY="6.1629850260416674" />
         </AssociationConnector>
         <InheritanceConnector EntityType="HODORModel.Lizenz_Zeitlich" >
           <ConnectorPoint PointX="6" PointY="1.9516910807291668" />

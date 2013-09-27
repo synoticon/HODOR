@@ -11,17 +11,21 @@ namespace HODOR.src.DAO
 {
     public class BenutzerDAO
     {
-        public static Benutzer createAndGetUser(String nutzer_Nr, String name, MailAddress email, Rolle rolle)
+        public static Benutzer createAndGetUser(String nutzerNr, String name, MailAddress email, Rolle rolle)
         {
-            Benutzer user = Benutzer.CreateBenutzer(nutzer_Nr, email.Address, name, rolle.RolleID);
+            Benutzer user = new Benutzer();
+            user.NutzerNr = nutzerNr;
+            user.Name = name;
+            user.Email = email.Address;
+            user.RolleID = rolle.RolleID;
             HodorGlobals.getHodorContext().Benutzers.AddObject(user);
             //HodorGlobals.save(); Other DAOs need this. Here it leads to errors
             return user;
         }
 
-        public static Benutzer createAndGetUser(String nutzer_Nr, String name, MailAddress email, String password, Rolle rolle)
+        public static Benutzer createAndGetUser(String nutzerNr, String name, MailAddress email, String password, Rolle rolle)
         {
-            Benutzer user = createAndGetUser(nutzer_Nr, name, email, rolle);
+            Benutzer user = createAndGetUser(nutzerNr, name, email, rolle);
             setPasswordForUser(user, password);
             return user;
         }
