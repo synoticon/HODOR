@@ -27,6 +27,7 @@ CREATE TABLE [gr1].Release
 	ReleaseVonProgramm INT NOT NULL,
 	Releasedatum DATE NOT NULL,
 	Releasenummer INT NOT NULL,
+	Beschreibung nvarchar(511) NULL,
 
 	CONSTRAINT PK_ReleaseID PRIMARY KEY (ReleaseID),
 	CONSTRAINT FK_Release_Von_Programm FOREIGN KEY (ReleaseVonProgramm) REFERENCES [gr1].Programm(ProgrammID) ON DELETE CASCADE ON UPDATE NO ACTION

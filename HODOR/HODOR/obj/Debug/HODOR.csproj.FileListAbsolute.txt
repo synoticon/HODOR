@@ -28,3 +28,8 @@ F:\Berufsschule\HODOR\Git\GitPortable\App\Git\.hodor-repo\HODOR\HODOR\HODOR\obj\
 F:\Berufsschule\HODOR\Git\GitPortable\App\Git\.hodor-repo\HODOR\HODOR\HODOR\bin\HODOR.dll
 F:\Berufsschule\HODOR\Git\GitPortable\App\Git\.hodor-repo\HODOR\HODOR\HODOR\bin\HODOR.pdb
 F:\Berufsschule\HODOR\Git\GitPortable\App\Git\.hodor-repo\HODOR\HODOR\HODOR\obj\Debug\HODOR.pdb
+F:\Berufsschule\GitPortable\App\Git\.hodor-repo\HODOR\HODOR\HODOR\bin\HODOR.dll
+F:\Berufsschule\GitPortable\App\Git\.hodor-repo\HODOR\HODOR\HODOR\bin\HODOR.pdb
+F:\Berufsschule\GitPortable\App\Git\.hodor-repo\HODOR\HODOR\HODOR\obj\Debug\ResolveAssemblyReference.cache
+F:\Berufsschule\GitPortable\App\Git\.hodor-repo\HODOR\HODOR\HODOR\obj\Debug\HODOR.dll
+F:\Berufsschule\GitPortable\App\Git\.hodor-repo\HODOR\HODOR\HODOR\obj\Debug\HODOR.pdb

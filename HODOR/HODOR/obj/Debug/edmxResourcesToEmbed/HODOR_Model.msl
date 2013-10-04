@@ -56,6 +56,7 @@
     <EntitySetMapping Name="Releases">
       <EntityTypeMapping TypeName="IsTypeOf(HODORModel.Release)">
         <MappingFragment StoreEntitySet="Release">
+          <ScalarProperty Name="Beschreibung" ColumnName="Beschreibung" />
           <ScalarProperty Name="ReleaseID" ColumnName="ReleaseID" />
           <ScalarProperty Name="Releasenummer" ColumnName="Releasenummer" />
           <ScalarProperty Name="Releasedatum" ColumnName="Releasedatum" />

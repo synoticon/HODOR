@@ -1,7 +1,3 @@
-DROP TABLE gr1.Rolle_Zu_Rechte;
-GO
-DROP TABLE gr1.Rechte;
-GO
 DROP TABLE gr1.Modul_Zu_Subrelease;
 GO
 DROP TABLE gr1.Download_History;

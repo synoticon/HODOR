@@ -1,7 +1,3 @@
-DELETE FROM gr1.Rolle_Zu_Rechte;
-GO
-DELETE FROM gr1.Rechte;
-GO
 DELETE FROM gr1.Modul_Zu_Subrelease;
 GO
 DELETE FROM gr1.Download_History;
