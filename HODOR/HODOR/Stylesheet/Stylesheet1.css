@@ -338,11 +338,10 @@ a:hover {
 
 #login{
     color: #000000;
-    padding-left: 50px;
     padding-top: 15px;
     position: relative;
     border-style: groove;
-    width: 200px;
+    width: 250px;
     height: 125px;
     margin-left: 370px;
     margin-top: 55px;
@@ -369,11 +368,15 @@ a:hover {
 
 .newOld
 {
+    padding-left: 50px;
     margin-left: 419px;
-    width: 151px;
+    width: 0px;
 }
 
 .reset
 {
+    width: 250px;
+    height: 250px;
+    padding-left: 50px;   
     margin: 0px 4px;
 }
