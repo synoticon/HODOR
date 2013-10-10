@@ -42,19 +42,31 @@
                     <br />
                     <asp:View ID="BuildView" runat="server">
                         <p>
-                            <asp:Label ID="l_FirmenName" runat="server" Text="Name der Firma:" />
-                            <br />
-                            <asp:TextBox ID="tb_FirmenName" runat="server" MaxLength="255" TextMode="SingleLine" />
-                            <br />
-                            <asp:Label ID="l_KundenNummer" runat="server" Text="Kundennummer:" />
-                            <br />
-                            <asp:TextBox ID="tb_KundenNummer" runat="server" MaxLength="255" TextMode="SingleLine" />
-                            <br />
-                            <asp:Label ID="l_EMail" runat="server" Text="E-Mail:" />
-                            <br />
-                            <asp:TextBox ID="tb_EMail" runat="server" MaxLength="255" TextMode="SingleLine" />
-                            <br />
-                            <asp:Button ID="b_Register" runat="server" Text="Anlegen" OnClick="b_Register_Click" />
+                            <asp:CreateUserWizard ID="CreateUserWizard1" runat="server" BackColor="#EFF3FB" 
+                                BorderColor="#B5C7DE" BorderStyle="Solid" BorderWidth="1px" 
+                                Font-Names="Verdana" Font-Size="0.8em">
+                                <ContinueButtonStyle BackColor="White" BorderColor="#507CD1" 
+                                    BorderStyle="Solid" BorderWidth="1px" Font-Names="Verdana" 
+                                    ForeColor="#284E98" />
+                                <CreateUserButtonStyle BackColor="White" BorderColor="#507CD1" 
+                                    BorderStyle="Solid" BorderWidth="1px" Font-Names="Verdana" 
+                                    ForeColor="#284E98" />
+                                <TitleTextStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+                                <WizardSteps>
+                                    <asp:CreateUserWizardStep runat="server" />
+                                    <asp:CompleteWizardStep runat="server" />
+                                </WizardSteps>
+                                <HeaderStyle BackColor="#284E98" BorderColor="#EFF3FB" BorderStyle="Solid" 
+                                    BorderWidth="2px" Font-Bold="True" Font-Size="0.9em" ForeColor="White" 
+                                    HorizontalAlign="Center" />
+                                <NavigationButtonStyle BackColor="White" BorderColor="#507CD1" 
+                                    BorderStyle="Solid" BorderWidth="1px" Font-Names="Verdana" 
+                                    ForeColor="#284E98" />
+                                <SideBarButtonStyle BackColor="#507CD1" Font-Names="Verdana" 
+                                    ForeColor="White" />
+                                <SideBarStyle BackColor="#507CD1" Font-Size="0.9em" VerticalAlign="Top" />
+                                <StepStyle Font-Size="0.8em" />
+                            </asp:CreateUserWizard>
                         </p>
                     </asp:View>
                 </asp:MultiView>
