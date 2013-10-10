@@ -1,0 +1,22 @@
+HODOR Blog
+http://hodorataspdotnet.blogspot.de/
+
+GitHub Repo
+https://github.com/
+
+ASP.NET Webcast Inhalte und Demodaten
+https://skydrive.live.com/?cid=a8f33f6c4f34c2b7&id=A8F33F6C4F34C2B7!193
+
+###############################################################################################
+#	Teil 	Inhalt																			  #
+#	1 		Das ASP.NET Basisframework, Überblick, Webforms 								  #
+#	2 		ASP.NET Webforms, State Management 												  #
+#	3 		Datenbindung und Validierung 													  #
+#	4 		Durchgängiges Aussehen und Navigation 											  #
+#	5 		Rechtevergabe, Membership Controls 												  #
+#	6 		Websites mit ASP.NET AJAX erweitern 											  #
+#	7 		Publishing von Websites und Hosting auf dem Internet Information Server 7 (IIS 7) #
+###############################################################################################
+
+Web Application Toolkits
+http://codefest.at/post/2010/02/26/ASPNET-Web-Application-Toolkits.aspx
