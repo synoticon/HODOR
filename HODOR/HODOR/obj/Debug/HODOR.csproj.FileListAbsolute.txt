@@ -28,16 +28,13 @@ F:\Berufsschule\HODOR\Git\GitPortable\App\Git\.hodor-repo\HODOR\HODOR\HODOR\obj\
 F:\Berufsschule\HODOR\Git\GitPortable\App\Git\.hodor-repo\HODOR\HODOR\HODOR\bin\HODOR.dll
 F:\Berufsschule\HODOR\Git\GitPortable\App\Git\.hodor-repo\HODOR\HODOR\HODOR\bin\HODOR.pdb
 F:\Berufsschule\HODOR\Git\GitPortable\App\Git\.hodor-repo\HODOR\HODOR\HODOR\obj\Debug\HODOR.pdb
-<<<<<<< HEAD
 F:\Berufsschule\GitPortable\App\Git\.hodor-repo\HODOR\HODOR\HODOR\bin\HODOR.dll
 F:\Berufsschule\GitPortable\App\Git\.hodor-repo\HODOR\HODOR\HODOR\bin\HODOR.pdb
 F:\Berufsschule\GitPortable\App\Git\.hodor-repo\HODOR\HODOR\HODOR\obj\Debug\ResolveAssemblyReference.cache
 F:\Berufsschule\GitPortable\App\Git\.hodor-repo\HODOR\HODOR\HODOR\obj\Debug\HODOR.dll
 F:\Berufsschule\GitPortable\App\Git\.hodor-repo\HODOR\HODOR\HODOR\obj\Debug\HODOR.pdb
-=======
-F:\GitPortable\App\Git\.git-repos\HODOR\HODOR\HODOR\bin\HODOR.dll
-F:\GitPortable\App\Git\.git-repos\HODOR\HODOR\HODOR\bin\HODOR.pdb
-F:\GitPortable\App\Git\.git-repos\HODOR\HODOR\HODOR\obj\Debug\ResolveAssemblyReference.cache
-F:\GitPortable\App\Git\.git-repos\HODOR\HODOR\HODOR\obj\Debug\HODOR.dll
-F:\GitPortable\App\Git\.git-repos\HODOR\HODOR\HODOR\obj\Debug\HODOR.pdb
->>>>>>> 308a3715dccf050ce62b881f57284facdcd169d0
+G:\Berufsschule\GitPortable\App\Git\.hodor-repo\HODOR\HODOR\HODOR\bin\HODOR.dll
+G:\Berufsschule\GitPortable\App\Git\.hodor-repo\HODOR\HODOR\HODOR\bin\HODOR.pdb
+G:\Berufsschule\GitPortable\App\Git\.hodor-repo\HODOR\HODOR\HODOR\obj\Debug\HODOR.csprojResolveAssemblyReference.cache
+G:\Berufsschule\GitPortable\App\Git\.hodor-repo\HODOR\HODOR\HODOR\obj\Debug\HODOR.dll
+G:\Berufsschule\GitPortable\App\Git\.hodor-repo\HODOR\HODOR\HODOR\obj\Debug\HODOR.pdb
