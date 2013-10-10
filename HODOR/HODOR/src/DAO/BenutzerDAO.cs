@@ -180,6 +180,44 @@ namespace HODOR.src.DAO
             return releaseList;
         }
 
+        public static List<Benutzer> getAllUsersWithLicenseForProgramm(Programm prog)
+        {
+            var usersWithLicenseForProgrammQueryResult = from u in HodorGlobals.getHodorContext().Benutzers
+                                                      where u.Lizenzs.OfType<Lizenz_Zeitlich>().Where(lz => lz.StartDatum >= DateTime.Now && lz.EndDatum <= DateTime.Now).Select(lz => lz.Programm.ProgrammID).Contains(prog.ProgrammID)
+                                                      || u.Lizenzs.OfType<Lizenz_Versionsorientiert>().Select(lv => lv.Release).Select(rel => rel.Programm.ProgrammID).Contains(prog.ProgrammID)
+                                                      select u;
+            return usersWithLicenseForProgrammQueryResult.OrderBy(u => u.BenutzerID).Distinct().ToList<Benutzer>();
+        }
+
+        public static void sendMailToAllCustomersInformingAboutNewBuild(Build build)
+        {
+            Programm prog = build.Programm;
+            List<Benutzer> usersToBeNotified = getAllUsersWithLicenseForProgramm(prog);
+
+
+            SmtpClient smtp = new SmtpClient();
+            MailMessage notification = new MailMessage();
+            notification.From = new MailAddress("noreply@HODOR-Releaseinformation.com");
+            notification.Subject = "New build of " + prog.Name;
+
+            //let's respect some privacy and send separate mails
+            foreach (Benutzer user in usersToBeNotified)
+            {
+                notification.To.Clear(); //don't want to send it to the previous recipients over and over again
+                notification.To.Add(new MailAddress(user.Email));
+
+                notification.Body = "Dear " + user.Name + "\n\n"
+                    + "a new build of " + prog.Name + " has been uploaded. You may want to consider to upgrade your current version of " + prog.Name + "\n\n"
+                    + "Description of the new build is:\n"
+                    + build.Beschreibung + "\n\n"
+                    + "Best regards\n"
+                    + "HODOR Releasemanagement System";
+
+
+                smtp.Send(notification);
+            }
+        }
+
         protected static String getSaltedMD5Hash(String source)
         {
             //some salt for our dear users security
