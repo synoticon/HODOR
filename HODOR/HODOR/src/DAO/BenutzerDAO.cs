@@ -115,6 +115,28 @@ namespace HODOR.src.DAO
             return downloadHistoryQueryResult.ToList<Download_History>();
         }
 
+        public static List<Programm> getAllProgrammsLicensedForUser(Benutzer user)
+        {
+            List<Programm> resultList = new List<Programm>();
+
+            var idsOfProgrammsTimespanLicensedQueryResult = from lz in user.Lizenzs.OfType<Lizenz_Zeitlich>()
+                                                            select lz.LizensiertProgramm;
+
+            var idsOfReleasesVersionLicensedQueryResult = from lv in user.Lizenzs.OfType<Lizenz_Versionsorientiert>()
+                                                            select lv.LizensiertRelease;
+
+            
+            foreach (Int32 progId in idsOfProgrammsTimespanLicensedQueryResult.ToList<Int32>())
+            {
+                //resultList.Add(HodorGlobals.getHodorContext().Programms.Where(p => p.ProgrammID == progId));
+            }
+
+            //List<Int32> idsOfProgrammsTimespanLicensed = 
+            //var programmsForUserQueryResult = from p in HodorGlobals.getHodorContext().Programms
+                                              
+            return null;
+        }
+
         protected static String getSaltedMD5Hash(String source)
         {
             //some salt for our dear users security

@@ -113,6 +113,7 @@
     <NavigationProperty Name="Lizenz_Versionsorientiert" Relationship="HODORModel.FK_Lizensiertes_Release" FromRole="Release" ToRole="Lizenz_Versionsorientiert" />
     <NavigationProperty Name="Programm" Relationship="HODORModel.FK_Release_Von_Programm" FromRole="Release" ToRole="Programm" />
     <NavigationProperty Name="Subreleases" Relationship="HODORModel.FK_Subrelease_Zu_OberRelease" FromRole="Release" ToRole="Subrelease" />
+    <Property Type="String" Name="Beschreibung" MaxLength="511" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="Rolle">
     <Key>

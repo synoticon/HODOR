@@ -143,6 +143,7 @@
     <Property Name="ReleaseVonProgramm" Type="int" Nullable="false" />
     <Property Name="Releasedatum" Type="date" Nullable="false" />
     <Property Name="Releasenummer" Type="int" Nullable="false" />
+    <Property Name="Beschreibung" Type="varchar" MaxLength="511" />
   </EntityType>
   <EntityType Name="Rolle">
     <Key>
@@ -171,7 +172,9 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Build_Zu_Release">
-    <End Role="Release" Type="HODORModel.Store.Release" Multiplicity="1" />
+    <End Role="Release" Type="HODORModel.Store.Release" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="Build" Type="HODORModel.Store.Build" Multiplicity="0..1" />
     <ReferentialConstraint>
       <Principal Role="Release">
@@ -183,7 +186,9 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_BzL_Benutzer">
-    <End Role="Benutzer" Type="HODORModel.Store.Benutzer" Multiplicity="1" />
+    <End Role="Benutzer" Type="HODORModel.Store.Benutzer" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="Benutzer_Zu_Lizenz" Type="HODORModel.Store.Benutzer_Zu_Lizenz" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Benutzer">
@@ -195,7 +200,9 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_BzL_Lizenz">
-    <End Role="Lizenz" Type="HODORModel.Store.Lizenz" Multiplicity="1" />
+    <End Role="Lizenz" Type="HODORModel.Store.Lizenz" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="Benutzer_Zu_Lizenz" Type="HODORModel.Store.Benutzer_Zu_Lizenz" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Lizenz">
@@ -207,7 +214,9 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Download_Zu_Benutzer">
-    <End Role="Benutzer" Type="HODORModel.Store.Benutzer" Multiplicity="1" />
+    <End Role="Benutzer" Type="HODORModel.Store.Benutzer" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="Download_History" Type="HODORModel.Store.Download_History" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Benutzer">
@@ -219,7 +228,9 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Download_Zu_Build">
-    <End Role="Build" Type="HODORModel.Store.Build" Multiplicity="1" />
+    <End Role="Build" Type="HODORModel.Store.Build" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="Download_History" Type="HODORModel.Store.Download_History" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Build">
@@ -231,7 +242,9 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Lizensiertes_Programm">
-    <End Role="Programm" Type="HODORModel.Store.Programm" Multiplicity="1" />
+    <End Role="Programm" Type="HODORModel.Store.Programm" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="Lizenz_Zeitlich" Type="HODORModel.Store.Lizenz_Zeitlich" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Programm">
@@ -243,7 +256,9 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Lizensiertes_Release">
-    <End Role="Release" Type="HODORModel.Store.Release" Multiplicity="1" />
+    <End Role="Release" Type="HODORModel.Store.Release" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="Lizenz_Versionsorientiert" Type="HODORModel.Store.Lizenz_Versionsorientiert" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Release">
@@ -255,7 +270,9 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Release_Von_Programm">
-    <End Role="Programm" Type="HODORModel.Store.Programm" Multiplicity="1" />
+    <End Role="Programm" Type="HODORModel.Store.Programm" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="Release" Type="HODORModel.Store.Release" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Programm">
@@ -291,7 +308,9 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Subrelease_Zu_Release">
-    <End Role="Release" Type="HODORModel.Store.Release" Multiplicity="1" />
+    <End Role="Release" Type="HODORModel.Store.Release" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="Subrelease" Type="HODORModel.Store.Subrelease" Multiplicity="0..1" />
     <ReferentialConstraint>
       <Principal Role="Release">
@@ -303,7 +322,9 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Versionslizenz_Zu_Lizenz">
-    <End Role="Lizenz" Type="HODORModel.Store.Lizenz" Multiplicity="1" />
+    <End Role="Lizenz" Type="HODORModel.Store.Lizenz" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="Lizenz_Versionsorientiert" Type="HODORModel.Store.Lizenz_Versionsorientiert" Multiplicity="0..1" />
     <ReferentialConstraint>
       <Principal Role="Lizenz">
@@ -315,7 +336,9 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Zeitlizenz_Zu_Lizenz">
-    <End Role="Lizenz" Type="HODORModel.Store.Lizenz" Multiplicity="1" />
+    <End Role="Lizenz" Type="HODORModel.Store.Lizenz" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="Lizenz_Zeitlich" Type="HODORModel.Store.Lizenz_Zeitlich" Multiplicity="0..1" />
     <ReferentialConstraint>
       <Principal Role="Lizenz">
