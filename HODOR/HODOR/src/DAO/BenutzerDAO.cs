@@ -120,21 +120,64 @@ namespace HODOR.src.DAO
             List<Programm> resultList = new List<Programm>();
 
             var idsOfProgrammsTimespanLicensedQueryResult = from lz in user.Lizenzs.OfType<Lizenz_Zeitlich>()
+                                                            where lz.EndDatum <= DateTime.Now && lz.StartDatum >= DateTime.Now
                                                             select lz.LizensiertProgramm;
 
             var idsOfReleasesVersionLicensedQueryResult = from lv in user.Lizenzs.OfType<Lizenz_Versionsorientiert>()
                                                             select lv.LizensiertRelease;
-
             
             foreach (Int32 progId in idsOfProgrammsTimespanLicensedQueryResult.ToList<Int32>())
             {
-                //resultList.Add(HodorGlobals.getHodorContext().Programms.Where(p => p.ProgrammID == progId));
+                Programm prog = HodorGlobals.getHodorContext().Programms.Where(p => p.ProgrammID == progId).ToList<Programm>()[0];
+
+                //only add if not already added (if multiple licenses license the same programm)
+                if (!resultList.Contains(prog))
+                {
+                    resultList.Add(prog);
+                }
             }
 
-            //List<Int32> idsOfProgrammsTimespanLicensed = 
-            //var programmsForUserQueryResult = from p in HodorGlobals.getHodorContext().Programms
+            foreach (Int32 releaseId in idsOfReleasesVersionLicensedQueryResult.ToList<Int32>())
+            {
+                Programm prog = HodorGlobals.getHodorContext().Releases.Where(r => r.ReleaseID == releaseId).ToList<Release>()[0].Programm;
+
+                //only add if not already added (if multiple licenses license the same programm)
+                if (!resultList.Contains(prog))
+                {
+                    resultList.Add(prog);
+                }
+            }
                                               
-            return null;
+            return resultList;
+        }
+
+        public static List<Release> getAllReleasesOfProgrammLicensedForUser(Benutzer user, Programm prog)
+        {
+            //check if the user has a valid timespan license for this programm
+            List<Lizenz_Zeitlich> licensesTimespan = user.Lizenzs.OfType<Lizenz_Zeitlich>().Where(
+                lz => lz.LizensiertProgramm == prog.ProgrammID
+                    && lz.StartDatum >= DateTime.Now
+                    && lz.EndDatum <= DateTime.Now
+                ).ToList<Lizenz_Zeitlich>();
+
+            if (licensesTimespan.Count >= 1)
+            {
+                //that's ok, with a minimum of one valid TimespanLicense for this prog, he may see all releases of it
+                return prog.Releases.ToList<Release>();
+            }
+
+            List<Lizenz_Versionsorientiert> licensesVersion = user.Lizenzs.OfType<Lizenz_Versionsorientiert>().Where(
+                    lv => lv.Release.Programm.ProgrammID == prog.ProgrammID
+                ).ToList<Lizenz_Versionsorientiert>();
+
+            List<Release> releaseList = new List<Release>();
+
+            foreach (Lizenz_Versionsorientiert license in licensesVersion)
+            {
+                releaseList.Add(license.Release);
+            }
+
+            return releaseList;
         }
 
         protected static String getSaltedMD5Hash(String source)
