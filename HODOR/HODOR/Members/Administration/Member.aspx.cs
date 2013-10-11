@@ -39,7 +39,13 @@ namespace HODOR.Members.Administration
 
         protected void b_Register_Click(object sender, EventArgs e)
         {
-            BenutzerDAO.createAndGetUser(this.tb_KdNr.ToString(), this.tb_Firmenname.ToString(), new MailAddress(this.tb_EMail.ToString()), this.ddl_roles.SelectedItem.ToString());
+            Rolle role = RolleDAO.getRoleByNameOrNull(this.ddl_roles.SelectedItem.Text);
+            if (role == null)
+            {
+                //oh nooo, we're screwed! What now? Throw an Exception? Naah, shouldn't happen, because values were supplied by the DB. Just abort, if murphys law strikes.
+                return;
+            }
+            BenutzerDAO.createAndGetUser(this.tb_KdNr.ToString(), this.tb_Firmenname.ToString(), new MailAddress(this.tb_EMail.ToString()), role);
         }
 
         protected void SelectUser()

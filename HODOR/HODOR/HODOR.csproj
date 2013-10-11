@@ -44,9 +44,8 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CSSFriendly, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\Downloads\CSSFriendly\CSSFriendly.dll</HintPath>
+    <Reference Include="CSSFriendly">
+      <HintPath>lib\CSSFriendly.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -159,7 +158,7 @@
     <Compile Include="src\DAO\RolleDAO.cs" />
     <Compile Include="src\DAO\SubreleaseDAO.cs" />
     <Compile Include="src\Globals\HodorGlobals.cs" />
-    <Compile Include="src\Globals\RoleProvider.cs" />
+    <Compile Include="src\Globals\HodorRoleProvider.cs" />
     <Compile Include="Startseite.aspx.cs">
       <DependentUpon>Startseite.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

@@ -11,15 +11,15 @@ namespace HODOR.src.Globals
     {
         private const string NAME = "H.O.D.O.R.";
 
-        public override void Initialize(System.Collections.Specialized.NameValueCollection config)
+        public override void Initialize(string name, System.Collections.Specialized.NameValueCollection config)
         {
             base.Initialize(NAME, config);
         }
 
         public override string ApplicationName
         {
-            public get { return NAME;}
-            protected set { }
+            get { return NAME;}
+            set { /*empty by design*/ }
         }
 
         public override void AddUsersToRoles(string[] customerNumbers, string[] rolenames)
@@ -46,7 +46,7 @@ namespace HODOR.src.Globals
         }
 
         //pun is hiding in here
-        public override void DeleteRole(string rolename, bool throwUpOnPopulatedRole)
+        public override bool DeleteRole(string rolename, bool throwUpOnPopulatedRole)
         {
             if (GetUsersInRole(rolename).Length != 0)
             {
@@ -58,7 +58,10 @@ namespace HODOR.src.Globals
             else
             {
                 RolleDAO.deleteRole(RolleDAO.getRoleByNameOrNull(rolename));
+                return true;
             }
+
+            return false;
         }
 
         public override string[] GetAllRoles()
