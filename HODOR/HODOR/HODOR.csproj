@@ -159,6 +159,7 @@
     <Compile Include="src\DAO\RolleDAO.cs" />
     <Compile Include="src\DAO\SubreleaseDAO.cs" />
     <Compile Include="src\Globals\HodorGlobals.cs" />
+    <Compile Include="src\Globals\RoleProvider.cs" />
     <Compile Include="Startseite.aspx.cs">
       <DependentUpon>Startseite.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
