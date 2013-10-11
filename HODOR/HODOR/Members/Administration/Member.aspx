@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="HODOR - Hyper Organised Deployment Order Revisioning" MasterPageFile="~/SubPageIntern.Master"
     Language="C#" AutoEventWireup="true" CodeBehind="Member.aspx.cs" Inherits="HODOR.Members.Administration.Member" %>
-
+     
 <asp:Content ID="Title" ContentPlaceHolderID="TitlePlaceHolder" runat="server">
 </asp:Content>
 <asp:Content ID="Content" ContentPlaceHolderID="ContentPlaceHolder" runat="server">
@@ -42,31 +42,32 @@
                     <br />
                     <asp:View ID="BuildView" runat="server">
                         <p>
-                            <asp:CreateUserWizard ID="CreateUserWizard1" runat="server" BackColor="#EFF3FB" 
-                                BorderColor="#B5C7DE" BorderStyle="Solid" BorderWidth="1px" 
-                                Font-Names="Verdana" Font-Size="0.8em">
-                                <ContinueButtonStyle BackColor="White" BorderColor="#507CD1" 
-                                    BorderStyle="Solid" BorderWidth="1px" Font-Names="Verdana" 
-                                    ForeColor="#284E98" />
-                                <CreateUserButtonStyle BackColor="White" BorderColor="#507CD1" 
-                                    BorderStyle="Solid" BorderWidth="1px" Font-Names="Verdana" 
-                                    ForeColor="#284E98" />
-                                <TitleTextStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
-                                <WizardSteps>
-                                    <asp:CreateUserWizardStep runat="server" />
-                                    <asp:CompleteWizardStep runat="server" />
-                                </WizardSteps>
-                                <HeaderStyle BackColor="#284E98" BorderColor="#EFF3FB" BorderStyle="Solid" 
-                                    BorderWidth="2px" Font-Bold="True" Font-Size="0.9em" ForeColor="White" 
-                                    HorizontalAlign="Center" />
-                                <NavigationButtonStyle BackColor="White" BorderColor="#507CD1" 
-                                    BorderStyle="Solid" BorderWidth="1px" Font-Names="Verdana" 
-                                    ForeColor="#284E98" />
-                                <SideBarButtonStyle BackColor="#507CD1" Font-Names="Verdana" 
-                                    ForeColor="White" />
-                                <SideBarStyle BackColor="#507CD1" Font-Size="0.9em" VerticalAlign="Top" />
-                                <StepStyle Font-Size="0.8em" />
-                            </asp:CreateUserWizard>
+                            <asp:Label ID="l_KdNr" runat="server" Text="Kundennummer:"></asp:Label>
+                        </p>
+                        <p>
+                            <asp:TextBox ID="tb_KdNr" runat="server"></asp:TextBox>
+                        </p>
+                        <p>
+                            <asp:Label ID="l_FirmenName" runat="server" Text="Firmenname:"></asp:Label>
+                        </p>
+                        <p>
+                            <asp:TextBox ID="tb_Firmenname" runat="server"></asp:TextBox>
+                        </p>
+                        <p>
+                            <asp:Label ID="l_EMail" runat="server" Text="E-Mail:"></asp:Label>
+                        </p>
+                        <p>
+                            <asp:TextBox ID="tb_EMail" runat="server"></asp:TextBox>
+                        </p>
+                        <p>
+                            <asp:Label ID="l_role" runat="server" Text="Berechtigungsrolle:"></asp:Label>
+                        </p>
+                        <p>
+                            <asp:DropDownList ID="ddl_roles" runat="server">
+                            </asp:DropDownList>
+                        </p>
+                        <p>
+                            <asp:Button ID="b_register" runat="server" Text="Registrieren" />
                         </p>
                     </asp:View>
                 </asp:MultiView>

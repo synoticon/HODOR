@@ -6,6 +6,8 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.Security;
 using HODOR.src.DAO;
+using System.Net.Mail;
+using HODOR.src.Globals;
 
 namespace HODOR.Members.Administration
 {
@@ -13,7 +15,14 @@ namespace HODOR.Members.Administration
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (!IsPostBack)
+            {
+                List<Rolle> roleList = HodorGlobals.getHodorContext().Rolles.ToList<Rolle>();
+                foreach(Rolle role in roleList)
+                {
+                    this.ddl_roles.Attributes.Add(role.RolleID.ToString(), role.Rollenname);
+                }
+            }
         }
 
         protected void MenuLink_Command(object sender, CommandEventArgs e)
@@ -30,7 +39,7 @@ namespace HODOR.Members.Administration
 
         protected void b_Register_Click(object sender, EventArgs e)
         {
-                        
+            BenutzerDAO.createAndGetUser(this.tb_KdNr.ToString(), this.tb_Firmenname.ToString(), new MailAddress(this.tb_EMail.ToString()), this.ddl_roles.SelectedItem.ToString());
         }
 
         protected void SelectUser()
