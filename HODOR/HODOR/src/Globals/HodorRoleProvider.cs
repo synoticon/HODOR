@@ -9,7 +9,7 @@ namespace HODOR.src.Globals
 {
     public sealed class HodorRoleProvider : System.Web.Security.RoleProvider
     {
-        private const string NAME = "H.O.D.O.R.";
+        private const string NAME = "HodorRoleProvider";
 
         public override void Initialize(string name, System.Collections.Specialized.NameValueCollection config)
         {

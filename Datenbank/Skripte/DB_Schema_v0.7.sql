@@ -56,19 +56,19 @@ CREATE TABLE [gr1].Build
 
 /*
 ** Matching Tabelle Modul(Programm)-->Subrelease
+** Obsolet
 */
+/*
 CREATE TABLE [gr1].Modul_Zu_Subrelease
 (
 	ProgrammID INT NOT NULL,
 	SubreleaseID INT NOT NULL,
-	/*
-	** Hier definiert ein Constraint den zusammengesetzten Primärschlüssel
-	*/
 	CONSTRAINT PK_Modul_Zu_Subrelease PRIMARY KEY (ProgrammID, SubreleaseID),
 	CONSTRAINT FK_MzS_Modul FOREIGN KEY (ProgrammID) REFERENCES [gr1].Programm(ProgrammID) ON DELETE CASCADE ON UPDATE NO ACTION,
 	CONSTRAINT FK_MzD_Subrelease FOREIGN KEY (SubreleaseID) REFERENCES [gr1].Subrelease(ReleaseID)
 );
-
+*/
+/*
 CREATE TABLE [gr1].Rechte
 (
 	RechteID INT IDENTITY(1,1) NOT NULL,
@@ -77,6 +77,7 @@ CREATE TABLE [gr1].Rechte
 
 	CONSTRAINT PK_RechteID PRIMARY KEY (RechteID)
 );
+*/
 
 CREATE TABLE [gr1].Rolle
 (
@@ -102,18 +103,17 @@ CREATE TABLE [gr1].Benutzer
 /*
 ** Jetzt noch Rolle--> Rechte Matching Tabelle dazu...
 */
+/*
 CREATE TABLE [gr1].Rolle_Zu_Rechte
 (
 	RolleID INT NOT NULL,
 	RechteID INT NOT NULL,
-	/*
-	** Hier definiert ein Constraint den zusammengesetzten Primärschlüssel
-	*/
 	CONSTRAINT PK_Rolle_Zu_Rechte PRIMARY KEY (RolleID,RechteID),
 
 	CONSTRAINT FK_RzR_Rechte FOREIGN KEY (RechteID) REFERENCES [gr1].Rechte(RechteID) ON DELETE CASCADE ON UPDATE NO ACTION,
 	CONSTRAINT FK_RzR_Rolle FOREIGN KEY (RolleID) REFERENCES [gr1].Rolle(RolleID) ON DELETE CASCADE ON UPDATE NO ACTION
 );
+*/
 
 /*
 ** Download History Einträge
@@ -192,8 +192,10 @@ CREATE NONCLUSTERED INDEX IDX_DownloadHistory_Benutzer ON [gr1].Download_History
 CREATE NONCLUSTERED INDEX IDX_DownloadHistory_Build ON [gr1].Download_History (BuildID ASC);
 
 --Performance für Navigation über Rolle_Zu_Rechte
+/*
 CREATE NONCLUSTERED INDEX IDX_RolleZuRechte_Rolle ON [gr1].Rolle_Zu_Rechte (RolleID ASC);
 CREATE NONCLUSTERED INDEX IDX_RolleZuRechte_Rechte ON [gr1].Rolle_Zu_Rechte (RechteID ASC);
+*/
 
 --Performance für Navigation über Release
 CREATE NONCLUSTERED INDEX IDX_Release_Programm ON [gr1].Release (ReleaseVonProgramm ASC);

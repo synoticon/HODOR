@@ -14,7 +14,7 @@ namespace HODOR.src.DAO
             prog.Name = programmName;
 
             HodorGlobals.getHodorContext().Programms.AddObject(prog);
-            //HodorGlobals.save(); //strange.. all other DAO's need this... here it creates errors, because it is already persisted but the ObjectState isn't correct o_O
+            HodorGlobals.save(); //strange.. all other DAO's need this... here it creates errors, because it is already persisted but the ObjectState isn't correct o_O
             return prog;
         }
 

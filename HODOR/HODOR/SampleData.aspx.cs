@@ -94,10 +94,6 @@ namespace HODOR
             //Benutzer user = HodorGlobals.getHodorContext().Benutzers.ToList<Benutzer>()[0];
             //BenutzerDAO.deleteUser(user); //works
 
-            Programm prog = HodorGlobals.getHodorContext().Programms.ToList<Programm>()[0];
-
-
-            label.Text = ReleaseDAO.getNextReleaseNumberFor(prog).ToString(); ;
         }
     }
 }
