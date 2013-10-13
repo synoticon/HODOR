@@ -34,7 +34,7 @@ namespace HODOR.Members
 
         protected void SelectUser()
         {
-            List<Benutzer> sortedList = BenutzerDAO.getAllUsers().OrderBy(o => o.NutzerNr).ToList();
+           // List<Benutzer> sortedList = BenutzerDAO.getAllUsers().OrderBy(o => o.NutzerNr).ToList();
         }
     }
 }

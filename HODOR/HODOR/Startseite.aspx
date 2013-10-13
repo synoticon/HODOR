@@ -8,12 +8,7 @@
         <asp:MultiView ID="StartseiteMultiView" runat="server" ActiveViewIndex="0">
             <asp:View ID="LoginView" runat="server">
                 <div id="login">
-                    <asp:Login ID="Login1" runat="server" BackColor="#EFF3FB" BorderColor="#B5C7DE" BorderPadding="4"
-                        BorderStyle="Solid" BorderWidth="1px" Font-Names="Verdana" Font-Size="0.8em"
-                        ForeColor="#333333">
-                        <InstructionTextStyle Font-Italic="True" ForeColor="Black" />
-                        <LayoutTemplate>
-                            <table cellpadding="4" cellspacing="0" style="border-collapse: collapse;">
+                           <table cellpadding="4" cellspacing="0" style="border-collapse: collapse;">
                                 <tr>
                                     <td>
                                         <table cellpadding="0">
@@ -47,26 +42,20 @@
                                             </tr>
                                             <tr>
                                                 <td align="center" colspan="2" style="color: Red;">
-                                                    <asp:Literal ID="FailureText" runat="server" EnableViewState="False" Text="Login fehlgeschlagen."></asp:Literal>
+                                                    <asp:Literal ID="FailureText" runat="server" EnableViewState="False" Text=""></asp:Literal>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td align="right" colspan="2">
                                                     <asp:Button ID="LoginButton" runat="server" BackColor="White" BorderColor="#507CD1"
-                                                        BorderStyle="Solid" BorderWidth="1px" CommandName="Login" Font-Names="Verdana"
-                                                        Font-Size="0.8em" ForeColor="#284E98" Text="Anmelden" ValidationGroup="Login1" />
+                                                        BorderStyle="Solid" BorderWidth="1px" Font-Names="Verdana"
+                                                        Font-Size="0.8em" ForeColor="#284E98" Text="Anmelden" ValidationGroup="Login1" OnClick="OnClick_LoginButton"/>
                                                 </td>
                                             </tr>
                                         </table>
                                     </td>
                                 </tr>
                             </table>
-                        </LayoutTemplate>
-                        <LoginButtonStyle BackColor="White" BorderColor="#507CD1" BorderStyle="Solid" BorderWidth="1px"
-                            Font-Names="Verdana" Font-Size="0.8em" ForeColor="#284E98" />
-                        <TextBoxStyle Font-Size="0.8em" />
-                        <TitleTextStyle BackColor="#507CD1" Font-Bold="True" Font-Size="0.9em" ForeColor="White" />
-                    </asp:Login>
                 </div>
                 <div class="newOld">
                     <asp:LinkButton ID="LinkButton2" runat="server" CommandName="PwReset" OnCommand="MenuLink_Command">Reset</asp:LinkButton>
@@ -119,7 +108,7 @@
                                                 <tr>
                                                     <td align="right" colspan="2">
                                                         <asp:Button ID="SubmitButton" runat="server" BackColor="White" BorderColor="#507CD1"
-                                                            BorderStyle="Solid" BorderWidth="1px" CommandName="Submit" Font-Names="Verdana"
+                                                            BorderStyle="Solid" BorderWidth="1px" Font-Names="Verdana"
                                                             Font-Size="0.8em" ForeColor="#284E98" Text="Senden" ValidationGroup="PasswordRecovery1" />
                                                     </td>
                                                 </tr>

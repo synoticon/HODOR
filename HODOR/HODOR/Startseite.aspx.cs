@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-
+using HODOR.src.DAO;
 namespace HODOR
 {
     public partial class Startseite : System.Web.UI.Page
@@ -25,5 +25,20 @@ namespace HODOR
                 this.StartseiteMultiView.SetActiveView(newView);
             }
         }
+        protected void OnClick_LoginButton(object sender, EventArgs e)
+        {
+          Benutzer user = BenutzerDAO.getUserMatchingKundenNrAndPasswordOrNull(UserName.Text, Password.Text);
+          if (user != null)
+          {
+            Session["name"] = user.NutzerNr;       
+            Response.Redirect("Members/LandingPage.aspx");
+          }
+          else
+          {
+            FailureText.Text = "Login fehlgeschlagen.";
+          }
+
+        }
+
     }
 }
