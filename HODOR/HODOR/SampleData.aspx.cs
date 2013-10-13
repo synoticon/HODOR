@@ -13,7 +13,7 @@ namespace HODOR
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            
         }
 
         protected void buttonClick(Object sender, System.EventArgs e)
@@ -93,6 +93,12 @@ namespace HODOR
             
             //Benutzer user = HodorGlobals.getHodorContext().Benutzers.ToList<Benutzer>()[0];
             //BenutzerDAO.deleteUser(user); //works
+
+            Benutzer user = BenutzerDAO.getUserByKundenNrOrNull("Hodor!");
+
+            user.Rolle = RolleDAO.getRoleByNameOrNull("Administrator");
+
+            HodorGlobals.save();
 
         }
     }

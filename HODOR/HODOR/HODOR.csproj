@@ -69,7 +69,9 @@
   <ItemGroup>
     <Content Include="Members\Administration\ProduktVerwaltung.aspx" />
     <Content Include="Members\LandingPage.aspx" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="SampleData.aspx" />
   </ItemGroup>
   <ItemGroup>

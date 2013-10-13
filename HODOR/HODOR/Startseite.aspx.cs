@@ -4,9 +4,11 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Security.Principal;
+using System.Web.Security;
 using HODOR.src.DAO;
 namespace HODOR
-{
+{ 
     public partial class Startseite : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
@@ -30,7 +32,12 @@ namespace HODOR
           Benutzer user = BenutzerDAO.getUserMatchingKundenNrAndPasswordOrNull(UserName.Text, Password.Text);
           if (user != null)
           {
-            Session["name"] = user.NutzerNr;       
+            Session["name"] = user.NutzerNr;
+            GenericIdentity identity = new GenericIdentity(user.NutzerNr);
+            RolePrincipal principal = new RolePrincipal(identity);
+            System.Threading.Thread.CurrentPrincipal = principal;
+
+            FormsAuthentication.SetAuthCookie(user.NutzerNr, false);
             Response.Redirect("Members/LandingPage.aspx");
           }
           else
