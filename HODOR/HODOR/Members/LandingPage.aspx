@@ -3,8 +3,25 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="TitlePlaceHolder" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder" runat="server">
-    <form id="form2" runat="server">
         <div id="ajaxTest">
+              <p>
+                                <asp:Label ID="l_benutzer" runat="server" Text="Name:" />
+                                <br />
+                                <asp:TextBox ID="tb_benutzer" runat="server" MaxLength="255" TextMode="SingleLine" />
+                                <br />
+                                <asp:Label ID="l_kundenNummer" runat="server" Text="Kundennummer:" />
+                                <br />
+                                <asp:TextBox ID="tb_kundenNummer" runat="server" MaxLength="255" TextMode="SingleLine" />
+                                <br />
+                                <asp:Label ID="l_eMail" runat="server" Text="E-Mail:" />
+                                <br />
+                                <asp:TextBox ID="tb_eMail" runat="server" MaxLength="255" TextMode="SingleLine" />
+                                <br />
+                                <asp:Label ID="l_rolle" runat="server" Text="rolle" />
+                                <br />
+                                <asp:TextBox ID="tb_rolle" runat="server" MaxLength="255" TextMode="SingleLine" />
+                                <br />
+                            </p>
             <asp:LinkButton ID="Product" runat="server" OnCommand="MenuLink_Command" CommandName="Product">Produkte</asp:LinkButton>
             &nbsp; |&nbsp;
         <asp:LinkButton ID="User" runat="server" OnCommand="MenuLink_Command" CommandName="User">Benutzer</asp:LinkButton>
@@ -26,29 +43,11 @@
                         </asp:View>
                         <br />
                         <asp:View ID="UserView" runat="server">
-                            <p>
-                                <!--
-                                Hier noch eine Auflistung der User einbauen.
-                                Eventuell die Anlage der User noch gesondert behandeln?
-                             -->
-                                <asp:Label ID="l_FirmenName" runat="server" Text="Name der Firma:" />
-                                <br />
-                                <asp:TextBox ID="tb_FirmenName" runat="server" MaxLength="255" TextMode="SingleLine" />
-                                <br />
-                                <asp:Label ID="l_KundenNummer" runat="server" Text="Kundennummer:" />
-                                <br />
-                                <asp:TextBox ID="tb_KundenNummer" runat="server" MaxLength="255" TextMode="SingleLine" />
-                                <br />
-                                <asp:Label ID="l_EMail" runat="server" Text="E-Mail:" />
-                                <br />
-                                <asp:TextBox ID="tb_EMail" runat="server" MaxLength="255" TextMode="SingleLine" />
-                                <br />
-                                <asp:Button ID="b_Register" runat="server" Text="Anlegen" OnClick="b_Register_Click" />
-                            </p>
+                                <asp:ListBox runat="server" ID="listbox_user" Height="108px" OnSelectedIndexChanged="listbox_user_SelectedIndexChanged" Width="404px"></asp:ListBox>                  
+
                         </asp:View>
                     </asp:MultiView>
                 </ContentTemplate>
             </asp:UpdatePanel>
         </div>
-    </form>
 </asp:Content>

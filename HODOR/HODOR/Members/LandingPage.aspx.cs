@@ -12,7 +12,21 @@ namespace HODOR.Members
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+          SelectUser();
+          if (!IsPostBack)
+          {
+         //   Benutzer user = BenutzerDAO.getUserByKundenNrOrNull(Session["name"].ToString());
+        //    fillUserViewContentbyUser(user);
+          }
+          else
+          {
+            /*Benutzer user = BenutzerDAO.getUserByKundenNrOrNull(Session["name"].ToString());
+            if(user.Rolle == RolleDAO.getRoleByNameOrNull("Administrator") || user.Rolle == RolleDAO.getRoleByNameOrNull("Support") || user.Rolle == RolleDAO.getRoleByNameOrNull("Useradmin"))
+            {
+              Benutzer otherUser = BenutzerDAO.getUserByKundenNrOrNull(Request.QueryString["otherUser"]);
+              fillUserViewContentbyUser(otherUser);
+            }*/
+          }
         }
 
         protected void MenuLink_Command(object sender, CommandEventArgs e)
@@ -27,14 +41,24 @@ namespace HODOR.Members
             }
         }
 
-        protected void b_Register_Click(object sender, EventArgs e)
-        {
-
-        }
-
         protected void SelectUser()
         {
-           // List<Benutzer> sortedList = BenutzerDAO.getAllUsers().OrderBy(o => o.NutzerNr).ToList();
+           foreach(Benutzer item in BenutzerDAO.getAllUsers().OrderBy(o => o.NutzerNr).ToList())
+           {
+             listbox_user.Items.Add(new ListItem(item.NutzerNr));
+           }
+        }
+        protected void fillUserViewContentbyUser(Benutzer user)
+        {
+            tb_benutzer.Text = user.Name;
+            tb_kundenNummer.Text = user.NutzerNr;
+            tb_eMail.Text = user.Email;
+            tb_rolle.Text = user.Rolle.ToString();
+        }
+
+        protected void listbox_user_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
