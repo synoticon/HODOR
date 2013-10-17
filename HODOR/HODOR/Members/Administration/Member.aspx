@@ -4,7 +4,6 @@
 <asp:Content ID="Title" ContentPlaceHolderID="TitlePlaceHolder" runat="server">
 </asp:Content>
 <asp:Content ID="Content" ContentPlaceHolderID="ContentPlaceHolder" runat="server">
-    <form id="form2" runat="server">
     <div id="ajaxTest">
         <asp:LinkButton ID="Sight" runat="server" OnCommand="MenuLink_Command" CommandName="Sight">Ansicht</asp:LinkButton>
         &nbsp; |&nbsp;
@@ -25,19 +24,23 @@
                                     <ul>
                                 </HeaderTemplate>
                                 <ItemTemplate>
-                                    <li><%# Eval("Nutzer_Nr") %></li>
+                                    <li><%# Eval("NutzerNr") %></li>
                                     <li><%# Eval("Name") %></li>
                                     <li><%# Eval("Email") %></li>
+                                    <li><%# Eval("RolleID") %></li>
+                                    <br>
+                                    </br>
                                 </ItemTemplate>
                                 <FooterTemplate>
                                     </ul>
                                 </FooterTemplate>
                             </asp:Repeater>
-                            <asp:SqlDataSource ID="BenutzerDataSource" runat="server" 
-                                ConnectionString="<%$ ConnectionStrings:ia211ConnectionString %>" 
-                                SelectCommand="SelectUser">
-                            </asp:SqlDataSource>
-                        </p>
+                            <asp:EntityDataSource ID="BenutzerDataSource" runat="server" 
+                                ConnectionString="name=HODOR_entities" DefaultContainerName="HODOR_entities" 
+                                EnableFlattening="False" EntitySetName="Benutzers" 
+                                Select="it.[NutzerNr], it.[Email], it.[Name], it.[RolleID]">
+                            </asp:EntityDataSource>
+                            </p>
                     </asp:View>
                     <br />
                     <asp:View ID="BuildView" runat="server">
@@ -67,12 +70,13 @@
                             </asp:DropDownList>
                         </p>
                         <p>
-                            <asp:Button ID="b_register" runat="server" Text="Registrieren" />
+                            <asp:Button ID="b_register" runat="server" Text="Registrieren" 
+                                onclick="b_Register_Click" />
                         </p>
+
                     </asp:View>
                 </asp:MultiView>
             </ContentTemplate>
         </asp:UpdatePanel>
     </div>
-</form>
 </asp:Content>

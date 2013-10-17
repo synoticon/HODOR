@@ -705,7 +705,7 @@
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
       <Diagram Name="Model1" DisplayType="true">
-        <EntityTypeShape EntityType="HODORModel.Benutzer" Width="1.5" PointX="0.875" PointY="1.125" Height="2.7494921875000102" />
+        <EntityTypeShape EntityType="HODORModel.Benutzer" Width="1.875" PointX="0.875" PointY="1.125" Height="2.7494921875000102" />
         <EntityTypeShape EntityType="HODORModel.Build" Width="1.5" PointX="3.25" PointY="7.625" Height="1.7879850260416674" />
         <EntityTypeShape EntityType="HODORModel.Download_History" Width="1.5" PointX="2.5" PointY="4.75" Height="2.1725878906250102" />
         <EntityTypeShape EntityType="HODORModel.Lizenz" Width="1.5" PointX="4.5" PointY="1.125" Height="1.7879850260416674" />
@@ -716,9 +716,9 @@
         <EntityTypeShape EntityType="HODORModel.Rolle" Width="1.5" PointX="0.5" PointY="4.375" Height="1.7879850260416674" />
         <EntityTypeShape EntityType="HODORModel.Subrelease" Width="1.5" PointX="5.375" PointY="7.625" Height="1.7879850260416657" />
         <AssociationConnector Association="HODORModel.FK_Download_Zu_Benutzer" >
-          <ConnectorPoint PointX="2.21875" PointY="3.8744921875000102" />
-          <ConnectorPoint PointX="2.21875" PointY="6.5740364583333388" />
-          <ConnectorPoint PointX="2.5" PointY="6.5740364583333388" />
+          <ConnectorPoint PointX="2.75" PointY="2.8505916341145885" />
+          <ConnectorPoint PointX="3.3750005" PointY="2.8505916341145885" />
+          <ConnectorPoint PointX="3.3750005" PointY="4.75" />
         </AssociationConnector>
         <AssociationConnector Association="HODORModel.FK_Rolle" >
           <ConnectorPoint PointX="1.4375" PointY="4.375" />
@@ -750,8 +750,8 @@
           <ConnectorPoint PointX="5.6875" PointY="7.625" />
         </AssociationConnector>
         <AssociationConnector Association="HODORModel.Benutzer_Zu_Lizenz" >
-          <ConnectorPoint PointX="2.375" PointY="2.0189925130208337" />
-          <ConnectorPoint PointX="4.5" PointY="2.0189925130208337" />
+          <ConnectorPoint PointX="2.75" PointY="1.8266910807291668" />
+          <ConnectorPoint PointX="4.5" PointY="1.8266910807291668" />
         </AssociationConnector>
         <InheritanceConnector EntityType="HODORModel.Lizenz_Zeitlich" >
           <ConnectorPoint PointX="6" PointY="1.9516910807291668" />

@@ -20,7 +20,7 @@ namespace HODOR.Members.Administration
                 List<Rolle> roleList = HodorGlobals.getHodorContext().Rolles.ToList<Rolle>();
                 foreach(Rolle role in roleList)
                 {
-                    this.ddl_roles.Attributes.Add(role.RolleID.ToString(), role.Rollenname);
+                    this.ddl_roles.Items.Add(new ListItem(role.Rollenname));
                 }
             }
         }
@@ -46,11 +46,6 @@ namespace HODOR.Members.Administration
                 return;
             }
             BenutzerDAO.createAndGetUser(this.tb_KdNr.ToString(), this.tb_Firmenname.ToString(), new MailAddress(this.tb_EMail.ToString()), role);
-        }
-
-        protected void SelectUser()
-        {
-            List<Benutzer> sortedList = BenutzerDAO.getAllUsers().OrderBy(o => o.NutzerNr).ToList();
         }
     }
 }
