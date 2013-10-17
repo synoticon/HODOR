@@ -43,7 +43,7 @@
                         </asp:View>
                         <br />
                         <asp:View ID="UserView" runat="server">
-                                <asp:ListBox runat="server" ID="listbox_user" Height="108px" OnSelectedIndexChanged="listbox_user_SelectedIndexChanged" Width="404px"></asp:ListBox>                  
+                                <asp:ListBox runat="server" ID="listbox_user" Height="108px" Width="404px"></asp:ListBox>                  
                                 <asp:Button ID="b_user_display" runat="server" Text="User Anzeigen" />
                         </asp:View>
                     </asp:MultiView>
