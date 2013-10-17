@@ -5,21 +5,21 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder" runat="server">
         <div id="ajaxTest">
               <p>
-                                <asp:Label ID="l_benutzer" runat="server" Text="Name:" />
+                                <asp:Label ID="lStatic_benutzer" runat="server" Text="Name:" />
                                 <br />
-                                <asp:TextBox ID="tb_benutzer" runat="server" MaxLength="255" TextMode="SingleLine" />
+                                <asp:Label ID="l_benutzer" runat="server" MaxLength="255" TextMode="SingleLine" />
                                 <br />
-                                <asp:Label ID="l_kundenNummer" runat="server" Text="Kundennummer:" />
+                                <asp:Label ID="lStatickundenNummer" runat="server" Text="Kundennummer:" />
                                 <br />
-                                <asp:TextBox ID="tb_kundenNummer" runat="server" MaxLength="255" TextMode="SingleLine" />
+                                <asp:Label ID="l_kundenNummer" runat="server" MaxLength="255" TextMode="SingleLine" />
                                 <br />
-                                <asp:Label ID="l_eMail" runat="server" Text="E-Mail:" />
+                                <asp:Label ID="lStatic_eMail" runat="server" Text="E-Mail:" />
                                 <br />
-                                <asp:TextBox ID="tb_eMail" runat="server" MaxLength="255" TextMode="SingleLine" />
+                                <asp:Label ID="l_eMail" runat="server" MaxLength="255" TextMode="SingleLine" />
                                 <br />
-                                <asp:Label ID="l_rolle" runat="server" Text="rolle" />
+                                <asp:Label ID="lStatic_rolle" runat="server" Text="Rolle:" />
                                 <br />
-                                <asp:TextBox ID="tb_rolle" runat="server" MaxLength="255" TextMode="SingleLine" />
+                                <asp:Label ID="l_rolle" runat="server" MaxLength="255" TextMode="SingleLine" />
                                 <br />
                             </p>
             <asp:LinkButton ID="Product" runat="server" OnCommand="MenuLink_Command" CommandName="Product">Produkte</asp:LinkButton>
@@ -44,7 +44,7 @@
                         <br />
                         <asp:View ID="UserView" runat="server">
                                 <asp:ListBox runat="server" ID="listbox_user" Height="108px" OnSelectedIndexChanged="listbox_user_SelectedIndexChanged" Width="404px"></asp:ListBox>                  
-
+                                <asp:Button ID="b_user_display" runat="server" Text="User Anzeigen" />
                         </asp:View>
                     </asp:MultiView>
                 </ContentTemplate>

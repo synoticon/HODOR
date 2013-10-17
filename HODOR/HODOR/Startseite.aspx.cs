@@ -32,12 +32,12 @@ namespace HODOR
           Benutzer user = BenutzerDAO.getUserMatchingKundenNrAndPasswordOrNull(UserName.Text, Password.Text);
           if (user != null)
           {
-            Session["name"] = user.NutzerNr;
             GenericIdentity identity = new GenericIdentity(user.NutzerNr);
             RolePrincipal principal = new RolePrincipal(identity);
             System.Threading.Thread.CurrentPrincipal = principal;
 
             FormsAuthentication.SetAuthCookie(user.NutzerNr, false);
+             
             Response.Redirect("Members/LandingPage.aspx");
           }
           else
