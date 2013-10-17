@@ -19,6 +19,9 @@
                 <asp:MultiView ID="MultiView1" runat="server" ActiveViewIndex="0">
                     <asp:View ID="SightView" runat="server">
                         <p>
+                            <asp:Label ID="is_registered" runat="server" Text="Benutzer konnte nicht angelegt werden!"/>
+                        </p>
+                        <p>
                             &nbsp;<asp:Repeater runat="server" DataSourceID="BenutzerDataSource">
                                 <HeaderTemplate>
                                     <ul>
@@ -28,6 +31,7 @@
                                     <li><%# Eval("Name") %></li>
                                     <li><%# Eval("Email") %></li>
                                     <li><%# Eval("RolleID") %></li>
+                                    <asp:LinkButton ID="b_DeleteUser" runat="server" OnClick="b_DeleteUser_Click" CommandArgument='<%# Eval("NutzerNr") %>' CommandName="delete" Text="Loeschen" />
                                     <br>
                                     </br>
                                 </ItemTemplate>
@@ -71,9 +75,8 @@
                         </p>
                         <p>
                             <asp:Button ID="b_register" runat="server" Text="Registrieren" 
-                                onclick="b_Register_Click" />
+                                onclick="b_Register_Click"/>
                         </p>
-
                     </asp:View>
                 </asp:MultiView>
             </ContentTemplate>

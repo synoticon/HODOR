@@ -19,7 +19,7 @@ namespace HODOR.src.DAO
             user.Email = email.Address;
             user.RolleID = rolle.RolleID;
             HodorGlobals.getHodorContext().Benutzers.AddObject(user);
-            //HodorGlobals.save(); Other DAOs need this. Here it leads to errors
+            HodorGlobals.save(); //Other DAOs need this. Here it leads to errors
             return user;
         }
 

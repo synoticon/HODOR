@@ -49,6 +49,15 @@ namespace HODOR.Members.Administration {
         protected global::System.Web.UI.WebControls.View SightView;
         
         /// <summary>
+        /// is_registered-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label is_registered;
+        
+        /// <summary>
         /// BenutzerDataSource-Steuerelement
         /// </summary>
         /// <remarks>

@@ -43,9 +43,39 @@ namespace HODOR.Members.Administration
             if (role == null)
             {
                 //oh nooo, we're screwed! What now? Throw an Exception? Naah, shouldn't happen, because values were supplied by the DB. Just abort, if murphys law strikes.
+                this.is_registered.Visible = false;
                 return;
             }
-            BenutzerDAO.createAndGetUser(this.tb_KdNr.ToString(), this.tb_Firmenname.ToString(), new MailAddress(this.tb_EMail.ToString()), role);
+            Benutzer user = BenutzerDAO.createAndGetUser(this.tb_KdNr.Text.Trim(), this.tb_Firmenname.Text.Trim(), new MailAddress(this.tb_EMail.Text.Trim()), role);
+            if (user == null)
+            {
+                this.is_registered.Visible = false;
+            }
+            this.Response.Redirect(this.Request.RawUrl);
+        }
+
+        protected void b_DeleteUser_Click(object source, RepeaterCommandEventArgs e)
+        {
+            if (e.CommandName == "delete")
+            {
+                //Data.Contacts.RemoveAt(e.Item.ItemIndex);
+            }
+            else if (e.CommandName == "edit")
+            {
+                EditIndex = e.Item.ItemIndex;
+            }
+            else if (e.CommandName == "save")
+            {
+                //          
+            }
+
+            rpt.DataBind();
+
+
+            if (nutzerNr != null && BenutzerDAO.getUserByKundenNrOrNull(nutzerNr) != null)
+            {
+                BenutzerDAO.deleteUser(BenutzerDAO.getUserByKundenNrOrNull(nutzerNr));
+            }
         }
     }
 }
