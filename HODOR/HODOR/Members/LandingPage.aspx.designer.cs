@@ -3,7 +3,7 @@
 //     Der Code wurde von einem Tool generiert.
 //
 //     Änderungen an der Datei führen möglicherweise zu falschem Verhalten, und sie gehen verloren, wenn
-//     der Code erneut generiert wird. 
+//     der Code erneut generiert wird.
 // </automatisch generiert>
 //------------------------------------------------------------------------------
 
@@ -11,6 +11,15 @@ namespace HODOR.Members {
     
     
     public partial class LandingPage {
+        
+        /// <summary>
+        /// lStatic_benutzer-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lStatic_benutzer;
         
         /// <summary>
         /// l_benutzer-Steuerelement
@@ -22,13 +31,13 @@ namespace HODOR.Members {
         protected global::System.Web.UI.WebControls.Label l_benutzer;
         
         /// <summary>
-        /// tb_benutzer-Steuerelement
+        /// lStatickundenNummer-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tb_benutzer;
+        protected global::System.Web.UI.WebControls.Label lStatickundenNummer;
         
         /// <summary>
         /// l_kundenNummer-Steuerelement
@@ -40,13 +49,13 @@ namespace HODOR.Members {
         protected global::System.Web.UI.WebControls.Label l_kundenNummer;
         
         /// <summary>
-        /// tb_kundenNummer-Steuerelement
+        /// lStatic_eMail-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tb_kundenNummer;
+        protected global::System.Web.UI.WebControls.Label lStatic_eMail;
         
         /// <summary>
         /// l_eMail-Steuerelement
@@ -58,13 +67,13 @@ namespace HODOR.Members {
         protected global::System.Web.UI.WebControls.Label l_eMail;
         
         /// <summary>
-        /// tb_eMail-Steuerelement
+        /// lStatic_rolle-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tb_eMail;
+        protected global::System.Web.UI.WebControls.Label lStatic_rolle;
         
         /// <summary>
         /// l_rolle-Steuerelement
@@ -74,15 +83,6 @@ namespace HODOR.Members {
         /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label l_rolle;
-        
-        /// <summary>
-        /// tb_rolle-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tb_rolle;
         
         /// <summary>
         /// Product-Steuerelement

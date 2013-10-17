@@ -5,18 +5,20 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-
+using System.Web.Security;
 namespace HODOR.Members
 {
     public partial class LandingPage : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-          SelectUser();
+          
+          String Username = System.Threading.Thread.CurrentPrincipal.Identity.Name;
+          Benutzer user = BenutzerDAO.getUserByKundenNrOrNull(Username);
+          SelectUserView(user);
           if (!IsPostBack)
           {
-         //   Benutzer user = BenutzerDAO.getUserByKundenNrOrNull(Session["name"].ToString());
-        //    fillUserViewContentbyUser(user);
+                fillUserViewContentbyUser(user);
           }
           else
           {
@@ -41,24 +43,34 @@ namespace HODOR.Members
             }
         }
 
-        protected void SelectUser()
+        protected void SelectUserView(Benutzer user)
         {
-           foreach(Benutzer item in BenutzerDAO.getAllUsers().OrderBy(o => o.NutzerNr).ToList())
-           {
-             listbox_user.Items.Add(new ListItem(item.NutzerNr));
-           }
+            if (user.Rolle == RolleDAO.getRoleByNameOrNull("Administrator") || user.Rolle == RolleDAO.getRoleByNameOrNull("Support") || user.Rolle == RolleDAO.getRoleByNameOrNull("Useradmin"))
+            {
+                foreach (Benutzer item in BenutzerDAO.getAllUsers().OrderBy(o => o.NutzerNr).ToList())
+                {
+                    listbox_user.Items.Add(new ListItem(item.NutzerNr));
+                }
+            }
         }
         protected void fillUserViewContentbyUser(Benutzer user)
         {
-            tb_benutzer.Text = user.Name;
-            tb_kundenNummer.Text = user.NutzerNr;
-            tb_eMail.Text = user.Email;
-            tb_rolle.Text = user.Rolle.ToString();
+            if (user != null)
+            {
+                l_benutzer.Text = user.Name;
+                l_kundenNummer.Text = user.NutzerNr;
+                l_eMail.Text = user.Email;
+                l_rolle.Text = user.Rolle.Rollenname;
+            }
+            else
+            {
+                l_benutzer.Text = "Benutzer nicht gefunden";
+            }
         }
 
-        protected void listbox_user_SelectedIndexChanged(object sender, EventArgs e)
+        protected void b_user_display_Click(object sender, EventArgs e)
         {
-
+            
         }
     }
 }
