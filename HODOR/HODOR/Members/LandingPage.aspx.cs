@@ -15,25 +15,31 @@ namespace HODOR.Members
           
           String Username = System.Threading.Thread.CurrentPrincipal.Identity.Name;
           Benutzer user = BenutzerDAO.getUserByKundenNrOrNull(Username);
-          SelectUserView(user);
-          if (!IsPostBack)
+          if(Request.QueryString.Count > 0)
+          {
+            if(user.Rolle == RolleDAO.getRoleByNameOrNull("Administrator") || user.Rolle == RolleDAO.getRoleByNameOrNull("Support") || user.Rolle == RolleDAO.getRoleByNameOrNull("Useradmin"))
+            {
+              Benutzer otherUser = BenutzerDAO.getUserByKundenNrOrNull(Request.QueryString["otherUserName"].ToString());      
+              fillUserViewContentbyUser(otherUser);
+            }
+          }
+          else if (!IsPostBack)
           {
                 fillUserViewContentbyUser(user);
           }
-          else
-          {
-            /*Benutzer user = BenutzerDAO.getUserByKundenNrOrNull(Session["name"].ToString());
-            if(user.Rolle == RolleDAO.getRoleByNameOrNull("Administrator") || user.Rolle == RolleDAO.getRoleByNameOrNull("Support") || user.Rolle == RolleDAO.getRoleByNameOrNull("Useradmin"))
-            {
-              Benutzer otherUser = BenutzerDAO.getUserByKundenNrOrNull(Request.QueryString["otherUser"]);
-              fillUserViewContentbyUser(otherUser);
-            }*/
-          }
+          
+             
         }
 
         protected void MenuLink_Command(object sender, CommandEventArgs e)
         {
             string viewName = e.CommandName + "View";
+
+            if (e.CommandName == "User")
+            {
+                 String Username = System.Threading.Thread.CurrentPrincipal.Identity.Name;
+                SelectUserView(BenutzerDAO.getUserByKundenNrOrNull(Username));    
+            }
 
             View newView = this.MultiView1.FindControl(viewName) as View;
 
@@ -46,7 +52,7 @@ namespace HODOR.Members
         protected void SelectUserView(Benutzer user)
         {
             if (user.Rolle == RolleDAO.getRoleByNameOrNull("Administrator") || user.Rolle == RolleDAO.getRoleByNameOrNull("Support") || user.Rolle == RolleDAO.getRoleByNameOrNull("Useradmin"))
-            {
+            {               
                 foreach (Benutzer item in BenutzerDAO.getAllUsers().OrderBy(o => o.NutzerNr).ToList())
                 {
                     listbox_user.Items.Add(new ListItem(item.NutzerNr));
@@ -68,9 +74,9 @@ namespace HODOR.Members
             }
         }
 
-        protected void b_user_display_Click(object sender, EventArgs e)
+        protected void OnClick_b_user_display(object sender, EventArgs e)
         {
-            
+            Response.Redirect("LandingPage.aspx?otherUserName=" + Server.UrlEncode(listbox_user.SelectedValue));
         }
     }
 }

@@ -44,7 +44,7 @@
                         <br />
                         <asp:View ID="UserView" runat="server">
                                 <asp:ListBox runat="server" ID="listbox_user" Height="108px" Width="404px"></asp:ListBox>                  
-                                <asp:Button ID="b_user_display" runat="server" Text="User Anzeigen" />
+                                <asp:Button ID="b_user_display" runat="server" Text="User Anzeigen" OnClick="OnClick_b_user_display"/>
                         </asp:View>
                     </asp:MultiView>
                 </ContentTemplate>
