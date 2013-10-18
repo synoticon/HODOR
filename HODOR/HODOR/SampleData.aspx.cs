@@ -19,7 +19,7 @@ namespace HODOR
         protected void buttonClick(Object sender, System.EventArgs e)
         {
             HODOR_entities db = HodorGlobals.getHodorContext();
-            Programm prog = ProgrammDAO.createAndGetProgramm("HODOR HODOR");
+            Programm prog = ProgrammDAO.createAndGetProgramm("HODOR123");
             Release release = ReleaseDAO.createAndGetRelease(prog);
             Subrelease subrelease = SubreleaseDAO.createAndGetSubrelease(release);
             Build build = BuildDAO.createAndGetBuild(subrelease);

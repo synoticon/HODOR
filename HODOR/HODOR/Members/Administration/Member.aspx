@@ -31,7 +31,12 @@
                                     <li><%# Eval("Name") %></li>
                                     <li><%# Eval("Email") %></li>
                                     <li><%# Eval("RolleID") %></li>
-                                    <asp:LinkButton ID="b_DeleteUser" runat="server" OnClick="b_DeleteUser_Click" CommandArgument='<%# Eval("NutzerNr") %>' CommandName="delete" Text="Loeschen" />
+                                    <p>
+                                        <asp:LinkButton ID="lb_DeleteUser" runat="server" OnCommand="lb_EditDeleteUser_Click" CommandArgument='<%# Eval("NutzerNr") %>' CommandName="delete" Text="L&oumlschen" />
+                                    </p>
+                                    <p>
+                                        <asp:LinkButton ID="lb_EditUser" runat="server" OnCommand="lb_EditDeleteUser_Click" CommandArgument='<%# Eval("NutzerNr") %>' CommandName="edit" Text="Bearbeiten" />
+                                    </p>
                                     <br>
                                     </br>
                                 </ItemTemplate>

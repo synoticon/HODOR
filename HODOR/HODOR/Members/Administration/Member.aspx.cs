@@ -54,25 +54,33 @@ namespace HODOR.Members.Administration
             this.Response.Redirect(this.Request.RawUrl);
         }
 
-        protected void b_DeleteUser_Click(object source, RepeaterCommandEventArgs e)
+        protected void lb_EditDeleteUser_Click(object source, CommandEventArgs e)
         {
-            if (e.CommandName == "delete")
+            switch (e.CommandName)
             {
-                if (e.CommandName != null && BenutzerDAO.getUserByKundenNrOrNull(e.CommandName) != null)
-                {
-                    BenutzerDAO.deleteUser(BenutzerDAO.getUserByKundenNrOrNull(e.CommandName));
-                }
-            }
-            else if (e.CommandName == "edit")
-            {//Wird momentan noch umgebaut
-//                EditIndex = e.Item.ItemIndex;
-            }
-            else if (e.CommandName == "save")
-            {
-                //          
-            }
+                case "delete":
+                    {
+                        if (e.CommandArgument != null && BenutzerDAO.getUserByKundenNrOrNull(e.CommandArgument.ToString()) != null)
+                        {
+                            BenutzerDAO.deleteUser(BenutzerDAO.getUserByKundenNrOrNull(e.CommandArgument.ToString()));
+                        }
+                    }
+                    break;
+                case "edit":
+                    {
+                        if (e.CommandArgument != null && BenutzerDAO.getUserByKundenNrOrNull(e.CommandArgument.ToString()) != null)
+                        {
+                            //Insert some edit stuff here!
+                        }
+                    }
+                    break;
+                default:
+                    {
 
-//            rpt.DataBind();
+                    }
+                    break;
+            }
+            this.Response.Redirect(this.Request.RawUrl);
         }
     }
 }
