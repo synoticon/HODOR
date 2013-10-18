@@ -58,24 +58,21 @@ namespace HODOR.Members.Administration
         {
             if (e.CommandName == "delete")
             {
-                //Data.Contacts.RemoveAt(e.Item.ItemIndex);
+                if (e.CommandName != null && BenutzerDAO.getUserByKundenNrOrNull(e.CommandName) != null)
+                {
+                    BenutzerDAO.deleteUser(BenutzerDAO.getUserByKundenNrOrNull(e.CommandName));
+                }
             }
             else if (e.CommandName == "edit")
-            {
-                EditIndex = e.Item.ItemIndex;
+            {//Wird momentan noch umgebaut
+//                EditIndex = e.Item.ItemIndex;
             }
             else if (e.CommandName == "save")
             {
                 //          
             }
 
-            rpt.DataBind();
-
-
-            if (nutzerNr != null && BenutzerDAO.getUserByKundenNrOrNull(nutzerNr) != null)
-            {
-                BenutzerDAO.deleteUser(BenutzerDAO.getUserByKundenNrOrNull(nutzerNr));
-            }
+//            rpt.DataBind();
         }
     }
 }
