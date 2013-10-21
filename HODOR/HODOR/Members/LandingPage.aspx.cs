@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.Security;
+using HODOR.src.Globals;
 namespace HODOR.Members
 {
     public partial class LandingPage : System.Web.UI.Page
@@ -24,22 +25,17 @@ namespace HODOR.Members
             }
           }
           else if (!IsPostBack)
-          {
+          { 
                 fillUserViewContentbyUser(user);
           }
-          
-             
+         
+              SelectUserView(BenutzerDAO.getUserByKundenNrOrNull(Username));
+              SelectProgrammView(BenutzerDAO.getUserByKundenNrOrNull(Username));
         }
 
         protected void MenuLink_Command(object sender, CommandEventArgs e)
         {
             string viewName = e.CommandName + "View";
-
-            if (e.CommandName == "User")
-            {
-                 String Username = System.Threading.Thread.CurrentPrincipal.Identity.Name;
-                SelectUserView(BenutzerDAO.getUserByKundenNrOrNull(Username));    
-            }
 
             View newView = this.MultiView1.FindControl(viewName) as View;
 
@@ -47,18 +43,50 @@ namespace HODOR.Members
             {
                 this.MultiView1.SetActiveView(newView);
             }
+            
         }
 
         protected void SelectUserView(Benutzer user)
         {
-            if (user.Rolle == RolleDAO.getRoleByNameOrNull("Administrator") || user.Rolle == RolleDAO.getRoleByNameOrNull("Support") || user.Rolle == RolleDAO.getRoleByNameOrNull("Useradmin"))
-            {               
+            if(HodorRoleProvider.isAdminAllowed(user))
+            {              
+      
                 foreach (Benutzer item in BenutzerDAO.getAllUsers().OrderBy(o => o.NutzerNr).ToList())
                 {
-                    listbox_user.Items.Add(new ListItem(item.NutzerNr));
+                    if (listbox_user.Items.FindByText(item.NutzerNr) == null)
+                    {
+                        listbox_user.Items.Add(new ListItem(item.NutzerNr));
+                    }
                 }
             }
         }
+
+        protected void SelectProgrammView(Benutzer user)
+        {
+            if (HodorRoleProvider.isAdminAllowed(user))
+            {
+                foreach (Programm item in ProgrammDAO.getAllProgramme())
+                {
+                    String idName = item.ProgrammID.ToString() + ":" + item.Name.ToString();
+                    if (listbox_prog.Items.FindByText(idName) == null)
+                    {
+                        listbox_prog.Items.Add(new ListItem(idName));
+                    }
+                }
+            }
+            else
+            {
+                foreach (Programm item in BenutzerDAO.getAllProgrammsLicensedForUser(user))
+                {
+                    String idName = item.ProgrammID.ToString() + ":" + item.Name.ToString();
+                    if (listbox_prog.Items.FindByText(idName) == null)
+                    {
+                        listbox_prog.Items.Add(new ListItem(idName));
+                    }
+                }
+            }
+        }
+
         protected void fillUserViewContentbyUser(Benutzer user)
         {
             if (user != null)
@@ -77,6 +105,12 @@ namespace HODOR.Members
         protected void OnClick_b_user_display(object sender, EventArgs e)
         {
             Response.Redirect("LandingPage.aspx?otherUserName=" + Server.UrlEncode(listbox_user.SelectedValue));
+        }
+
+        protected void OnClick_b_prog_display(object sender, EventArgs e)
+        {
+            String[] split = listbox_prog.SelectedValue.Split(':');
+            Response.Redirect("Produkte.aspx?progID=" + Server.UrlEncode(split[0]));
         }
     }
 }

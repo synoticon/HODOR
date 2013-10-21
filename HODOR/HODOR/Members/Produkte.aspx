@@ -16,7 +16,6 @@
 
 
 
-    <!--Falls noch zum Vergleich benötigt
 
         <div id="test"> 
         <div id="produktinfo">
@@ -25,7 +24,11 @@
             <asp:Label ID="lb_programmname" runat="server" Text="" />
             <br />
             <asp:DropDownList ID="DDL_Release" runat="server" AutoPostBack="true" AppendDataBoundItems="true"
-                DataTextField="Name" DataValueField="id" OnSelectedIndexChanged="SelectedChange">
+                DataTextField="Name" DataValueField="id" OnSelectedIndexChanged="SelectedChangeRelease">
+                <asp:ListItem Text="---Select---" Value="0" />
+            </asp:DropDownList>
+              <asp:DropDownList ID="DDL_SubRelease" runat="server" AutoPostBack="true" AppendDataBoundItems="true"
+                DataTextField="Name" DataValueField="id" OnSelectedIndexChanged="itemSelectedSubRelease">
                 <asp:ListItem Text="---Select---" Value="0" />
             </asp:DropDownList>
             <asp:DropDownList ID="DDL_Build" runat="server" AutoPostBack="true" AppendDataBoundItems="true"
@@ -33,5 +36,5 @@
                 <asp:ListItem Text="---Select---" Value="0" />
             </asp:DropDownList>
         </div>
-    </div>-->
+    </div>
 </asp:Content>

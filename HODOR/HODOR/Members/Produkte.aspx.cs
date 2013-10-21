@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-
+using HODOR.src.DAO;
 namespace HODOR
 {
     public partial class Produkte : System.Web.UI.Page
@@ -13,34 +13,33 @@ namespace HODOR
         protected void Page_Load(object sender, EventArgs e)
         {
 
-            lb_programmname.Text = Request.QueryString["Name"];
+            lb_programmname.Text = Request.QueryString["progID"];
 
-            if (!IsPostBack)
-            {
-                foreach (ListItem item in getReleaseListItem(Request.QueryString["Name"]))
+                foreach (Release item in BenutzerDAO.getAllReleasesOfProgrammLicensedForUser
+                          (BenutzerDAO.getUserByKundenNrOrNull(System.Threading.Thread.CurrentPrincipal.Identity.Name),
+                           ProgrammDAO.getProgrammByExactNameOrNull(Request.QueryString["progID"])).ToList())
                 {
-                    DDL_Release.Items.Add(item);
+                    if (DDL_Release.Items.FindByText(item.Releasenummer.ToString()) == null)
+                    {
+                        DDL_Release.Items.Add(new ListItem(item.Releasenummer.ToString()));
+                    }
                 }
-
-            //    List<Test> list = new List<Test>()
-            //    {
-            //        new Test()
-            //        {
-            //            Title = "Test 1";
-            //        }
-            //    };
-            }
+            
         }
 
-        protected void SelectedChange(object sender, EventArgs e)
+        protected void SelectedChangeRelease(object sender, EventArgs e)
         {
-            foreach (ListItem item in getBuildListItem(Request.QueryString["Name"], DDL_Release.SelectedItem.ToString()))
+        /*    foreach (Subrelease item in ReleaseDAO.)
             {
-                DDL_Build.Items.Add(item);
-            }
+                if (DDL_Release.Items.FindByText(item.Releasenummer.ToString()) == null)
+                {
+                    DDL_Release.Items.Add(new ListItem(item.Releasenummer.ToString()));
+                }
+            }*/
         }
         protected void itemSelectedBuild(object sender, EventArgs e)
         {
+            /*
             try
             {
                 System.String filename = "myFile.txt";
@@ -64,21 +63,8 @@ namespace HODOR
             catch (System.Exception exc)
             // file IO errors
             {
-            }
+            }*/
         }
-        protected List<ListItem> getReleaseListItem(string programm)
-        {
-            List<ListItem> listitem_release = new List<ListItem>();
-            listitem_release.Add(new ListItem("Release_0", "1"));
-            listitem_release.Add(new ListItem("Release_1", "2"));
-            return listitem_release;
-        }
-
-        protected List<ListItem> getBuildListItem(string programm, string release)
-        {
-            List<ListItem> listitem_build = new List<ListItem>();
-            listitem_build.Add(new ListItem("Build_1", "1"));
-            return listitem_build;
-        }
+   
     }
 }

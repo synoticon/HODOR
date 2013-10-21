@@ -4,24 +4,35 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder" runat="server">
         <div id="ajaxTest">
-              <p>
-                                <asp:Label ID="lStatic_benutzer" runat="server" Text="Name:" />
-                                <br />
-                                <asp:Label ID="l_benutzer" runat="server" MaxLength="255" TextMode="SingleLine" />
-                                <br />
-                                <asp:Label ID="lStatickundenNummer" runat="server" Text="Kundennummer:" />
-                                <br />
-                                <asp:Label ID="l_kundenNummer" runat="server" MaxLength="255" TextMode="SingleLine" />
-                                <br />
-                                <asp:Label ID="lStatic_eMail" runat="server" Text="E-Mail:" />
-                                <br />
-                                <asp:Label ID="l_eMail" runat="server" MaxLength="255" TextMode="SingleLine" />
-                                <br />
-                                <asp:Label ID="lStatic_rolle" runat="server" Text="Rolle:" />
-                                <br />
-                                <asp:Label ID="l_rolle" runat="server" MaxLength="255" TextMode="SingleLine" />
-                                <br />
-                            </p>
+              <table>
+                  <tr>
+                              <td>  <asp:Label ID="lStatic_benutzer" runat="server" Text="Name:" /></td>
+                               
+                             <td>   <asp:Label ID="l_benutzer" runat="server" MaxLength="255" TextMode="SingleLine" /></td>
+                                </tr>
+                  <tr>
+                              <td>  <asp:Label ID="lStatic_kundenNummer" runat="server" Text="Kundennummer:" /></td>
+                                
+                               <td> <asp:Label ID="l_kundenNummer" runat="server" MaxLength="255" TextMode="SingleLine" /></td>
+                                              </tr>
+                  <tr>
+                               <td> <asp:Label ID="lStatic_eMail" runat="server" Text="E-Mail:" /></td>
+                                
+                               <td> <asp:Label ID="l_eMail" runat="server" MaxLength="255" TextMode="SingleLine" /></td>
+                                             </tr>
+                  <tr>
+                                <td><asp:Label ID="lStatic_rolle" runat="server" Text="Rolle:" /></td>
+                                
+                                <td><asp:Label ID="l_rolle" runat="server" MaxLength="255" TextMode="SingleLine" /></td>
+                
+
+
+        
+            </table>
+            </br>
+            </br>
+            </br>
+            </br>
             <asp:LinkButton ID="Product" runat="server" OnCommand="MenuLink_Command" CommandName="Product">Produkte</asp:LinkButton>
             &nbsp; |&nbsp;
         <asp:LinkButton ID="User" runat="server" OnCommand="MenuLink_Command" CommandName="User">Benutzer</asp:LinkButton>
@@ -37,14 +48,13 @@
                     </asp:View>
                     <asp:MultiView ID="MultiView1" runat="server" ActiveViewIndex="0">
                         <asp:View ID="ProductView" runat="server">
-                            <p>
-                                <!--Hier kommt die Produktauflistung per ListView rein-->
-                            </p>
+                    <p><asp:ListBox runat="server" ID="listbox_prog" Height="108px" Width="404px"></asp:ListBox>    </p>                 
+                            <p>    <asp:Button ID="b_prog_display" runat="server" Text="Programm Anzeigen" OnClick="OnClick_b_prog_display"/> </p>   
                         </asp:View>
                         <br />
                         <asp:View ID="UserView" runat="server">
-                                <asp:ListBox runat="server" ID="listbox_user" Height="108px" Width="404px"></asp:ListBox>                  
-                                <asp:Button ID="b_user_display" runat="server" Text="User Anzeigen" OnClick="OnClick_b_user_display"/>
+                           <p>     <asp:ListBox runat="server" ID="listbox_user" Height="108px" Width="404px"></asp:ListBox>    </p>                 
+                            <p>      <asp:Button ID="b_user_display" runat="server" Text="User Anzeigen" OnClick="OnClick_b_user_display"/> </p>   
                         </asp:View>
                     </asp:MultiView>
                 </ContentTemplate>
