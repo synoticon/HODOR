@@ -3,7 +3,7 @@
 //     Der Code wurde von einem Tool generiert.
 //
 //     Änderungen an der Datei führen möglicherweise zu falschem Verhalten, und sie gehen verloren, wenn
-//     der Code erneut generiert wird.
+//     der Code erneut generiert wird. 
 // </automatisch generiert>
 //------------------------------------------------------------------------------
 
@@ -31,13 +31,13 @@ namespace HODOR.Members {
         protected global::System.Web.UI.WebControls.Label l_benutzer;
         
         /// <summary>
-        /// lStatickundenNummer-Steuerelement
+        /// lStatic_kundenNummer-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lStatickundenNummer;
+        protected global::System.Web.UI.WebControls.Label lStatic_kundenNummer;
         
         /// <summary>
         /// l_kundenNummer-Steuerelement
@@ -137,6 +137,24 @@ namespace HODOR.Members {
         /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
         /// </remarks>
         protected global::System.Web.UI.WebControls.View ProductView;
+        
+        /// <summary>
+        /// listbox_prog-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ListBox listbox_prog;
+        
+        /// <summary>
+        /// b_prog_display-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button b_prog_display;
         
         /// <summary>
         /// UserView-Steuerelement

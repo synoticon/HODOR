@@ -67,6 +67,15 @@ namespace HODOR {
         protected global::System.Web.UI.WebControls.DropDownList DDL_Release;
         
         /// <summary>
+        /// DDL_SubRelease-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList DDL_SubRelease;
+        
+        /// <summary>
         /// DDL_Build-Steuerelement
         /// </summary>
         /// <remarks>

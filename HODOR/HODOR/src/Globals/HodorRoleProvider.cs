@@ -148,6 +148,29 @@ namespace HODOR.src.Globals
             return resultUserArray;
         }
 
+        public static bool isAdminAllowed(Benutzer user)
+        {
+            if (user.Rolle == RolleDAO.getRoleByNameOrNull("Administrator") || user.Rolle == RolleDAO.getRoleByNameOrNull("Support") || user.Rolle == RolleDAO.getRoleByNameOrNull("Useradmin"))
+            {
+                return true;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        public static bool isSupportAllowed(Benutzer user)
+        {
+            if(user.Rolle == RolleDAO.getRoleByNameOrNull("Support"))
+            {
+                return true;
+            }
+            else
+            {
+                return true;
+            }
+        }
 
     }
 }
