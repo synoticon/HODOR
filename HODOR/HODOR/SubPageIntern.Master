@@ -6,7 +6,7 @@
         <Items>
             <asp:MenuItem NavigateUrl="~/Members/Produkte.aspx" Text="Produkte" Value="Produkte">
             </asp:MenuItem>
-            <asp:MenuItem NavigateUrl="~/Members/Administration/ProduktVerwaltung.aspx" Text="Verwaltung" Value="Verwaltung">
+            <asp:MenuItem NavigateUrl="~/Members/Administration/Verwaltung.aspx" Text="Verwaltung" Value="Verwaltung">
             </asp:MenuItem>
             <asp:MenuItem NavigateUrl="~/Members/Administration/Member.aspx" Text="Benutzer" Value="Benutzer">
             </asp:MenuItem>

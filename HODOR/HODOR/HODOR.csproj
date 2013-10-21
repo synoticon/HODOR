@@ -67,7 +67,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Members\Administration\ProduktVerwaltung.aspx" />
+    <Content Include="Members\Administration\Verwaltung.aspx" />
     <Content Include="Members\LandingPage.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -138,12 +138,12 @@
     <Compile Include="Members\Produkte.aspx.designer.cs">
       <DependentUpon>Produkte.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Members\Administration\ProduktVerwaltung.aspx.cs">
-      <DependentUpon>ProduktVerwaltung.aspx</DependentUpon>
+    <Compile Include="Members\Administration\Verwaltung.aspx.cs">
+      <DependentUpon>Verwaltung.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Members\Administration\ProduktVerwaltung.aspx.designer.cs">
-      <DependentUpon>ProduktVerwaltung.aspx</DependentUpon>
+    <Compile Include="Members\Administration\Verwaltung.aspx.designer.cs">
+      <DependentUpon>Verwaltung.aspx</DependentUpon>
     </Compile>
     <Compile Include="HODOR_Model.Designer.cs">
       <AutoGen>True</AutoGen>
