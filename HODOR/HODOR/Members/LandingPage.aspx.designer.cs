@@ -85,6 +85,15 @@ namespace HODOR.Members {
         protected global::System.Web.UI.WebControls.Label l_rolle;
         
         /// <summary>
+        /// b_edit-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button b_edit;
+        
+        /// <summary>
         /// Product-Steuerelement
         /// </summary>
         /// <remarks>
@@ -182,5 +191,14 @@ namespace HODOR.Members {
         /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button b_user_display;
+        
+        /// <summary>
+        /// Table1-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Table Table1;
     }
 }

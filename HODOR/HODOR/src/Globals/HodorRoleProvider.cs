@@ -148,7 +148,7 @@ namespace HODOR.src.Globals
             return resultUserArray;
         }
 
-        public static bool isAdminAllowed(Benutzer user)
+        public static bool isSupportAllowed(Benutzer user)
         {
             if (user.Rolle == RolleDAO.getRoleByNameOrNull("Administrator") || user.Rolle == RolleDAO.getRoleByNameOrNull("Support") || user.Rolle == RolleDAO.getRoleByNameOrNull("Useradmin"))
             {
@@ -160,9 +160,9 @@ namespace HODOR.src.Globals
             }
         }
 
-        public static bool isSupportAllowed(Benutzer user)
+        public static bool isAdminAllowed(Benutzer user)
         {
-            if(user.Rolle == RolleDAO.getRoleByNameOrNull("Support"))
+            if (user.Rolle == RolleDAO.getRoleByNameOrNull("Administrator") || user.Rolle == RolleDAO.getRoleByNameOrNull("Useradmin"))
             {
                 return true;
             }

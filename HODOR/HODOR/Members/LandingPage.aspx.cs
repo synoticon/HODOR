@@ -18,19 +18,23 @@ namespace HODOR.Members
           Benutzer user = BenutzerDAO.getUserByKundenNrOrNull(Username);
           if(Request.QueryString.Count > 0)
           {
-            if(user.Rolle == RolleDAO.getRoleByNameOrNull("Administrator") || user.Rolle == RolleDAO.getRoleByNameOrNull("Support") || user.Rolle == RolleDAO.getRoleByNameOrNull("Useradmin"))
+            if(HodorRoleProvider.isSupportAllowed(user))
             {
               Benutzer otherUser = BenutzerDAO.getUserByKundenNrOrNull(Request.QueryString["otherUserName"].ToString());      
               fillUserViewContentbyUser(otherUser);
+              SelectProgrammView(otherUser);
+              DownloadHistoryView(otherUser);
             }
           }
           else if (!IsPostBack)
           { 
                 fillUserViewContentbyUser(user);
+               
+                SelectProgrammView(BenutzerDAO.getUserByKundenNrOrNull(Username));
+                DownloadHistoryView(BenutzerDAO.getUserByKundenNrOrNull(Username));
           }
-         
-              SelectUserView(BenutzerDAO.getUserByKundenNrOrNull(Username));
-              SelectProgrammView(BenutzerDAO.getUserByKundenNrOrNull(Username));
+
+          SelectUserView(BenutzerDAO.getUserByKundenNrOrNull(Username));
         }
 
         protected void MenuLink_Command(object sender, CommandEventArgs e)
@@ -61,9 +65,30 @@ namespace HODOR.Members
             }
         }
 
+        protected void DownloadHistoryView(Benutzer user)
+        {
+           
+                foreach (Download_History item in BenutzerDAO.getDownloadHistoryEntriesForUser(user))
+                {
+                   
+                        TableRow r = new TableRow();
+                            r.Cells.Add(createNewTableCell(item.Benutzer.NutzerNr.ToString()));
+                            r.Cells.Add(createNewTableCell(item.Build.Programm.ToString()));
+                            r.Cells.Add(createNewTableCell(item.BuildID.ToString()));
+                            r.Cells.Add(createNewTableCell(item.DownloadDatum.ToString()));
+                        Table1.Rows.Add(r);
+                }
+          
+        }
+  protected TableCell createNewTableCell(string cellContent)
+            {
+                TableCell c = new TableCell();
+                c.Controls.Add(new LiteralControl(cellContent));
+                return c;
+            }
         protected void SelectProgrammView(Benutzer user)
         {
-            if (HodorRoleProvider.isAdminAllowed(user))
+            if (HodorRoleProvider.isSupportAllowed(user))
             {
                 foreach (Programm item in ProgrammDAO.getAllProgramme())
                 {
@@ -111,6 +136,12 @@ namespace HODOR.Members
         {
             String[] split = listbox_prog.SelectedValue.Split(':');
             Response.Redirect("Produkte.aspx?progID=" + Server.UrlEncode(split[0]));
+        }
+
+        protected void b_edit_Click(object sender, EventArgs e)
+        {
+            //@Timo Hier Link eintragen wo der User Hingepostet werden muss.
+           Response.Redirect("Administration/Member.aspx?otherUserName=" + Server.UrlEncode(listbox_user.SelectedValue));
         }
     }
 }

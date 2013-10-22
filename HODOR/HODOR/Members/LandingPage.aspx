@@ -3,7 +3,8 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="TitlePlaceHolder" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder" runat="server">
-        <div id="ajaxTest">
+
+            <div id="ajaxTest">
               <table>
                   <tr>
                               <td>  <asp:Label ID="lStatic_benutzer" runat="server" Text="Name:" /></td>
@@ -29,9 +30,14 @@
 
         
             </table>
+              <br>
             </br>
+                <asp:Button ID="b_edit" runat="server" OnClick="b_edit_Click" Text="Bearbeiten" />
+              <br>
             </br>
+              <br>
             </br>
+              <br>
             </br>
             <asp:LinkButton ID="Product" runat="server" OnCommand="MenuLink_Command" CommandName="Product">Produkte</asp:LinkButton>
             &nbsp; |&nbsp;
@@ -59,5 +65,30 @@
                     </asp:MultiView>
                 </ContentTemplate>
             </asp:UpdatePanel>
+              <br>
+            </br>
+              <br>
+            </br>
+              <br>
+            </br>
+                <asp:Table ID="Table1" runat="server" BorderStyle="Dashed" BorderColor="Black" BorderWidth="1" CellPadding="10" GridLines="Both">
+                    <asp:TableHeaderRow>
+                        <asp:TableHeaderCell>
+                            Benutzer Nummer
+                        </asp:TableHeaderCell>
+                         <asp:TableHeaderCell>
+                            Programm
+                        </asp:TableHeaderCell>
+                         <asp:TableHeaderCell>
+                            Build
+                        </asp:TableHeaderCell>
+                         <asp:TableHeaderCell>
+                            Datum
+                        </asp:TableHeaderCell>
+                    </asp:TableHeaderRow>
+
+                </asp:Table>
+            
         </div>
+
 </asp:Content>
