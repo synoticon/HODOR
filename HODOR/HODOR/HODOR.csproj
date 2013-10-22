@@ -125,13 +125,6 @@
     <Compile Include="Members\LandingPage.aspx.designer.cs">
       <DependentUpon>LandingPage.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Members\ProduktAuswahlPage.aspx.cs">
-      <DependentUpon>ProduktAuswahlPage.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Members\ProduktAuswahlPage.aspx.designer.cs">
-      <DependentUpon>ProduktAuswahlPage.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Members\Produkte.aspx.cs">
       <DependentUpon>Produkte.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -209,7 +202,6 @@
     <Content Include="Members\Administration\Member.aspx" />
     <Content Include="images\NAVI_-_Button_Layout_Submenu.png" />
     <Content Include="Kontakt.aspx" />
-    <Content Include="Members\ProduktAuswahlPage.aspx" />
     <Content Include="Members\Produkte.aspx" />
     <Content Include="Startseite.aspx" />
     <Content Include="Web.sitemap" />

@@ -74,14 +74,9 @@ namespace HODOR
 
         protected void SelectedChangeBuild(object sender, EventArgs e)
         {
-            /*    foreach (Subrelease item in ReleaseDAO.)
-                {
-                    if (DDL_Release.Items.FindByText(item.Releasenummer.ToString()) == null)
-                    {
-                        DDL_Release.Items.Add(new ListItem(item.Releasenummer.ToString()));
-                    }
-                }*/
+            b_download.Visible = true;
         }
+
         protected void OnClick_b_download(object sender, EventArgs e)
         {
 
@@ -128,6 +123,7 @@ namespace HODOR
                     String Username = System.Threading.Thread.CurrentPrincipal.Identity.Name;
                     Benutzer user = BenutzerDAO.getUserByKundenNrOrNull(Username);
                     DownloadHistoryDAO.createAndGetDownloadHistory(user, buildToDownload);
+                    b_download.Visible = false;
                 }
             }
             catch (System.Exception exc)
@@ -135,6 +131,7 @@ namespace HODOR
             {
                 l_Builddiscription.Text = exc.Message;
             }
+
         }
 
     }

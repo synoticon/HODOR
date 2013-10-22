@@ -7,9 +7,9 @@
 
     <div id="test">
         <div id="produktinfo">
-            <asp:Label ID="lb_programmname_text" runat="server" Text="Programm:" />
+            <h1><asp:Label ID="lb_programmname_text" runat="server" Text="Programm:" /></h1>
             <br />
-            <asp:Label ID="lb_programmname" runat="server" Text="" />
+            <h2><asp:Label ID="lb_programmname" runat="server" Text="" /></h2>
 
 
             <br />
@@ -19,17 +19,19 @@
 
                     </asp:TableHeaderCell>
                     <asp:TableHeaderCell>
+                        <p>Release</p>
                         <asp:DropDownList ID="DDL_Release" runat="server" OnSelectedIndexChanged="SelectedChangeRelease" AutoPostBack="true">
                             <asp:ListItem Text="---Select---" Value="null" />
                         </asp:DropDownList>
                     </asp:TableHeaderCell>
                     <asp:TableHeaderCell>
-
+                        <p>Sub-Release</p>
                         <asp:DropDownList ID="DDL_SubRelease" runat="server" OnSelectedIndexChanged="SelectedChangeSubRelease" AutoPostBack="true">
                             <asp:ListItem Text="---Select---" Value="null" />
                         </asp:DropDownList>
                     </asp:TableHeaderCell>
                     <asp:TableHeaderCell>
+                        <p>Build</p>
                         <asp:DropDownList ID="DDL_Build" runat="server" OnSelectedIndexChanged="SelectedChangeBuild" AutoPostBack="true">
                             <asp:ListItem Text="---Select---" Value="null" />
                         </asp:DropDownList>
@@ -47,7 +49,7 @@
                     </asp:TableCell>
                       <asp:TableCell>
                         <asp:Label ID="l_Builddiscription" runat="server" Text="" />
-                           <asp:Button ID="b_download" runat="server" OnClick="OnClick_b_download" Text="Download" />
+                           <asp:Button ID="b_download" runat="server" OnClick="OnClick_b_download" Text="Download" Visible="false"/>
                     </asp:TableCell>
                 </asp:TableRow>
             </asp:Table>
