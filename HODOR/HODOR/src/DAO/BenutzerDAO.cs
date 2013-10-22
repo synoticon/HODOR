@@ -19,7 +19,7 @@ namespace HODOR.src.DAO
             user.Email = email.Address;
             user.RolleID = rolle.RolleID;
             HodorGlobals.getHodorContext().Benutzers.AddObject(user);
-            HodorGlobals.save(); //Other DAOs need this. Here it leads to errors
+            HodorGlobals.save(); //Other DAOs need this. Here it leads to errors...or not... since factoryMethods were thrown away
             return user;
         }
 
@@ -119,6 +119,13 @@ namespace HODOR.src.DAO
         {
             List<Programm> resultList = new List<Programm>();
 
+            //Admins and Supporters are allowed to see all Programs
+            if (HodorRoleProvider.isAdminAllowed(user) || HodorRoleProvider.isSupportAllowed(user))
+            {
+                return ProgrammDAO.getAllProgramme();
+            }
+
+            //if user is not Supporter/Admin, filter by his licenses
             var idsOfProgrammsTimespanLicensedQueryResult = from lz in user.Lizenzs.OfType<Lizenz_Zeitlich>()
                                                             where lz.EndDatum <= DateTime.Now && lz.StartDatum >= DateTime.Now
                                                             select lz.LizensiertProgramm;
@@ -153,6 +160,13 @@ namespace HODOR.src.DAO
 
         public static List<Release> getAllReleasesOfProgrammLicensedForUser(Benutzer user, Programm prog)
         {
+            //Admins and Supporters are allowed to see all Programs
+            if (HodorRoleProvider.isAdminAllowed(user) || HodorRoleProvider.isSupportAllowed(user))
+            {
+                return prog.Releases.ToList<Release>();
+            }
+
+            //if user is not Supporter/Admin, filter by his licenses
             //check if the user has a valid timespan license for this programm
             List<Lizenz_Zeitlich> licensesTimespan = user.Lizenzs.OfType<Lizenz_Zeitlich>().Where(
                 lz => lz.LizensiertProgramm == prog.ProgrammID
@@ -208,7 +222,7 @@ namespace HODOR.src.DAO
             sbVersionNumber.Append(".");
             sbVersionNumber.Append(build.Releasenummer);
 
-            //let's respect some privacy and send separate mails
+            //let's respect some privacy and send seperate mails
             foreach (Benutzer user in usersToBeNotified)
             {
                 notification.To.Clear(); //don't want to send it to the previous recipients over and over again
