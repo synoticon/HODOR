@@ -67,6 +67,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="LoadDirectory\myfile.txt" />
     <Content Include="Members\Administration\Verwaltung.aspx" />
     <Content Include="Members\LandingPage.aspx" />
     <Content Include="Web.config">

@@ -91,5 +91,46 @@ namespace HODOR.src.DAO
             return getAllMajorReleases().Where(p => p.ReleaseVonProgramm == prog.ProgrammID).ToList<Release>();
         }
 
+        public static Release getSingleReleaseByID(int ReleaseID)
+        {
+   
+            List<Release> releaseList = HodorGlobals.getHodorContext().Releases.Where(r => r.ReleaseID == ReleaseID).ToList<Release>();
+
+            if (releaseList.Count == 1)
+            {
+                //everything ok
+                return releaseList[0];
+            }
+            else if (releaseList.Count == 0)
+            {
+                //no Program with that name found
+                return null;
+            }
+            else
+            {
+                throw new Exception("Entities for Release are inconsistent. Duplicate (" + releaseList.Count + ") name detected: " + ReleaseID.ToString());
+            }
+        }
+
+        public static Release getSingleReleaseByNumberAndProgramm(int ProgrammID,int ReleaseNumber)
+        {
+
+            List<Release> releaseList = HodorGlobals.getHodorContext().Releases.Where(r => r.Releasenummer == ReleaseNumber && r.Programm.ProgrammID == ProgrammID ).ToList<Release>();
+
+            if (releaseList.Count == 1)
+            {
+                //everything ok
+                return releaseList[0];
+            }
+            else if (releaseList.Count == 0)
+            {
+                //no Program with that name found
+                return null;
+            }
+            else
+            {
+                throw new Exception("Entities for Programm/Relelease are inconsistent. Duplicate (" + releaseList.Count + ") name detected: ProgrammID " + ProgrammID.ToString() + " Releasenumber " + ReleaseNumber.ToString());
+            }
+        }
     }
 }

@@ -13,28 +13,28 @@ namespace HODOR.Members
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-          
-          String Username = System.Threading.Thread.CurrentPrincipal.Identity.Name;
-          Benutzer user = BenutzerDAO.getUserByKundenNrOrNull(Username);
-          if(Request.QueryString.Count > 0)
-          {
-            if(HodorRoleProvider.isSupportAllowed(user))
+
+            String Username = System.Threading.Thread.CurrentPrincipal.Identity.Name;
+            Benutzer user = BenutzerDAO.getUserByKundenNrOrNull(Username);
+            if (Request.QueryString.Count > 0)
             {
-              Benutzer otherUser = BenutzerDAO.getUserByKundenNrOrNull(Request.QueryString["otherUserName"].ToString());      
-              fillUserViewContentbyUser(otherUser);
-              SelectProgrammView(otherUser);
-              DownloadHistoryView(otherUser);
+                if (HodorRoleProvider.isSupportAllowed(user))
+                {
+                    Benutzer otherUser = BenutzerDAO.getUserByKundenNrOrNull(Request.QueryString["otherUserName"].ToString());
+                    fillUserViewContentbyUser(otherUser);
+                    SelectProgrammView(otherUser);
+                    DownloadHistoryView(otherUser);
+                }
             }
-          }
-          else if (!IsPostBack)
-          { 
+            else if (!IsPostBack)
+            {
                 fillUserViewContentbyUser(user);
-               
+
                 SelectProgrammView(BenutzerDAO.getUserByKundenNrOrNull(Username));
                 DownloadHistoryView(BenutzerDAO.getUserByKundenNrOrNull(Username));
-          }
+            }
 
-          SelectUserView(BenutzerDAO.getUserByKundenNrOrNull(Username));
+            SelectUserView(BenutzerDAO.getUserByKundenNrOrNull(Username));
         }
 
         protected void MenuLink_Command(object sender, CommandEventArgs e)
@@ -47,14 +47,14 @@ namespace HODOR.Members
             {
                 this.MultiView1.SetActiveView(newView);
             }
-            
+
         }
 
         protected void SelectUserView(Benutzer user)
         {
-            if(HodorRoleProvider.isAdminAllowed(user))
-            {              
-      
+            if (HodorRoleProvider.isAdminAllowed(user))
+            {
+
                 foreach (Benutzer item in BenutzerDAO.getAllUsers().OrderBy(o => o.NutzerNr).ToList())
                 {
                     if (listbox_user.Items.FindByText(item.NutzerNr) == null)
@@ -67,25 +67,25 @@ namespace HODOR.Members
 
         protected void DownloadHistoryView(Benutzer user)
         {
-           
-                foreach (Download_History item in BenutzerDAO.getDownloadHistoryEntriesForUser(user))
-                {
-                   
-                        TableRow r = new TableRow();
-                            r.Cells.Add(createNewTableCell(item.Benutzer.NutzerNr.ToString()));
-                            r.Cells.Add(createNewTableCell(item.Build.Programm.ToString()));
-                            r.Cells.Add(createNewTableCell(item.BuildID.ToString()));
-                            r.Cells.Add(createNewTableCell(item.DownloadDatum.ToString()));
-                        Table1.Rows.Add(r);
-                }
-          
-        }
-  protected TableCell createNewTableCell(string cellContent)
+
+            foreach (Download_History item in BenutzerDAO.getDownloadHistoryEntriesForUser(user))
             {
-                TableCell c = new TableCell();
-                c.Controls.Add(new LiteralControl(cellContent));
-                return c;
+
+                TableRow r = new TableRow();
+                r.Cells.Add(createNewTableCell(item.Benutzer.NutzerNr.ToString()));
+                r.Cells.Add(createNewTableCell(item.Build.Programm.ToString()));
+                r.Cells.Add(createNewTableCell(item.BuildID.ToString()));
+                r.Cells.Add(createNewTableCell(item.DownloadDatum.ToString()));
+                Table1.Rows.Add(r);
             }
+
+        }
+        protected TableCell createNewTableCell(string cellContent)
+        {
+            TableCell c = new TableCell();
+            c.Controls.Add(new LiteralControl(cellContent));
+            return c;
+        }
         protected void SelectProgrammView(Benutzer user)
         {
             if (HodorRoleProvider.isSupportAllowed(user))
@@ -141,7 +141,7 @@ namespace HODOR.Members
         protected void b_edit_Click(object sender, EventArgs e)
         {
             //@Timo Hier Link eintragen wo der User Hingepostet werden muss.
-           Response.Redirect("Administration/Member.aspx?otherUserName=" + Server.UrlEncode(listbox_user.SelectedValue));
+            Response.Redirect("Administration/Member.aspx?otherUserName=" + Server.UrlEncode(listbox_user.SelectedValue));
         }
     }
 }

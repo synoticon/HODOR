@@ -63,6 +63,27 @@ namespace HODOR.src.DAO
             }
         }
 
+
+        public static Programm getProgrammByProgrammIDOrNull(int ProgrammID)
+        {
+            List<Programm> progList = HodorGlobals.getHodorContext().Programms.Where(p => p.ProgrammID == ProgrammID).ToList<Programm>();
+
+            if (progList.Count == 1)
+            {
+                //everything ok
+                return progList[0];
+            }
+            else if (progList.Count == 0)
+            {
+                //no Program with that name found
+                return null;
+            }
+            else
+            {
+                throw new Exception("Entities for Programm are inconsistent. Duplicate (" + progList.Count + ") name detected: " + ProgrammID.ToString());
+            }
+        }
+
         public static List<Programm> getProgrammeWithNameContainingOrNull(String namePart)
         {
             if (namePart == null || namePart.Length == 0) return null;
