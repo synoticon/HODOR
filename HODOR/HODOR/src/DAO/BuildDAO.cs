@@ -10,6 +10,14 @@ namespace HODOR.src.DAO
     {
         public static Build createAndGetBuild(Subrelease subreleaseOfBuild, DateTime buildDate, Int32 buildNumber)
         {
+            if (subreleaseOfBuild.Builds.Select(b => b.Releasenummer).Contains(buildNumber))
+            {
+                //Build of this subrelease with that version already present!
+                throw new ArgumentException("Program: " + subreleaseOfBuild.Programm.Name + " already has a build with releasenumber: "
+                    + buildNumber + " for subrelease " + subreleaseOfBuild.Releasenummer 
+                    + " and Release " + subreleaseOfBuild.Release.Releasenummer + "! Aborting creation.");
+            }
+
             subreleaseOfBuild.ProgrammReference.Load();
             Int32 programmID = subreleaseOfBuild.ProgrammReference.Value.ProgrammID;
             Build build = new Build();
@@ -71,6 +79,13 @@ namespace HODOR.src.DAO
 
             Int32 nextBuildNumber = highestCurrentBuild + 1;
             return nextBuildNumber;
+        }
+
+        public static List<Int32> getAllBuildIDs()
+        {
+            List<Int32> result = HodorGlobals.getHodorContext().Releases.OfType<Build>().Select(s => s.ReleaseID).ToList<Int32>();
+
+            return result;
         }
     }
 }
