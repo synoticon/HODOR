@@ -10,6 +10,13 @@ namespace HODOR.src.DAO
     {
         public static Subrelease createAndGetSubrelease(Release releaseOfSubrelease, DateTime releaseDate, Int32 releaseNumber)
         {
+            if (releaseOfSubrelease.Subreleases.Select(s => s.Releasenummer).Contains(releaseNumber))
+            {
+                //Subrelease of this release with that version already present!
+                throw new ArgumentException("Program: " + releaseOfSubrelease.Programm.Name + " already has a subrelease with releasenumber: "
+                    + releaseNumber + " for Release "+ releaseOfSubrelease.Releasenummer + "! Aborting creation.");
+            }
+
             releaseOfSubrelease.ProgrammReference.Load();
             Subrelease sub = new Subrelease();//Subrelease.CreateSubrelease(releaseOfSubrelease.ProgrammReference.Value.ProgrammID, releaseDate, releaseNumber, releaseOfSubrelease.ReleaseID);
             sub.ReleaseVonProgramm = releaseOfSubrelease.ProgrammReference.Value.ProgrammID;
@@ -68,6 +75,13 @@ namespace HODOR.src.DAO
 
             Int32 nextSubreleaseNumber = highestCurrentSubrelease + 1;
             return nextSubreleaseNumber;
+        }
+
+        public static List<Int32> getAllSubreleaseIDs()
+        {
+            List<Int32> result = HodorGlobals.getHodorContext().Releases.OfType<Subrelease>().Select(s => s.ReleaseID).ToList<Int32>();
+
+            return result;
         }
     }
 }

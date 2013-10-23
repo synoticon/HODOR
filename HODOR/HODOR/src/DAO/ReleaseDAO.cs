@@ -10,6 +10,11 @@ namespace HODOR.src.DAO
     {
         public static Release createAndGetRelease(Programm ofProgramm, DateTime dateAndTimeOfRelease, int releaseNumber)
         {
+            if (getAllMajorReleasesFor(ofProgramm).Select(r => r.Releasenummer).Contains(releaseNumber))
+            {
+                //Release of this program with that version already present!
+                throw new ArgumentException("Program: " + ofProgramm.Name + " already has a release with releasenumber: " + releaseNumber + "! Aborting creation.");
+            }
             Release rel = new Release(); //Release.CreateRelease(ofProgramm.ProgrammID, dateAndTimeOfRelease, releaseNumber);
             rel.ReleaseVonProgramm = ofProgramm.ProgrammID;
             rel.Releasedatum = dateAndTimeOfRelease;
@@ -115,7 +120,14 @@ namespace HODOR.src.DAO
         public static Release getSingleReleaseByNumberAndProgramm(int ProgrammID,int ReleaseNumber)
         {
 
-            List<Release> releaseList = HodorGlobals.getHodorContext().Releases.Where(r => r.Releasenummer == ReleaseNumber && r.Programm.ProgrammID == ProgrammID ).ToList<Release>();
+            List<Int32> allSubreleaseIDs = SubreleaseDAO.getAllSubreleaseIDs();
+            List<Int32> allBuildIDs = BuildDAO.getAllBuildIDs();
+
+            List<Release> releaseList = HodorGlobals.getHodorContext().Releases
+                .Where(r => r.Releasenummer == ReleaseNumber 
+                    && r.Programm.ProgrammID == ProgrammID 
+                    && !allBuildIDs.Contains(r.ReleaseID)
+                    && !allSubreleaseIDs.Contains(r.ReleaseID)).ToList<Release>();
 
             if (releaseList.Count == 1)
             {
@@ -124,12 +136,12 @@ namespace HODOR.src.DAO
             }
             else if (releaseList.Count == 0)
             {
-                //no Program with that name found
+                //no Program with that ID found
                 return null;
             }
             else
             {
-                throw new Exception("Entities for Programm/Relelease are inconsistent. Duplicate (" + releaseList.Count + ") name detected: ProgrammID " + ProgrammID.ToString() + " Releasenumber " + ReleaseNumber.ToString());
+                throw new Exception("Entities for Programm/Release are inconsistent. Duplicate (" + releaseList.Count + ") ReleaseNumber detected: ProgrammID " + ProgrammID.ToString() + " Releasenumber " + ReleaseNumber.ToString());
             }
         }
     }

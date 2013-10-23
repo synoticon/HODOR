@@ -734,6 +734,8 @@
         </AssociationConnector>
         <AssociationConnector Association="HODORModel.FK_Lizensiertes_Release" >
           <ConnectorPoint PointX="6" PointY="6.2663378906249987" />
+          <ConnectorPoint PointX="8.0416666666666661" PointY="6.2663378906249978" />
+          <ConnectorPoint PointX="8.2083333333333339" PointY="6.2663378906249987" />
           <ConnectorPoint PointX="9.875" PointY="6.2663378906249987" />
           <ConnectorPoint PointX="9.875" PointY="2.09568359375" />
         </AssociationConnector>
@@ -761,7 +763,7 @@
           <ConnectorPoint PointX="6" PointY="1.21875" />
           <ConnectorPoint PointX="9.125" PointY="1.21875" />
         </InheritanceConnector>
-        <InheritanceConnector EntityType="HODORModel.Subrelease" ManuallyRouted="false" >
+        <InheritanceConnector ManuallyRouted="false" EntityType="HODORModel.Subrelease">
           <ConnectorPoint PointX="5.25" PointY="6.4321907552083326" />
           <ConnectorPoint PointX="5.25" PointY="7.25" />
           <ConnectorPoint PointX="5.604166666666667" PointY="7.2499999999999991" />
@@ -769,7 +771,7 @@
           <ConnectorPoint PointX="6.125" PointY="7.25" />
           <ConnectorPoint PointX="6.125" PointY="7.625" />
         </InheritanceConnector>
-        <InheritanceConnector EntityType="HODORModel.Build" ManuallyRouted="false" >
+        <InheritanceConnector ManuallyRouted="false" EntityType="HODORModel.Build">
           <ConnectorPoint PointX="5.25" PointY="6.4321907552083326" />
           <ConnectorPoint PointX="5.25" PointY="7.25" />
           <ConnectorPoint PointX="4" PointY="7.25" />

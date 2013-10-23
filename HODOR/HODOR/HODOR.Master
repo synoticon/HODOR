@@ -38,9 +38,9 @@
         </div>
         <div id="footer">
             <div id="support">
-                <a href="Kontakt.aspx" class="supporttextklein">Kontakt</a> <a class="supporttextklein">
-                    &bull;</a> <a href="Impresum.aspx" class="supporttextklein">Impresum</a>
-                <a class="supporttextklein">&bull;</a> <a href="FAQ.aspx" class="supporttextklein">
+                <a href="/Kontakt.aspx" class="supporttextklein">Kontakt</a> <a class="supporttextklein">
+                    &bull;</a> <a href="/Impressum.aspx" class="supporttextklein">Impressum</a>
+                <a class="supporttextklein">&bull;</a> <a href="/FAQ.aspx" class="supporttextklein">
                     FAQ</a>
             </div>
         </div>
