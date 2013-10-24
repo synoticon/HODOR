@@ -98,8 +98,6 @@ namespace HODOR.Members.Administration
 
         protected void lb_SelectedIndexChanged_Main(object sender, EventArgs e)
         {
-            int lizenz_count = 0;
-
             if (MultiView1.ActiveViewIndex == 0)
             {
                 Benutzer user = BenutzerDAO.getUserByKundenNrOrNull(this.lb_User.SelectedItem.Text);
@@ -107,14 +105,9 @@ namespace HODOR.Members.Administration
                 {
                     this.l_Name.Text = user.Name;
                     this.l_NutzerNr.Text = user.NutzerNr;
-                    this.l_Name.Text = user.Rolle.ToString();
+                    this.l_Name.Text = user.Rolle.Rollenname;
                     this.l_EMail.Text = user.Email;
-                    List<Lizenz> lizenzen = user.Lizenzs.ToList();
-                    foreach (Lizenz lizenz in lizenzen)
-                    {
-                        lizenz_count++;
-                    }
-                    this.l_LizenzAnzahl.Text = lizenz_count.ToString();
+                    this.l_LizenzAnzahl.Text = user.Lizenzs.Count.ToString();
                     this.l_LizenzZaehler.Visible = true;
                     this.l_ende.Visible = true;
                 }

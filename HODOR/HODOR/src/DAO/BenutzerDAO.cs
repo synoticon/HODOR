@@ -163,7 +163,7 @@ namespace HODOR.src.DAO
             //Admins and Supporters are allowed to see all Programs
             if (HodorRoleProvider.isAdminAllowed(user) || HodorRoleProvider.isSupportAllowed(user))
             {
-                return prog.Releases.ToList<Release>();
+                return ReleaseDAO.getAllMajorReleasesFor(prog);
             }
 
             //if user is not Supporter/Admin, filter by his licenses
@@ -177,7 +177,7 @@ namespace HODOR.src.DAO
             if (licensesTimespan.Count >= 1)
             {
                 //that's ok, with a minimum of one valid TimespanLicense for this prog, he may see all releases of it
-                return prog.Releases.ToList<Release>();
+                return ReleaseDAO.getAllMajorReleasesFor(prog);
             }
 
             List<Lizenz_Versionsorientiert> licensesVersion = user.Lizenzs.OfType<Lizenz_Versionsorientiert>().Where(

@@ -70,7 +70,7 @@ namespace HODOR.src.DAO
                                                             .Where(b => b.BuildVonSubrelease == sub.ReleaseID);
             if (queryResult.Count() == 0)
             {
-                return 0;
+                return 1;
             }
             else
             {
