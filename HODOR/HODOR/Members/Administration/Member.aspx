@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="HODOR - Hyper Organised Deployment Order Revisioning" MasterPageFile="~/SubPageIntern.Master"
     Language="C#" AutoEventWireup="true" CodeBehind="Member.aspx.cs" Inherits="HODOR.Members.Administration.Member" %>
-     
+
 <asp:Content ID="Title" ContentPlaceHolderID="TitlePlaceHolder" runat="server">
 </asp:Content>
 <asp:Content ID="Content" ContentPlaceHolderID="ContentPlaceHolder" runat="server">
@@ -8,6 +8,8 @@
         <asp:LinkButton ID="Sight" runat="server" OnCommand="MenuLink_Command" CommandName="Sight">Ansicht</asp:LinkButton>
         &nbsp; |&nbsp;
         <asp:LinkButton ID="Build" runat="server" OnCommand="MenuLink_Command" CommandName="Build">Anlegen</asp:LinkButton>
+        &nbsp; |&nbsp;
+        <asp:LinkButton ID="Upload" runat="server" OnCommand="MenuLink_Command" CommandName="Upload">Programm Anlegen</asp:LinkButton>
         <br />
         <br />
         <asp:UpdatePanel runat="server">
@@ -19,7 +21,7 @@
                 <asp:MultiView ID="MultiView1" runat="server" ActiveViewIndex="0">
                     <asp:View ID="SightView" runat="server">
                         <p>
-                            <asp:Label ID="is_registered" runat="server" Text="Benutzer konnte nicht angelegt werden!"/>
+                            <asp:Label ID="is_registered" runat="server" Text="Benutzer konnte nicht angelegt werden!" />
                         </p>
                         <p>
                             &nbsp;<asp:Repeater runat="server" DataSourceID="BenutzerDataSource">
@@ -37,19 +39,18 @@
                                     <p>
                                         <asp:LinkButton ID="lb_EditUser" runat="server" OnCommand="lb_EditDeleteUser_Click" CommandArgument='<%# Eval("NutzerNr") %>' CommandName="edit" Text="Bearbeiten" />
                                     </p>
-                                    <br>
-                                    </br>
+                                    <br></br>
                                 </ItemTemplate>
                                 <FooterTemplate>
                                     </ul>
                                 </FooterTemplate>
                             </asp:Repeater>
-                            <asp:EntityDataSource ID="BenutzerDataSource" runat="server" 
-                                ConnectionString="name=HODOR_entities" DefaultContainerName="HODOR_entities" 
-                                EnableFlattening="False" EntitySetName="Benutzers" 
+                            <asp:EntityDataSource ID="BenutzerDataSource" runat="server"
+                                ConnectionString="name=HODOR_entities" DefaultContainerName="HODOR_entities"
+                                EnableFlattening="False" EntitySetName="Benutzers"
                                 Select="it.[NutzerNr], it.[Email], it.[Name], it.[RolleID]">
                             </asp:EntityDataSource>
-                            </p>
+                        </p>
                     </asp:View>
                     <br />
                     <asp:View ID="BuildView" runat="server">
@@ -79,12 +80,32 @@
                             </asp:DropDownList>
                         </p>
                         <p>
-                            <asp:Button ID="b_register" runat="server" Text="Registrieren" 
-                                onclick="b_Register_Click"/>
+                            <asp:Button ID="b_register" runat="server" Text="Registrieren"
+                                OnClick="b_Register_Click" />
                         </p>
                     </asp:View>
+
+                    <asp:View ID="UploadView" runat="server">
+                 
+                        
+                    </asp:View>
                 </asp:MultiView>
+               
             </ContentTemplate>
         </asp:UpdatePanel>
+                <div>
+                          <asp:FileUpload ID="FileUpload1" runat="server"/><br />
+                          <asp:RegularExpressionValidator ID="regexpName" runat="server"
+                                ErrorMessage="This expression does not validate."
+                                ControlToValidate="FileUpload1"
+                                ValidationExpression=".*[a-zA-Z0-9]{1,254}_\d{1,10}_\d{1,10}_\d{1,10}..*" />
+
+                            <br />
+                           <textarea id="l_discription" cols="20" rows="2" runat="server"></textarea>
+                            <br />
+                            <asp:Button ID="b_upload" runat="server" OnClick="OnClick_b_upload" Text="Upload File" />&nbsp;<br />
+                        
+                             <asp:Label ID="l_message" runat="server"></asp:Label>
+                        </div>
     </div>
 </asp:Content>

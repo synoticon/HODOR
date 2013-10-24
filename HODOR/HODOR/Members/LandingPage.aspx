@@ -36,7 +36,7 @@
                     <asp:Label ID="l_rolle" runat="server" MaxLength="255" TextMode="SingleLine" /></td>
         </table>
         <br></br>
-        <asp:Button ID="b_edit" runat="server" OnClick="b_edit_Click" Text="Bearbeiten" />
+        <asp:Button ID="b_edit" runat="server" OnClick="b_edit_Click" Text="Bearbeiten"  Visible="false"/>
         <br></br>
         <br></br>
         <br></br>
