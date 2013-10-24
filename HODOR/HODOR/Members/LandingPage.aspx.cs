@@ -76,7 +76,14 @@ namespace HODOR.Members
                 TableRow r = new TableRow();
                 r.Cells.Add(createNewTableCell(item.Benutzer.NutzerNr.ToString()));
                 r.Cells.Add(createNewTableCell(item.Build.Programm.Name.ToString()));
-                r.Cells.Add(createNewTableCell(item.BuildID.ToString()));
+                
+                Build build = BuildDAO.getBuildByIDOrNull(item.BuildID);
+                if (build == null)
+                {
+                    r.Cells.Add(createNewTableCell("Deleted Build"));
+                }
+                r.Cells.Add(createNewTableCell(BuildDAO.getVersionStringForBuild(build)));
+
                 r.Cells.Add(createNewTableCell(item.DownloadDatum.ToString()));
                 Table1.Rows.Add(r);
             }

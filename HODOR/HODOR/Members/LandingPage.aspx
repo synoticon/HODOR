@@ -89,7 +89,7 @@
                             Programm
                 </asp:TableHeaderCell>
                 <asp:TableHeaderCell>
-                            Build
+                            Version
                 </asp:TableHeaderCell>
                 <asp:TableHeaderCell>
                             Datum
