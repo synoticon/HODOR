@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Text;
 using HODOR.src.Globals;
 
 namespace HODOR.src.DAO
@@ -37,6 +38,14 @@ namespace HODOR.src.DAO
             return createAndGetBuild(subreleaseOfBuild, DateTime.Now, buildNumber);
         }
 
+        public static Build createAndGetBuild(Subrelease subreleaseOfBuild, Int32 buildNumber, String pathToFile)
+        {
+            Build build = createAndGetBuild(subreleaseOfBuild, buildNumber);
+            build.Datendateipfad = pathToFile;
+            HodorGlobals.save();
+            return build;
+        }
+
         public static Build createAndGetBuild(Subrelease subreleaseOfBuild)
         {
             Int32 nextBuildNumber = getNextBuildNumberFor(subreleaseOfBuild);
@@ -57,6 +66,19 @@ namespace HODOR.src.DAO
             db.Releases.DeleteObject(build);
 
             HodorGlobals.save();
+        }
+
+        public static String getVersionStringForBuild(Build build)
+        {
+            StringBuilder sbVersionNumber = new StringBuilder();
+
+            sbVersionNumber.Append(build.Subrelease.Release.Releasenummer);
+            sbVersionNumber.Append(".");
+            sbVersionNumber.Append(build.Subrelease.Releasenummer);
+            sbVersionNumber.Append(".");
+            sbVersionNumber.Append(build.Releasenummer);
+
+            return sbVersionNumber.ToString();
         }
 
         public static Int32 getNextBuildNumberFor(Subrelease sub)
