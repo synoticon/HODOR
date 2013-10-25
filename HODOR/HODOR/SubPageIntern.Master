@@ -14,6 +14,8 @@
             </asp:MenuItem>
              <asp:MenuItem NavigateUrl="~/Members/Administration/TicketSupport.aspx" Text="Ticket Support" Value="Ticket">
             </asp:MenuItem>
+               <asp:MenuItem NavigateUrl="~/Members/Administration/Produktverwaltung.aspx" Text="Produktverwaltung" Value="Ticket">
+            </asp:MenuItem>
              <asp:MenuItem NavigateUrl="~/Members/Logout.aspx" Text="Logout" Value="Logout">
             </asp:MenuItem>
         </Items>
