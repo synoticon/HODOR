@@ -50,13 +50,12 @@ namespace HODOR.Members.Administration
                 SearchType mSearchType =
                      (SearchType)MultiView1.ActiveViewIndex;
 
-                searchContext = DoSearch(tb_SearchInput.Text, mSearchType);
+                DoSearch(tb_SearchInput.Text, mSearchType);
             }
         }
 
-        protected List<String> DoSearch(String searchTerm, SearchType type)
+        protected void DoSearch(String searchTerm, SearchType type)
         {
-            List<String> searchContext = null;
 
             switch (type)
             {
@@ -67,10 +66,15 @@ namespace HODOR.Members.Administration
                         {
                             if(user.Name.Contains(searchTerm) || user.NutzerNr.Contains(searchTerm))
                             {
+                                this.lb_User.Visible = true;
                                 if (lb_User.Items.FindByText(user.NutzerNr) == null)
                                 {
                                     this.lb_User.Items.Add(new ListItem(user.NutzerNr));                                    
                                 }
+                            }
+                            else
+                            {
+                                this.l_noCatch.Visible = true;
                             }
                         }
                     }
@@ -82,10 +86,15 @@ namespace HODOR.Members.Administration
                         {
                             if(program.Name.Contains(searchTerm))
                             {
+                                this.lb_Product.Visible = true;
                                 if (lb_User.Items.FindByText(program.Name) == null)
                                 {
                                     this.lb_Product.Items.Add(new ListItem(program.Name));
                                 }
+                            }
+                            else
+                            {
+                                this.l_noCatch.Visible = true;
                             }
                         }
                     }
@@ -93,7 +102,6 @@ namespace HODOR.Members.Administration
                 case SearchType.NotSet:
                     break;
             }
-            return searchContext;
         }
 
         protected void lb_SelectedIndexChanged_Main(object sender, EventArgs e)
@@ -123,17 +131,17 @@ namespace HODOR.Members.Administration
             {
                 Programm program = ProgrammDAO.getProgrammByExactNameOrNull(this.lb_Product.SelectedItem.Text);
                 List<Release> releases = ReleaseDAO.getAllMajorReleasesFor(program);
-                this.lb_Release.Visible = true; 
-                if(program != null)
+                if (program != null)
                 {
                     this.l_ProgrammName.Text = program.Name;
-                    foreach (Release release in releases)
-	                {
-                        if (lb_User.Items.FindByText(release.Releasenummer.ToString()) == null)
+                    if (releases != null)
+                    {
+                        this.lb_Release.Visible = true;
+                        foreach (Release release in releases)
                         {
                             this.lb_Release.Items.Add(new ListItem(release.Releasenummer.ToString()));
                         }
-	                }
+                    }
                 }
             }
         }

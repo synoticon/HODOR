@@ -67,6 +67,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Impressum.aspx" />
     <Content Include="LoadDirectory\myfile.txt" />
     <Content Include="Members\Administration\Verwaltung.aspx" />
     <Content Include="Members\LandingPage.aspx" />
@@ -76,6 +77,13 @@
     <Content Include="SampleData.aspx" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Impressum.aspx.cs">
+      <DependentUpon>Impressum.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Impressum.aspx.designer.cs">
+      <DependentUpon>Impressum.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -103,13 +111,6 @@
     </Compile>
     <Compile Include="HODOR.Master.designer.cs">
       <DependentUpon>HODOR.Master</DependentUpon>
-    </Compile>
-    <Compile Include="Impresum.aspx.cs">
-      <DependentUpon>Impresum.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Impresum.aspx.designer.cs">
-      <DependentUpon>Impresum.aspx</DependentUpon>
     </Compile>
     <Compile Include="Kontakt.aspx.cs">
       <DependentUpon>Kontakt.aspx</DependentUpon>
@@ -225,7 +226,6 @@
     <None Include="images\Projekt_Dateien\navi_button_layout_HOVER.xcf" />
     <Content Include="Members\Web.config" />
     <Content Include="FAQ.aspx" />
-    <Content Include="Impresum.aspx" />
     <Content Include="SubPage.Master" />
     <Content Include="SubPageIntern.Master" />
     <EntityDeploy Include="HODOR_Model.edmx">

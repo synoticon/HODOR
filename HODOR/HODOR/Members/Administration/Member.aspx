@@ -32,7 +32,7 @@
                                     <li><%# Eval("Email") %></li>
                                     <li><%# Eval("RolleID") %></li>
                                     <p>
-                                        <asp:LinkButton ID="lb_DeleteUser" runat="server" OnCommand="lb_EditDeleteUser_Click" CommandArgument='<%# Eval("NutzerNr") %>' CommandName="delete" Text="L&oumlschen" />
+                                        <asp:LinkButton ID="lb_DeleteUser" runat="server" OnCommand="lb_EditDeleteUser_Click" CommandArgument='<%# Eval("NutzerNr") %>' CommandName="delete" OnClientClick="return confirm('Sind Sie sicher, dass Sie diesen Benutzer löschen wolle?');" Text="L&oumlschen" />
                                     </p>
                                     <p>
                                         <asp:LinkButton ID="lb_EditUser" runat="server" OnCommand="lb_EditDeleteUser_Click" CommandArgument='<%# Eval("NutzerNr") %>' CommandName="edit" Text="Bearbeiten" />

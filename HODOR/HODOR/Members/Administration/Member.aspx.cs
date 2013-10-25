@@ -70,7 +70,7 @@ namespace HODOR.Members.Administration
                     {
                         if (e.CommandArgument != null && BenutzerDAO.getUserByKundenNrOrNull(e.CommandArgument.ToString()) != null)
                         {
-                            //Insert some edit stuff here!
+                            editUser(BenutzerDAO.getUserByKundenNrOrNull(e.CommandArgument.ToString()));
                         }
                     }
                     break;
@@ -81,6 +81,11 @@ namespace HODOR.Members.Administration
                     break;
             }
             this.Response.Redirect(this.Request.RawUrl);
+        }
+
+        protected void editUser(Benutzer user)
+        {
+            this.Response.Redirect(this.Request.
         }
     }
 }
