@@ -24,73 +24,94 @@ namespace HODOR.Members.Administration
             }
 
             SelectProgrammView(user);
-            
 
+            ticketview();
            
-            // Total number of rows.
-            int rowCnt;
-            // Current row count.
-            int rowCtr;
+            //// Total number of rows.
+            //int rowCnt;
+            //// Current row count.
+            //int rowCtr;
 
 
-            //Anzahl der Reports
-            rowCnt = 10;
+            ////Anzahl der Reports
+            //rowCnt = 10;
 
-            for (rowCtr = 1; rowCtr <= rowCnt; rowCtr++)
-            {
-                // Create new row and add it to the table.
-                TableRow tRow = new TableRow();
+            //for (rowCtr = 1; rowCtr <= rowCnt; rowCtr++)
+            //{
+            //    // Create new row and add it to the table.
+            //    TableRow tRow = new TableRow();
 
-                TableCell tCell = new TableCell();
-                tCell.Text = "Ticketnummer";
-                tRow.Cells.Add(tCell);
+            //    TableCell tCell = new TableCell();
+            //    tCell.Text = "Ticketnummer";
+            //    tRow.Cells.Add(tCell);
 
-                tCell = new TableCell();
-                tCell.Text = "Erstellt von";
-                tRow.Cells.Add(tCell); 
+            //    tCell = new TableCell();
+            //    tCell.Text = "Erstellt von";
+            //    tRow.Cells.Add(tCell);
 
-                tCell = new TableCell();
-                tCell.Text = "Programm";
-                tRow.Cells.Add(tCell);
+            //    tCell = new TableCell();
+            //    tCell.Text = "Erstellt am";
+            //    tRow.Cells.Add(tCell); 
 
-                tCell = new TableCell();
-                tCell.Text = "Release";
-                tRow.Cells.Add(tCell);
+            //    tCell = new TableCell();
+            //    tCell.Text = "Programm";
+            //    tRow.Cells.Add(tCell);
 
-                tCell = new TableCell();
-                tCell.Text = "Subrelease";
-                tRow.Cells.Add(tCell);
+            //    tCell = new TableCell();
+            //    tCell.Text = "Release";
+            //    tRow.Cells.Add(tCell);
 
-                tCell = new TableCell();
-                tCell.Text = "Build";
-                tRow.Cells.Add(tCell);
+            //    tCell = new TableCell();
+            //    tCell.Text = "Subrelease";
+            //    tRow.Cells.Add(tCell);
 
-                tCell = new TableCell();
-                tCell.Text = "Beschreibung";
-                tRow.Cells.Add(tCell);
+            //    tCell = new TableCell();
+            //    tCell.Text = "Build";
+            //    tRow.Cells.Add(tCell);
 
-                tCell = new TableCell();
-                tCell.Text = "Status";
-                tRow.Cells.Add(tCell);
+            //    tCell = new TableCell();
+            //    tCell.Text = "Beschreibung";
+            //    tRow.Cells.Add(tCell);
 
-                //if( stauts== offen)
-                Button btn = new Button();
-                btn.Text = "Besträtigen";
-                btn.CommandName = "text";
-                btn.ID = "Button" + rowCtr.ToString();
-                btn.CommandArgument = "test";
-                btn.Click += Button3_Click;
-                tCell.Controls.Add(btn);
-                tRow.Cells.Add(tCell);
-                //elese tCell.text= Status
+            //    tCell = new TableCell();
+            //    tCell.Text = "Status";
+            //    tRow.Cells.Add(tCell);
 
-                Table1.Rows.Add(tRow);
-            }
+            //    //if( stauts== offen)
+            //    Button btn = new Button();
+            //    btn.Text = "Bestätigen";
+            //    btn.CommandName = "text";
+            //    btn.ID = "Button" + rowCtr.ToString();
+            //    btn.CommandArgument = "test";
+            //    btn.Click += Button3_Click;
+            //    tCell.Controls.Add(btn);
+            //    tRow.Cells.Add(tCell);
+            //    //else tCell.text= Status
+                
+            //    Table1.Rows.Add(tRow);
+            //}
         }
 
         protected void Button3_Click(object sender, EventArgs e)
         {
+            if (sender is Button)
+            {
+                Button btSender = (Button)sender;
 
+                SupportTicket ticket = SupportTicketDAO.getSupportTicketByIdOrNull(Int32.Parse(btSender.CommandArgument));
+
+                if (ticket == null)
+                {
+                    //whoops!? Ticket deleted?
+                    return;
+                }
+
+                //hacky, but updates table properly
+                setStatusOfTicketRowAsClosed(ticket.TicketID);
+
+                ticket.IsOpen = false;
+                HodorGlobals.save();
+            }
         }
 
         protected void MenuLink_Command(object sender, CommandEventArgs e)
@@ -105,23 +126,92 @@ namespace HODOR.Members.Administration
             }
 
         }
+
+        protected void setStatusOfTicketRowAsClosed(Int32 ticketId)
+        {
+            //sry, hacky, but other solutions led to mixed results @author: Aaron
+            TableRow row = findRowByIdOrNull(ticketId);
+            row.Cells[8].Controls.Clear();
+            row.Cells[8].Text = "Abgeschlossen";
+        }
+
+        protected TableRow findRowByIdOrNull(Int32 ticketId)
+        {
+            //sry, hacky as well @author: Aaron
+            foreach (TableRow row in Table1.Rows)
+            {
+                if (!row.Cells[0].Text.Contains("Ticketnummer"))
+                {
+                    if (row.Cells[0].Controls.OfType<LiteralControl>().ToList<LiteralControl>()[0].Text == ticketId.ToString())
+                    {
+                        return row;
+                    }
+                }
+            }
+            return null;
+        }
+
         protected void ticketview()
         {
             //AARON!!! ich will ein TicketDAO und eine Ticket Tabelle!
 
-            /*  foreach (Ticket item in ticketDao.getAllTickets())
-               {
+            foreach (SupportTicket item in SupportTicketDAO.getAllSupportTickets())
+            {
+                TableRow r = new TableRow();
+                r.Cells.Add(createNewTableCell(item.TicketID.ToString()));
 
-                   TableRow r = new TableRow();
-                   r.Cells.Add(createNewTableCell(item.Benutzer.NutzerNr.ToString()));
-                   r.Cells.Add(createNewTableCell(item.Build.Programm.Name.ToString()));
-                   r.Cells.Add(createNewTableCell(item.BuildID.ToString()));
-                   r.Cells.Add(createNewTableCell(item.DownloadDatum.ToString()));
-                   Table1.Rows.Add(r);
-               }*/
+                if (item.Benutzer != null)
+                {
+                    r.Cells.Add(createNewTableCell(item.Benutzer.NutzerNr));
+                }
+                else
+                {
+                    r.Cells.Add(createNewTableCell("Gelöschter Benutzer"));
+                }
+
+                r.Cells.Add(createNewTableCell(String.Format("{0:dd.MM.yyyy}", item.EinreichungsDatum)));
+
+                if (item.Programm != null)
+                {
+                    r.Cells.Add(createNewTableCell(item.Programm.Name));
+                }
+                else
+                {
+                    r.Cells.Add(createNewTableCell("Gelöschtes Programm"));
+                }
+
+                r.Cells.Add(createNewTableCell(item.ReleaseNummer.ToString()));
+                r.Cells.Add(createNewTableCell(item.SubreleaseNummer.ToString()));
+                r.Cells.Add(createNewTableCell(item.BuildNummer.ToString()));
+                r.Cells.Add(createNewTableCell(item.Fallbeschreibung));
+
+                if (item.IsOpen)
+                {
+                    TableCell tCell = new TableCell();
+                    Button btn = new Button();
+                    btn.Text = "Schließen";
+                    btn.CommandName = "close";
+                    btn.ID = "TicketCloseButton" + item.TicketID.ToString();
+                    btn.CommandArgument = item.TicketID.ToString();
+                    btn.Click += Button3_Click;
+                    tCell.Controls.Add(btn);
+                    r.Cells.Add(tCell);
+                }
+                else
+                {
+                    r.Cells.Add(createNewTableCell("Abgeschlossen"));
+                }
+                Table1.Rows.Add(r);
+            }
 
         }
 
+        protected TableCell createNewTableCell(string cellContent)
+        {
+            TableCell c = new TableCell();
+            c.Controls.Add(new LiteralControl(cellContent));
+            return c;
+        }
 
         protected void SelectedChangeBuild(object sender, EventArgs e)
         {

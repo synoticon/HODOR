@@ -27,10 +27,10 @@ namespace HODOR
             //Rechte permission = RechteDAO.createAndGetRechte("MayViewUsers");
             //permission.Beschreibung = "May view the all users page";
 
-            Rolle role = RolleDAO.createAndGetRolle("Useradmin");
+            //Rolle role = RolleDAO.createAndGetRolle("Useradmin");
             //role.Rechtes.Add(permission);
 
-            Benutzer user = BenutzerDAO.createAndGetUser("Hodor!", "Hodor", new System.Net.Mail.MailAddress("hodor@hodor.com"), "Hodor123", role);
+            Benutzer user = BenutzerDAO.createAndGetUser("Hodor!", "Hodor", new System.Net.Mail.MailAddress("hodor@hodor.com"), "Hodor123", RolleDAO.getRoleByNameOrNull("Administrator"));
 
             DownloadHistoryDAO.createAndGetDownloadHistory(user, build);
 
@@ -140,9 +140,26 @@ namespace HODOR
                             build.Beschreibung ="Build " + j + " of Subrelease " + k + " of Release " + i + " of " + prog.Name;
                             countOfCreatedEntitys++;
                             countOfDatabaseTableRows += 2;
+
                             if (j % 2 == 1)
                             {
                                 DownloadHistoryDAO.createAndGetDownloadHistory(user, build);
+                                countOfCreatedEntitys++;
+                                countOfDatabaseTableRows++;
+                            }
+
+                            if (j == 1)
+                            {
+                                SupportTicket ticket = SupportTicketDAO.createAndGetSupportTicket(user, "Son ding das Grün sein sollte ist Rot irgendwo!", prog, rel.Releasenummer, sub.Releasenummer, build.Releasenummer);
+                                ticket.IsOpen = false;
+                                HodorGlobals.save();
+                                countOfCreatedEntitys++;
+                                countOfDatabaseTableRows++;
+                            }
+
+                            if (j == Int32.Parse(tb_NumberOfBuildsPerSubrelease.Text))
+                            {
+                                SupportTicket ticket = SupportTicketDAO.createAndGetSupportTicket(user, "Ich habe in der Suche 'Autoschlüssel' eingegeben, doch obwohl er genau vor mir lag, hat die Suche ihn nicht gefunden!", prog, rel.Releasenummer, sub.Releasenummer, build.Releasenummer);
                                 countOfCreatedEntitys++;
                                 countOfDatabaseTableRows++;
                             }

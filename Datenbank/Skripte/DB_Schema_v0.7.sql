@@ -17,6 +17,7 @@ CREATE TABLE [gr1].Programm
 (
 	ProgrammID INT IDENTITY(1,1) NOT NULL,
 	Name varchar(255) NOT NULL,
+	Beschreibung nvarchar(511) NULL,
 
 	CONSTRAINT PK_ProgrammID PRIMARY KEY (ProgrammID)
 );
@@ -132,7 +133,9 @@ CREATE TABLE [gr1].Download_History
 
 CREATE TABLE [gr1].Lizenz
 (
-	LizenzID INT IDENTITY(1,1) NOT NULL PRIMARY KEY
+	LizenzID INT IDENTITY(1,1) NOT NULL,
+
+	CONSTRAINT PK_LizenzID PRIMARY KEY (LizenzID)
 );
 
 CREATE TABLE [gr1].Lizenz_Zeitlich
@@ -174,6 +177,24 @@ CREATE TABLE [gr1].Benutzer_Zu_Lizenz
 	CONSTRAINT FK_BzL_Lizenz FOREIGN KEY (LizenzID) REFERENCES [gr1].Lizenz(LizenzID) ON DELETE CASCADE ON UPDATE NO ACTION,
 	CONSTRAINT FK_BzL_Benutzer FOREIGN KEY (BenutzerID) REFERENCES [gr1].Benutzer(BenutzerID) ON DELETE CASCADE ON UPDATE NO ACTION
 );
+
+CREATE TABLE [gr1].SupportTicket
+(
+	TicketID INT IDENTITY(1,1) NOT NULL,
+	Fallbeschreibung nvarchar(1023) NULL,
+	ErstellerID INT NULL,
+	EinreichungsDatum DATE NOT NULL,
+	ProgrammID INT NULL,
+	ReleaseNummer INT NOT NULL,
+	SubreleaseNummer INT NOT NULL,
+	BuildNummer INT NOT NULL,
+	IsOpen BIT NOT NULL,
+
+	CONSTRAINT PK_SupportTicket PRIMARY KEY (TicketID),
+	CONSTRAINT FK_TicketErsteller FOREIGN KEY (ErstellerID) REFERENCES [gr1].Benutzer(BenutzerID) ON DELETE SET NULL ON UPDATE NO ACTION,
+	CONSTRAINT FK_TicketProgramm FOREIGN KEY (ProgrammID) REFERENCES [gr1].Programm(ProgrammID) ON DELETE SET NULL ON UPDATE NO ACTION
+)
+
 /*
 **	2. Schritt des Scripts: Die ersten (offensichtlichen) Indexe anlegen
 */
@@ -204,4 +225,17 @@ CREATE NONCLUSTERED INDEX IDX_Release_Programm ON [gr1].Release (ReleaseVonProgr
 CREATE NONCLUSTERED INDEX IDX_Subrelease_Release ON [gr1].Subrelease (SubreleaseVonRelease ASC);
 
 --Performance für Navigation über Build
-CREATE NONCLUSTERED INDEX IDX_Build_Subrelease ON [gr1].Build (BuildVonSubrelease ASC); 
+CREATE NONCLUSTERED INDEX IDX_Build_Subrelease ON [gr1].Build (BuildVonSubrelease ASC);
+
+GO
+/*
+**	4. Schritt des Script: Standarddaten anlegen
+*/
+--Rollen
+INSERT INTO [gr1].Rolle (Rollenname) VALUES ('Administrator');
+INSERT INTO [gr1].Rolle (Rollenname) VALUES ('Supporter');
+INSERT INTO [gr1].Rolle (Rollenname) VALUES ('Member');
+GO
+
+--Benutzer
+INSERT INTO [gr1].Benutzer (NutzerNr, Email, Name, PasswortHash, RolleID) VALUES ('admin', 'admin@hodor.com', 'Administrator', 'af50dec6308086b50c8a4895611ca374', (SELECT RolleID FROM [gr1].Rolle WHERE Rollenname = 'Administrator'));

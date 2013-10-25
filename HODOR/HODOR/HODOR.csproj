@@ -178,6 +178,7 @@
     <Compile Include="src\DAO\ReleaseDAO.cs" />
     <Compile Include="src\DAO\RolleDAO.cs" />
     <Compile Include="src\DAO\SubreleaseDAO.cs" />
+    <Compile Include="src\DAO\SupportTicketDAO.cs" />
     <Compile Include="src\Globals\HodorGlobals.cs" />
     <Compile Include="src\Globals\HodorRoleProvider.cs" />
     <Compile Include="Startseite.aspx.cs">

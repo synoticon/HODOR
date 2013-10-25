@@ -28,6 +28,8 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("HODORModel", "FK_Release_Von_Programm", "Programm", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HODOR.Programm), "Release", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HODOR.Release), true)]
 [assembly: EdmRelationshipAttribute("HODORModel", "FK_Subrelease_Zu_OberRelease", "Release", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HODOR.Release), "Subrelease", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HODOR.Subrelease), true)]
 [assembly: EdmRelationshipAttribute("HODORModel", "Benutzer_Zu_Lizenz", "Benutzer", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HODOR.Benutzer), "Lizenz", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HODOR.Lizenz))]
+[assembly: EdmRelationshipAttribute("HODORModel", "FK_TicketErsteller", "Benutzer", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(HODOR.Benutzer), "SupportTicket", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HODOR.SupportTicket), true)]
+[assembly: EdmRelationshipAttribute("HODORModel", "FK_TicketProgramm", "Programm", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(HODOR.Programm), "SupportTicket", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HODOR.SupportTicket), true)]
 
 #endregion
 
@@ -174,6 +176,22 @@ namespace HODOR
             }
         }
         private ObjectSet<Rolle> _Rolles;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<SupportTicket> SupportTickets
+        {
+            get
+            {
+                if ((_SupportTickets == null))
+                {
+                    _SupportTickets = base.CreateObjectSet<SupportTicket>("SupportTickets");
+                }
+                return _SupportTickets;
+            }
+        }
+        private ObjectSet<SupportTicket> _SupportTickets;
 
         #endregion
 
@@ -225,6 +243,14 @@ namespace HODOR
         public void AddToRolles(Rolle rolle)
         {
             base.AddObject("Rolles", rolle);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the SupportTickets EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToSupportTickets(SupportTicket supportTicket)
+        {
+            base.AddObject("SupportTickets", supportTicket);
         }
 
         #endregion
@@ -498,6 +524,28 @@ namespace HODOR
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Lizenz>("HODORModel.Benutzer_Zu_Lizenz", "Lizenz", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("HODORModel", "FK_TicketErsteller", "SupportTicket")]
+        public EntityCollection<SupportTicket> SupportTickets
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<SupportTicket>("HODORModel.FK_TicketErsteller", "SupportTicket");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SupportTicket>("HODORModel.FK_TicketErsteller", "SupportTicket", value);
                 }
             }
         }
@@ -1288,6 +1336,30 @@ namespace HODOR
         private global::System.String _Name;
         partial void OnNameChanging(global::System.String value);
         partial void OnNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Beschreibung
+        {
+            get
+            {
+                return _Beschreibung;
+            }
+            set
+            {
+                OnBeschreibungChanging(value);
+                ReportPropertyChanging("Beschreibung");
+                _Beschreibung = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Beschreibung");
+                OnBeschreibungChanged();
+            }
+        }
+        private global::System.String _Beschreibung;
+        partial void OnBeschreibungChanging(global::System.String value);
+        partial void OnBeschreibungChanged();
 
         #endregion
 
@@ -1334,6 +1406,28 @@ namespace HODOR
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Release>("HODORModel.FK_Release_Von_Programm", "Release", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("HODORModel", "FK_TicketProgramm", "SupportTicket")]
+        public EntityCollection<SupportTicket> SupportTickets
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<SupportTicket>("HODORModel.FK_TicketProgramm", "SupportTicket");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SupportTicket>("HODORModel.FK_TicketProgramm", "SupportTicket", value);
                 }
             }
         }
@@ -1816,6 +1910,345 @@ namespace HODOR
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Release>("HODORModel.FK_Subrelease_Zu_OberRelease", "Release", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="HODORModel", Name="SupportTicket")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class SupportTicket : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new SupportTicket object.
+        /// </summary>
+        /// <param name="ticketID">Initial value of the TicketID property.</param>
+        /// <param name="releaseNummer">Initial value of the ReleaseNummer property.</param>
+        /// <param name="subreleaseNummer">Initial value of the SubreleaseNummer property.</param>
+        /// <param name="buildNummer">Initial value of the BuildNummer property.</param>
+        /// <param name="isOpen">Initial value of the IsOpen property.</param>
+        /// <param name="einreichungsDatum">Initial value of the EinreichungsDatum property.</param>
+        public static SupportTicket CreateSupportTicket(global::System.Int32 ticketID, global::System.Int32 releaseNummer, global::System.Int32 subreleaseNummer, global::System.Int32 buildNummer, global::System.Boolean isOpen, global::System.DateTime einreichungsDatum)
+        {
+            SupportTicket supportTicket = new SupportTicket();
+            supportTicket.TicketID = ticketID;
+            supportTicket.ReleaseNummer = releaseNummer;
+            supportTicket.SubreleaseNummer = subreleaseNummer;
+            supportTicket.BuildNummer = buildNummer;
+            supportTicket.IsOpen = isOpen;
+            supportTicket.EinreichungsDatum = einreichungsDatum;
+            return supportTicket;
+        }
+
+        #endregion
+
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 TicketID
+        {
+            get
+            {
+                return _TicketID;
+            }
+            set
+            {
+                if (_TicketID != value)
+                {
+                    OnTicketIDChanging(value);
+                    ReportPropertyChanging("TicketID");
+                    _TicketID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("TicketID");
+                    OnTicketIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _TicketID;
+        partial void OnTicketIDChanging(global::System.Int32 value);
+        partial void OnTicketIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Fallbeschreibung
+        {
+            get
+            {
+                return _Fallbeschreibung;
+            }
+            set
+            {
+                OnFallbeschreibungChanging(value);
+                ReportPropertyChanging("Fallbeschreibung");
+                _Fallbeschreibung = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Fallbeschreibung");
+                OnFallbeschreibungChanged();
+            }
+        }
+        private global::System.String _Fallbeschreibung;
+        partial void OnFallbeschreibungChanging(global::System.String value);
+        partial void OnFallbeschreibungChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> ErstellerID
+        {
+            get
+            {
+                return _ErstellerID;
+            }
+            set
+            {
+                OnErstellerIDChanging(value);
+                ReportPropertyChanging("ErstellerID");
+                _ErstellerID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ErstellerID");
+                OnErstellerIDChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _ErstellerID;
+        partial void OnErstellerIDChanging(Nullable<global::System.Int32> value);
+        partial void OnErstellerIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> ProgrammID
+        {
+            get
+            {
+                return _ProgrammID;
+            }
+            set
+            {
+                OnProgrammIDChanging(value);
+                ReportPropertyChanging("ProgrammID");
+                _ProgrammID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ProgrammID");
+                OnProgrammIDChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _ProgrammID;
+        partial void OnProgrammIDChanging(Nullable<global::System.Int32> value);
+        partial void OnProgrammIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ReleaseNummer
+        {
+            get
+            {
+                return _ReleaseNummer;
+            }
+            set
+            {
+                OnReleaseNummerChanging(value);
+                ReportPropertyChanging("ReleaseNummer");
+                _ReleaseNummer = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ReleaseNummer");
+                OnReleaseNummerChanged();
+            }
+        }
+        private global::System.Int32 _ReleaseNummer;
+        partial void OnReleaseNummerChanging(global::System.Int32 value);
+        partial void OnReleaseNummerChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 SubreleaseNummer
+        {
+            get
+            {
+                return _SubreleaseNummer;
+            }
+            set
+            {
+                OnSubreleaseNummerChanging(value);
+                ReportPropertyChanging("SubreleaseNummer");
+                _SubreleaseNummer = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("SubreleaseNummer");
+                OnSubreleaseNummerChanged();
+            }
+        }
+        private global::System.Int32 _SubreleaseNummer;
+        partial void OnSubreleaseNummerChanging(global::System.Int32 value);
+        partial void OnSubreleaseNummerChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 BuildNummer
+        {
+            get
+            {
+                return _BuildNummer;
+            }
+            set
+            {
+                OnBuildNummerChanging(value);
+                ReportPropertyChanging("BuildNummer");
+                _BuildNummer = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("BuildNummer");
+                OnBuildNummerChanged();
+            }
+        }
+        private global::System.Int32 _BuildNummer;
+        partial void OnBuildNummerChanging(global::System.Int32 value);
+        partial void OnBuildNummerChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean IsOpen
+        {
+            get
+            {
+                return _IsOpen;
+            }
+            set
+            {
+                OnIsOpenChanging(value);
+                ReportPropertyChanging("IsOpen");
+                _IsOpen = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("IsOpen");
+                OnIsOpenChanged();
+            }
+        }
+        private global::System.Boolean _IsOpen;
+        partial void OnIsOpenChanging(global::System.Boolean value);
+        partial void OnIsOpenChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime EinreichungsDatum
+        {
+            get
+            {
+                return _EinreichungsDatum;
+            }
+            set
+            {
+                OnEinreichungsDatumChanging(value);
+                ReportPropertyChanging("EinreichungsDatum");
+                _EinreichungsDatum = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("EinreichungsDatum");
+                OnEinreichungsDatumChanged();
+            }
+        }
+        private global::System.DateTime _EinreichungsDatum;
+        partial void OnEinreichungsDatumChanging(global::System.DateTime value);
+        partial void OnEinreichungsDatumChanged();
+
+        #endregion
+
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("HODORModel", "FK_TicketErsteller", "Benutzer")]
+        public Benutzer Benutzer
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Benutzer>("HODORModel.FK_TicketErsteller", "Benutzer").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Benutzer>("HODORModel.FK_TicketErsteller", "Benutzer").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Benutzer> BenutzerReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Benutzer>("HODORModel.FK_TicketErsteller", "Benutzer");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Benutzer>("HODORModel.FK_TicketErsteller", "Benutzer", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("HODORModel", "FK_TicketProgramm", "Programm")]
+        public Programm Programm
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Programm>("HODORModel.FK_TicketProgramm", "Programm").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Programm>("HODORModel.FK_TicketProgramm", "Programm").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Programm> ProgrammReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Programm>("HODORModel.FK_TicketProgramm", "Programm");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Programm>("HODORModel.FK_TicketProgramm", "Programm", value);
                 }
             }
         }
