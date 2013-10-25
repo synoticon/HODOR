@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using HODOR.src.DAO;
+using HODOR.src.Globals;
 
 namespace HODOR
 {
@@ -13,10 +14,15 @@ namespace HODOR
 
         protected void Page_Load(object sender, EventArgs e)
         {
+
+
+            String Username = System.Threading.Thread.CurrentPrincipal.Identity.Name;
+            Benutzer user = BenutzerDAO.getUserByKundenNrOrNull(Username);
+
             if (Request.QueryString.Count != 0)
             {
                 lb_programmname.Text = ProgrammDAO.getProgrammByProgrammIDOrNull(int.Parse(Request.QueryString["progID"])).Name;
-
+                
                 if (!IsPostBack)
                 {
                     fillOutDDL_Release();
@@ -24,12 +30,60 @@ namespace HODOR
             }
             else
             {
-                Response.Redirect("LandingPage.aspx");
+                SelectProgrammView(user);
+                DDL_Programm.Visible = true;
+                
             }
+        
         }
 
+
+        protected void ClearAllDDL()
+        {
+            DDL_SubRelease.Items.Clear();
+            DDL_SubRelease.Items.Add((new ListItem("---Select---", "null")));
+            DDL_Build.Items.Clear();
+            DDL_Build.Items.Add((new ListItem("---Select---", "null")));
+            DDL_Release.Items.Clear();
+            DDL_Release.Items.Add((new ListItem("---Select---", "null")));
+            b_download.Visible = false;
+            l_Builddiscription.Text = "";
+            l_Releasediscription.Text = "";
+            l_SubReleasediscription.Text = "";
+
+        }
+
+        protected void SelectProgrammView(Benutzer user)
+        {
+            
+            
+            if (HodorRoleProvider.isSupportAllowed(user))
+            {
+                foreach (Programm item in ProgrammDAO.getAllProgramme())
+                {
+
+                    if (DDL_Programm.Items.FindByText(item.Name) == null)
+                    {
+                        DDL_Programm.Items.Add(new ListItem(item.Name, item.ProgrammID.ToString()));
+                    }
+                }
+            }
+            else
+            {
+
+                foreach (Programm item in BenutzerDAO.getAllProgrammsLicensedForUser(user))
+                {
+                    if (DDL_Programm.Items.FindByText(item.Name) == null)
+                    {
+                        DDL_Programm.Items.Add(new ListItem(item.Name, item.ProgrammID.ToString()));
+                    }
+                }
+            }
+        }
         protected void fillOutDDL_Release()
         {
+            DDL_Release.Items.Clear();
+            DDL_Release.Items.Add((new ListItem("---Select---", "null")));
             foreach (Release item in BenutzerDAO.getAllReleasesOfProgrammLicensedForUser
                          (BenutzerDAO.getUserByKundenNrOrNull(System.Threading.Thread.CurrentPrincipal.Identity.Name),
                           ProgrammDAO.getProgrammByProgrammIDOrNull(int.Parse(Request.QueryString["progID"]))).ToList())
@@ -43,30 +97,57 @@ namespace HODOR
 
         protected void SelectedChangeRelease(object sender, EventArgs e)
         {
-            foreach (Subrelease item in ReleaseDAO.getSingleReleaseByID(int.Parse(DDL_Release.SelectedValue)).Subreleases)
+            DDL_SubRelease.Items.Clear();
+            DDL_SubRelease.Items.Add((new ListItem("---Select---", "null")));
+            if (DDL_Release.SelectedValue != "null")
             {
-                if (DDL_SubRelease.Items.FindByText(item.Releasenummer.ToString()) == null)
+                foreach (Subrelease item in ReleaseDAO.getSingleReleaseByID(int.Parse(DDL_Release.SelectedValue)).Subreleases)
                 {
-                    DDL_SubRelease.Items.Add((new ListItem(item.Releasenummer.ToString(), item.ReleaseID.ToString())));
+                    if (DDL_SubRelease.Items.FindByText(item.Releasenummer.ToString()) == null)
+                    {
+                        DDL_SubRelease.Items.Add((new ListItem(item.Releasenummer.ToString(), item.ReleaseID.ToString())));
+                    }
                 }
-            }
 
-            l_Releasediscription.Text = ReleaseDAO.getSingleReleaseByID(int.Parse(DDL_Release.SelectedValue)).Beschreibung;
+                l_Releasediscription.Text = ReleaseDAO.getSingleReleaseByID(int.Parse(DDL_Release.SelectedValue)).Beschreibung;
+            }
         }
 
         protected void SelectedChangeSubRelease(object sender, EventArgs e)
         {
-            foreach (Subrelease item in ReleaseDAO.getSingleReleaseByID(int.Parse(DDL_Release.SelectedValue)).Subreleases)
+            DDL_Build.Items.Clear();
+            DDL_Build.Items.Add((new ListItem("---Select---", "null")));
+            if (DDL_SubRelease.SelectedValue != "null")
             {
-                if (item.ReleaseID == int.Parse(DDL_SubRelease.SelectedValue))
+                foreach (Subrelease item in ReleaseDAO.getSingleReleaseByID(int.Parse(DDL_Release.SelectedValue)).Subreleases)
                 {
-                    l_SubReleasediscription.Text = item.Beschreibung;
-                    foreach (Build build in item.Builds)
+                    if (item.ReleaseID == int.Parse(DDL_SubRelease.SelectedValue))
                     {
-                        if (DDL_Build.Items.FindByText(build.ReleaseID.ToString()) == null)
+                        l_SubReleasediscription.Text = item.Beschreibung;
+                        foreach (Build build in item.Builds)
                         {
-                            DDL_Build.Items.Add((new ListItem(build.Releasenummer.ToString(), build.ReleaseID.ToString())));
+                            if (DDL_Build.Items.FindByText(build.ReleaseID.ToString()) == null)
+                            {
+                                DDL_Build.Items.Add((new ListItem(build.Releasenummer.ToString(), build.ReleaseID.ToString())));
+                            }
                         }
+                    }
+                }
+            }
+        }
+
+        protected void SelectedChangeProgramm(object sender, EventArgs e)
+        {
+            ClearAllDDL();
+            if (DDL_Programm.SelectedValue != "null")
+            {
+                foreach (Release item in BenutzerDAO.getAllReleasesOfProgrammLicensedForUser
+                       (BenutzerDAO.getUserByKundenNrOrNull(System.Threading.Thread.CurrentPrincipal.Identity.Name),
+                        ProgrammDAO.getProgrammByProgrammIDOrNull(int.Parse(DDL_Programm.SelectedValue))).ToList())
+                {
+                    if (DDL_Release.Items.FindByText(item.Releasenummer.ToString()) == null)
+                    {
+                        DDL_Release.Items.Add(new ListItem(item.Releasenummer.ToString(), item.ReleaseID.ToString()));
                     }
                 }
             }

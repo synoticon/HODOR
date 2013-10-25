@@ -111,8 +111,8 @@ namespace HODOR.Members.Administration
                     if(newBuild == null)
                     {
                         //AARON!!! ich will den datei Pfad mit uebergeben!
-                        //AARON!!! irgendwas stimmt mit der Releasenummer vetreilung nicht!
-                        newBuild= BuildDAO.createAndGetBuild(newSubRelease, int.Parse(splitfilename[3]));
+
+                        newBuild = BuildDAO.createAndGetBuild(newSubRelease, int.Parse(splitfilename[3]), FileUpload1.FileName);
                           message += "Neues Build erstellt:" + newBuild.Releasenummer;
                     }
                     l_message.Text =message;

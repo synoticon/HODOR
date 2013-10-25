@@ -16,6 +16,12 @@ namespace HODOR.Members
             
             String Username = System.Threading.Thread.CurrentPrincipal.Identity.Name;
             Benutzer user = BenutzerDAO.getUserByKundenNrOrNull(Username);
+
+            if (HodorRoleProvider.isSupportAllowed(user))
+            {
+                User.Visible = true;
+            }
+
             if (HodorRoleProvider.isSupportAllowed(user))
                 b_edit.Visible = true;
             if (Request.QueryString.Count > 0)
