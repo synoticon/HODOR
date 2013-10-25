@@ -10,7 +10,9 @@
             <h1><asp:Label ID="lb_programmname_text" runat="server" Text="Programm:" /></h1>
             <br />
             <h2><asp:Label ID="lb_programmname" runat="server" Text="" /></h2>
-
+               <asp:DropDownList ID="DDL_Programm" runat="server" OnSelectedIndexChanged="SelectedChangeProgramm" AutoPostBack="true" Visible ="false">
+                            <asp:ListItem Text="---Select---" Value="null" />
+                        </asp:DropDownList>
 
             <br />
             <asp:Table ID="Table1" runat="server" BorderStyle="Dashed" BorderColor="Black" BorderWidth="1" CellPadding="10" GridLines="Both">

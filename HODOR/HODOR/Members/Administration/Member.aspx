@@ -8,8 +8,6 @@
         <asp:LinkButton ID="Sight" runat="server" OnCommand="MenuLink_Command" CommandName="Sight">Ansicht</asp:LinkButton>
         &nbsp; |&nbsp;
         <asp:LinkButton ID="Build" runat="server" OnCommand="MenuLink_Command" CommandName="Build">Anlegen</asp:LinkButton>
-        &nbsp; |&nbsp;
-        <asp:LinkButton ID="Upload" runat="server" OnCommand="MenuLink_Command" CommandName="Upload">Programm Anlegen</asp:LinkButton>
         <br />
         <br />
         <asp:UpdatePanel runat="server">
@@ -85,27 +83,11 @@
                         </p>
                     </asp:View>
 
-                    <asp:View ID="UploadView" runat="server">
-                 
-                        
-                    </asp:View>
+                  
                 </asp:MultiView>
                
             </ContentTemplate>
         </asp:UpdatePanel>
-                <div>
-                          <asp:FileUpload ID="FileUpload1" runat="server"/><br />
-                          <asp:RegularExpressionValidator ID="regexpName" runat="server"
-                                ErrorMessage="This expression does not validate."
-                                ControlToValidate="FileUpload1"
-                                ValidationExpression=".*[a-zA-Z0-9]{1,254}_\d{1,10}_\d{1,10}_\d{1,10}..*" />
-
-                            <br />
-                           <textarea id="l_discription" cols="20" rows="2" runat="server"></textarea>
-                            <br />
-                            <asp:Button ID="b_upload" runat="server" OnClick="OnClick_b_upload" Text="Upload File" />&nbsp;<br />
-                        
-                             <asp:Label ID="l_message" runat="server"></asp:Label>
-                        </div>
+          
     </div>
 </asp:Content>

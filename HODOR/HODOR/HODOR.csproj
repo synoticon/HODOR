@@ -69,6 +69,7 @@
   <ItemGroup>
     <Content Include="Impressum.aspx" />
     <Content Include="LoadDirectory\myfile.txt" />
+    <Content Include="Members\Administration\Produktverwaltung.aspx" />
     <Content Include="Members\Administration\TicketSupport.aspx" />
     <Content Include="Members\Administration\Verwaltung.aspx" />
     <Content Include="Members\Logout.aspx" />
@@ -92,6 +93,13 @@
     </Compile>
     <Compile Include="Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Members\Administration\Produktverwaltung.aspx.cs">
+      <DependentUpon>Produktverwaltung.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Members\Administration\Produktverwaltung.aspx.designer.cs">
+      <DependentUpon>Produktverwaltung.aspx</DependentUpon>
     </Compile>
     <Compile Include="Members\Administration\TicketSupport.aspx.cs">
       <DependentUpon>TicketSupport.aspx</DependentUpon>

@@ -43,7 +43,7 @@
 
       <h2><asp:LinkButton ID="Product" runat="server" OnCommand="MenuLink_Command" CommandName="Product">Produkte</asp:LinkButton>
         &nbsp; |&nbsp;
-        <asp:LinkButton ID="User" runat="server" OnCommand="MenuLink_Command" CommandName="User">Benutzer</asp:LinkButton></h2>  
+        <asp:LinkButton ID="User" runat="server" OnCommand="MenuLink_Command" CommandName="User" Visible="false">Benutzer</asp:LinkButton></h2>  
         <br />
         <br />
         <asp:UpdatePanel ID="UpdatePanel1" runat="server">

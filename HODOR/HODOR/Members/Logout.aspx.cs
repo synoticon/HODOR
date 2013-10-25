@@ -13,8 +13,8 @@ namespace HODOR.Members
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            FormsAuthentication.SignOut();
-            Response.Redirect("./Startseite.aspx");
+           FormsAuthentication.SignOut();
+           Response.Redirect("./Startseite.aspx");
         }
     }
 }

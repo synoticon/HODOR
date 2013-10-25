@@ -4,6 +4,8 @@
 <asp:Content ID="NaviContent" ContentPlaceHolderID="NaviContentPlaceHolder" runat="server">
     <asp:Menu ID="Menu1" runat="server" Orientation="Horizontal">
         <Items>
+            <asp:MenuItem NavigateUrl="~/Members/LandingPage.aspx" Text="Startseite" Value="Produkte">
+            </asp:MenuItem>
             <asp:MenuItem NavigateUrl="~/Members/Produkte.aspx" Text="Produkte" Value="Produkte">
             </asp:MenuItem>
             <asp:MenuItem NavigateUrl="~/Members/Administration/Verwaltung.aspx" Text="Verwaltung" Value="Verwaltung">
@@ -12,7 +14,9 @@
             </asp:MenuItem>
              <asp:MenuItem NavigateUrl="~/Members/Administration/TicketSupport.aspx" Text="Ticket Support" Value="Ticket">
             </asp:MenuItem>
-                 <asp:MenuItem NavigateUrl="~/Members/Logout.aspx" Text="Logout" Value="Logout">
+               <asp:MenuItem NavigateUrl="~/Members/Administration/Produktverwaltung.aspx" Text="Produktverwaltung" Value="Ticket">
+            </asp:MenuItem>
+             <asp:MenuItem NavigateUrl="~/Members/Logout.aspx" Text="Logout" Value="Logout">
             </asp:MenuItem>
         </Items>
     </asp:Menu>

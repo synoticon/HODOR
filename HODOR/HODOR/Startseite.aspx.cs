@@ -38,7 +38,7 @@ namespace HODOR
 
             FormsAuthentication.SetAuthCookie(user.NutzerNr, false);
              
-            Response.Redirect("Members/LandingPage.aspx");
+           Response.Redirect("Members/LandingPage.aspx");
           }
           else
           {
