@@ -89,15 +89,38 @@ namespace HODOR
 
         protected void buttonClick3(Object sender, System.EventArgs e)
         {
-            //Benutzer user = BenutzerDAO.getUserMatchingKundenNrAndPasswordOrNull("Hodor!1", "Hodor1231"); //works
+            //Benutzer user = BenutzerDAO.getUserByKundenNrOrNull("Seacat");
+            //if (user != null && user.Lizenzs != null && user.Lizenzs.OfType<Lizenz_Zeitlich>().Count() != 0)
+            //{
+            //    Programm prog = user.Lizenzs.OfType<Lizenz_Zeitlich>().ToList<Lizenz_Zeitlich>()[0].Programm;
 
-            //Benutzer user = HodorGlobals.getHodorContext().Benutzers.ToList<Benutzer>()[0];
-            //BenutzerDAO.deleteUser(user); //works
+            //    if (prog.Releases.Count != 0)
+            //    {
+            //        if (prog.Releases.ToList<Release>()[0].Subreleases.Count != 0)
+            //        {
+            //            if (prog.Releases.ToList<Release>()[0].Subreleases.ToList<Subrelease>()[0].Builds.Count != 0)
+            //            {
+            //                BenutzerDAO.sendMailToAllCustomersInformingAboutNewBuild(prog.Releases.ToList<Release>()[0].Subreleases.ToList<Subrelease>()[0].Builds.ToList<Build>()[0]);
+            //                label.Text = "Mail was send";
+            //            }
+            //        }
+            //    }
+            //}
 
-            Programm prog = HodorGlobals.getHodorContext().Programms.ToList<Programm>()[0];
+            Programm prog = ProgrammDAO.getProgrammByExactNameOrNull("Fallout");
+            
+            Release rel = prog.Releases.ToList<Release>()[0];
 
+            Benutzer userFlash = BenutzerDAO.getUserByKundenNrOrNull("Flash");
 
-            label.Text = ReleaseDAO.getNextReleaseNumberFor(prog).ToString(); ;
+            LizenzDAO.createAndGetVersionslizenzForUser(userFlash, rel, 5);
+
+            List<Release> relList = BenutzerDAO.getAllReleasesOfProgrammLicensedForUser(userFlash, prog);
+
+            foreach (Release rele in relList)
+            {
+                label.Text += rele.ReleaseID + ", ";
+            }
         }
 
         protected void createDemoDataWithInput(Object sender, System.EventArgs e)
@@ -125,19 +148,19 @@ namespace HODOR
                 for (int i = 1; i <= Int32.Parse(tb_NumberOfReleases.Text); i++)
                 {
                     Release rel = ReleaseDAO.createAndGetRelease(prog);
-                    rel.Beschreibung = "Release " + i + " of " + prog.Name;
+                    rel.Beschreibung = "Release " + rel.Releasenummer + " of " + prog.Name;
                     countOfCreatedEntitys++;
                     countOfDatabaseTableRows++;
                     for (int k = 1; k <= Int32.Parse(tb_NumberOfSubreleasesPerRelease.Text); k++)
                     {
                         Subrelease sub = SubreleaseDAO.createAndGetSubrelease(rel);
-                        sub.Beschreibung = "Subrelease " + k + " of Release " + i + " of " + prog.Name;
+                        sub.Beschreibung = "Subrelease " + sub.Releasenummer + " of Release " + rel.Releasenummer + " of " + prog.Name;
                         countOfCreatedEntitys++;
                         countOfDatabaseTableRows += 2;
                         for (int j = 1; j <= Int32.Parse(tb_NumberOfBuildsPerSubrelease.Text); j++)
                         {
                             Build build = BuildDAO.createAndGetBuild(sub);
-                            build.Beschreibung ="Build " + j + " of Subrelease " + k + " of Release " + i + " of " + prog.Name;
+                            build.Beschreibung = "Build " + build.Releasenummer + " of Subrelease " + sub.Releasenummer + " of Release " + rel.Releasenummer + " of " + prog.Name;
                             countOfCreatedEntitys++;
                             countOfDatabaseTableRows += 2;
 

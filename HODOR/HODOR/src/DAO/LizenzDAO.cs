@@ -44,7 +44,7 @@ namespace HODOR.src.DAO
             return license;
         }
 
-        public static Lizenz_Versionsorientiert createAndGetZeitlizenzForUser(Benutzer user, Release licensedRelease, Int32 versionIncremention)
+        public static Lizenz_Versionsorientiert createAndGetVersionslizenzForUser(Benutzer user, Release licensedRelease, Int32 versionIncremention)
         {
             Lizenz_Versionsorientiert license = createAndGetVersionslizenz(licensedRelease, versionIncremention);
             BenutzerDAO.addLicenseToUser(user, license);
