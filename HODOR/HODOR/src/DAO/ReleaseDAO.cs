@@ -113,7 +113,7 @@ namespace HODOR.src.DAO
             }
             else
             {
-                throw new Exception("Entities for Release are inconsistent. Duplicate (" + releaseList.Count + ") name detected: " + ReleaseID.ToString());
+                throw new Exception("Entities for Release are inconsistent. Duplicate (" + releaseList.Count + ") ReleaseID detected: " + ReleaseID.ToString());
             }
         }
 

@@ -5,6 +5,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder" runat="server">
 
     <div id="ajaxTest">
+        <h1>Benutzer Profil</h1>
         <table>
             <tr>
                 <td>
@@ -35,13 +36,14 @@
                     <asp:Label ID="l_rolle" runat="server" MaxLength="255" TextMode="SingleLine" /></td>
         </table>
         <br></br>
-        <asp:Button ID="b_edit" runat="server" OnClick="b_edit_Click" Text="Bearbeiten" />
+        <asp:Button ID="b_edit" runat="server" OnClick="b_edit_Click" Text="Bearbeiten"  Visible="false"/>
         <br></br>
         <br></br>
         <br></br>
-        <asp:LinkButton ID="Product" runat="server" OnCommand="MenuLink_Command" CommandName="Product">Produkte</asp:LinkButton>
+
+      <h2><asp:LinkButton ID="Product" runat="server" OnCommand="MenuLink_Command" CommandName="Product">Produkte</asp:LinkButton>
         &nbsp; |&nbsp;
-        <asp:LinkButton ID="User" runat="server" OnCommand="MenuLink_Command" CommandName="User">Benutzer</asp:LinkButton>
+        <asp:LinkButton ID="User" runat="server" OnCommand="MenuLink_Command" CommandName="User" Visible="false">Benutzer</asp:LinkButton></h2>  
         <br />
         <br />
         <asp:UpdatePanel ID="UpdatePanel1" runat="server">
@@ -67,7 +69,7 @@
                             <asp:ListBox runat="server" ID="listbox_user" Height="108px" Width="404px"></asp:ListBox>
                         </p>
                         <p>
-                            <asp:Button ID="b_user_display" runat="server" Text="User Anzeigen" OnClick="OnClick_b_user_display" />
+                            <asp:Button ID="b_user_display" runat="server" Text="User Anzeigen" OnClick="OnClick_b_user_display"/>
                         </p>
                     </asp:View>
                 </asp:MultiView>
@@ -76,6 +78,8 @@
         <br></br>
         <br></br>
         <br></br>
+
+        <h2>Download History</h2>
         <asp:Table ID="Table1" runat="server" BorderStyle="Dashed" BorderColor="Black" BorderWidth="1" CellPadding="10" GridLines="Both">
             <asp:TableHeaderRow>
                 <asp:TableHeaderCell>

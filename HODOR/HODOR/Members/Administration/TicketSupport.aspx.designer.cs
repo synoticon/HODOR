@@ -3,50 +3,41 @@
 //     Der Code wurde von einem Tool generiert.
 //
 //     Änderungen an der Datei führen möglicherweise zu falschem Verhalten, und sie gehen verloren, wenn
-//     der Code erneut generiert wird.
+//     der Code erneut generiert wird. 
 // </automatisch generiert>
 //------------------------------------------------------------------------------
 
-namespace HODOR {
+namespace HODOR.Members.Administration {
     
     
-    public partial class ProduktAuswahlPage {
+    public partial class TicketSupport {
         
         /// <summary>
-        /// lb_programmname_text-Steuerelement
+        /// Ticket_Display-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lb_programmname_text;
+        protected global::System.Web.UI.WebControls.LinkButton Ticket_Display;
         
         /// <summary>
-        /// DDL_Programm-Steuerelement
+        /// Ticket_Create-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DDL_Programm;
+        protected global::System.Web.UI.WebControls.LinkButton Ticket_Create;
         
         /// <summary>
-        /// button1-Steuerelement
+        /// ProfilView-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button button1;
-        
-        /// <summary>
-        /// UpdateProgress1-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
-        /// </remarks>
-        protected global::System.Web.UI.UpdateProgress UpdateProgress1;
+        protected global::System.Web.UI.WebControls.View ProfilView;
         
         /// <summary>
         /// MultiView1-Steuerelement
@@ -58,39 +49,75 @@ namespace HODOR {
         protected global::System.Web.UI.WebControls.MultiView MultiView1;
         
         /// <summary>
-        /// ModView-Steuerelement
+        /// DisplayView-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.View ModView;
+        protected global::System.Web.UI.WebControls.View DisplayView;
         
         /// <summary>
-        /// TestRepeater-Steuerelement
+        /// Table1-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater TestRepeater;
+        protected global::System.Web.UI.WebControls.Table Table1;
         
         /// <summary>
-        /// SqlDataSource1-Steuerelement
+        /// CreateView-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource1;
+        protected global::System.Web.UI.WebControls.View CreateView;
         
         /// <summary>
-        /// TestView-Steuerelement
+        /// Table2-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.View TestView;
+        protected global::System.Web.UI.WebControls.Table Table2;
+        
+        /// <summary>
+        /// DDL_Programm-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList DDL_Programm;
+        
+        /// <summary>
+        /// DDL_Release-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList DDL_Release;
+        
+        /// <summary>
+        /// DDL_SubRelease-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList DDL_SubRelease;
+        
+        /// <summary>
+        /// DDL_Build-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList DDL_Build;
     }
 }

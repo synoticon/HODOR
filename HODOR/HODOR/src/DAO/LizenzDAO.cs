@@ -25,6 +25,13 @@ namespace HODOR.src.DAO
             return createAndGetZeitlizenz(licensedProgramm, DateTime.Now, endDate);
         }
 
+        public static Lizenz_Zeitlich createAndGetZeitlizenzForUser(Benutzer user, Programm licensedProgramm, DateTime endDate)
+        {
+            Lizenz_Zeitlich license =createAndGetZeitlizenz(licensedProgramm, DateTime.Now, endDate);
+            BenutzerDAO.addLicenseToUser(user, license);
+            return license;
+        }
+
         public static Lizenz_Versionsorientiert createAndGetVersionslizenz(Release licensedRelease, Int32 versionIncremention)
         {
             Lizenz_Versionsorientiert license = new Lizenz_Versionsorientiert();//Lizenz_Versionsorientiert.CreateLizenz_Versionsorientiert(versionIncremention, licensedRelease.ReleaseID);
@@ -34,6 +41,13 @@ namespace HODOR.src.DAO
             HodorGlobals.getHodorContext().Lizenzs.AddObject(license);
             HodorGlobals.save();
 
+            return license;
+        }
+
+        public static Lizenz_Versionsorientiert createAndGetZeitlizenzForUser(Benutzer user, Release licensedRelease, Int32 versionIncremention)
+        {
+            Lizenz_Versionsorientiert license = createAndGetVersionslizenz(licensedRelease, versionIncremention);
+            BenutzerDAO.addLicenseToUser(user, license);
             return license;
         }
 

@@ -76,6 +76,12 @@ namespace HODOR.src.DAO
             HodorGlobals.save();
         }
 
+        public static void addLicenseToUser(Benutzer user, Lizenz license)
+        {
+            user.Lizenzs.Add(license);
+            HodorGlobals.save();
+        }
+
         public static List<Benutzer> getAllUsers()
         {
             var userQueryResults = from u in HodorGlobals.getHodorContext().Benutzers.Select(u => u) select u;
@@ -163,7 +169,7 @@ namespace HODOR.src.DAO
             //Admins and Supporters are allowed to see all Programs
             if (HodorRoleProvider.isAdminAllowed(user) || HodorRoleProvider.isSupportAllowed(user))
             {
-                return prog.Releases.ToList<Release>();
+                return ReleaseDAO.getAllMajorReleasesFor(prog);
             }
 
             //if user is not Supporter/Admin, filter by his licenses
@@ -177,7 +183,7 @@ namespace HODOR.src.DAO
             if (licensesTimespan.Count >= 1)
             {
                 //that's ok, with a minimum of one valid TimespanLicense for this prog, he may see all releases of it
-                return prog.Releases.ToList<Release>();
+                return ReleaseDAO.getAllMajorReleasesFor(prog);
             }
 
             List<Lizenz_Versionsorientiert> licensesVersion = user.Lizenzs.OfType<Lizenz_Versionsorientiert>().Where(
@@ -214,14 +220,6 @@ namespace HODOR.src.DAO
             notification.From = new MailAddress("noreply@HODOR-Releaseinformation.com");
             notification.Subject = "New build of " + prog.Name;
 
-            StringBuilder sbVersionNumber = new StringBuilder();
-
-            sbVersionNumber.Append(build.Subrelease.Release.Releasenummer);
-            sbVersionNumber.Append(".");
-            sbVersionNumber.Append(build.Subrelease.Releasenummer);
-            sbVersionNumber.Append(".");
-            sbVersionNumber.Append(build.Releasenummer);
-
             //let's respect some privacy and send seperate mails
             foreach (Benutzer user in usersToBeNotified)
             {
@@ -231,7 +229,7 @@ namespace HODOR.src.DAO
                 notification.Body = "Dear " + user.Name + "\n\n"
                     + "a new build of " + prog.Name + " has been uploaded. You may want to consider to upgrade your current version of " + prog.Name + "\n\n"
                     + "Description of the new build is:\n"
-                    + "Version: " + sbVersionNumber.ToString() + "\n"
+                    + "Version: " + BuildDAO.getVersionStringForBuild(build) + "\n"
                     + build.Beschreibung + "\n\n"
                     + "Best regards\n"
                     + "HODOR Releasemanagement System";

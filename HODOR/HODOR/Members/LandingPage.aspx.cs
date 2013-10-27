@@ -13,9 +13,17 @@ namespace HODOR.Members
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            
             String Username = System.Threading.Thread.CurrentPrincipal.Identity.Name;
             Benutzer user = BenutzerDAO.getUserByKundenNrOrNull(Username);
+
+            if (HodorRoleProvider.isSupportAllowed(user))
+            {
+                User.Visible = true;
+            }
+
+            if (HodorRoleProvider.isSupportAllowed(user))
+                b_edit.Visible = true;
             if (Request.QueryString.Count > 0)
             {
                 if (HodorRoleProvider.isSupportAllowed(user))
@@ -73,7 +81,7 @@ namespace HODOR.Members
 
                 TableRow r = new TableRow();
                 r.Cells.Add(createNewTableCell(item.Benutzer.NutzerNr.ToString()));
-                r.Cells.Add(createNewTableCell(item.Build.Programm.ToString()));
+                r.Cells.Add(createNewTableCell(item.Build.Programm.Name.ToString()));
                 r.Cells.Add(createNewTableCell(item.BuildID.ToString()));
                 r.Cells.Add(createNewTableCell(item.DownloadDatum.ToString()));
                 Table1.Rows.Add(r);
@@ -101,6 +109,7 @@ namespace HODOR.Members
             }
             else
             {
+                
                 foreach (Programm item in BenutzerDAO.getAllProgrammsLicensedForUser(user))
                 {
                     String idName = item.ProgrammID.ToString() + ":" + item.Name.ToString();
@@ -141,7 +150,7 @@ namespace HODOR.Members
         protected void b_edit_Click(object sender, EventArgs e)
         {
             //@Timo Hier Link eintragen wo der User Hingepostet werden muss.
-            Response.Redirect("Administration/Member.aspx?otherUserName=" + Server.UrlEncode(listbox_user.SelectedValue));
+            Response.Redirect("Administration/TicketSupport.aspx");
         }
     }
 }

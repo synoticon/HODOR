@@ -106,8 +106,6 @@ namespace HODOR.Members.Administration
 
         protected void lb_SelectedIndexChanged_Main(object sender, EventArgs e)
         {
-            int lizenz_count = 0;
-
             if (MultiView1.ActiveViewIndex == 0)
             {
                 Benutzer user = BenutzerDAO.getUserByKundenNrOrNull(this.lb_User.SelectedItem.Text);
@@ -115,14 +113,9 @@ namespace HODOR.Members.Administration
                 {
                     this.l_Name.Text = user.Name;
                     this.l_NutzerNr.Text = user.NutzerNr;
-                    this.l_Name.Text = user.Rolle.ToString();
+                    this.l_Name.Text = user.Rolle.Rollenname;
                     this.l_EMail.Text = user.Email;
-                    List<Lizenz> lizenzen = user.Lizenzs.ToList();
-                    foreach (Lizenz lizenz in lizenzen)
-                    {
-                        lizenz_count++;
-                    }
-                    this.l_LizenzAnzahl.Text = lizenz_count.ToString();
+                    this.l_LizenzAnzahl.Text = user.Lizenzs.Count.ToString();
                     this.l_LizenzZaehler.Visible = true;
                     this.l_ende.Visible = true;
                 }
@@ -159,30 +152,18 @@ namespace HODOR.Members.Administration
          * Upload Funktionalität
          */
 
-
-        protected void Button2_Click(object sender, EventArgs e)
+        protected void MenuLink_Command(object sender, CommandEventArgs e)
         {
-            if (FileUpload1.HasFile)
-                try
-                {
-                    string body = TextArea1.Value;
+            string viewName = e.CommandName + "View";
 
-                    FileUpload1.SaveAs("C:\\Uploads\\" +
-                         FileUpload1.FileName);
-                    Label1.Text = "File name: " +
-                         FileUpload1.PostedFile.FileName + "<br>" +
-                         FileUpload1.PostedFile.ContentLength + " kb<br>" +
-                         "Content type: " +
-                         FileUpload1.PostedFile.ContentType;
-                }
-                catch (Exception ex)
-                {
-                    Label1.Text = "ERROR: " + ex.Message.ToString();
-                }
-            else
+            View newView = this.MultiView1.FindControl(viewName) as View;
+
+            if (newView != null)
             {
-                Label1.Text = "You have not specified a file.";
+                this.MultiView1.SetActiveView(newView);
             }
+
         }
+      
     }
 }

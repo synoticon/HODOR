@@ -10,70 +10,25 @@
 namespace HODOR.Members.Administration {
     
     
-    public partial class ProduktVerwaltung {
+    public partial class Produktverwaltung {
         
         /// <summary>
-        /// l_SearchInput-Steuerelement
+        /// Upload-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label l_SearchInput;
+        protected global::System.Web.UI.WebControls.LinkButton Upload;
         
         /// <summary>
-        /// tb_SearchInput-Steuerelement
+        /// Edit-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tb_SearchInput;
-        
-        /// <summary>
-        /// rb_UserSearch-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton rb_UserSearch;
-        
-        /// <summary>
-        /// rb_ProductSearch-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton rb_ProductSearch;
-        
-        /// <summary>
-        /// SearchInputValidator-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RegularExpressionValidator SearchInputValidator;
-        
-        /// <summary>
-        /// b_Search-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button b_Search;
-        
-        /// <summary>
-        /// l_noCatch-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label l_noCatch;
+        protected global::System.Web.UI.WebControls.LinkButton Edit;
         
         /// <summary>
         /// MultiView1-Steuerelement
@@ -85,147 +40,147 @@ namespace HODOR.Members.Administration {
         protected global::System.Web.UI.WebControls.MultiView MultiView1;
         
         /// <summary>
-        /// UserView-Steuerelement
+        /// UploadView-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.View UserView;
+        protected global::System.Web.UI.WebControls.View UploadView;
         
         /// <summary>
-        /// lb_User-Steuerelement
+        /// FileUpload1-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ListBox lb_User;
+        protected global::System.Web.UI.WebControls.FileUpload FileUpload1;
         
         /// <summary>
-        /// l_Name-Steuerelement
+        /// regexpName-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label l_Name;
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator regexpName;
         
         /// <summary>
-        /// l_NutzerNr-Steuerelement
+        /// b_upload-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label l_NutzerNr;
+        protected global::System.Web.UI.WebControls.Button b_upload;
         
         /// <summary>
-        /// l_EMail-Steuerelement
+        /// l_message-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label l_EMail;
+        protected global::System.Web.UI.WebControls.Label l_message;
         
         /// <summary>
-        /// l_Rolle-Steuerelement
+        /// EditView-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label l_Rolle;
+        protected global::System.Web.UI.WebControls.View EditView;
         
         /// <summary>
-        /// l_LizenzZaehler-Steuerelement
+        /// Table1-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label l_LizenzZaehler;
+        protected global::System.Web.UI.WebControls.Table Table1;
         
         /// <summary>
-        /// l_LizenzAnzahl-Steuerelement
+        /// DDL_Programm-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label l_LizenzAnzahl;
+        protected global::System.Web.UI.WebControls.DropDownList DDL_Programm;
         
         /// <summary>
-        /// l_ende-Steuerelement
+        /// DDL_Release-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label l_ende;
+        protected global::System.Web.UI.WebControls.DropDownList DDL_Release;
         
         /// <summary>
-        /// ProductView-Steuerelement
+        /// DDL_SubRelease-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.View ProductView;
+        protected global::System.Web.UI.WebControls.DropDownList DDL_SubRelease;
         
         /// <summary>
-        /// lb_Product-Steuerelement
+        /// DDL_Build-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ListBox lb_Product;
+        protected global::System.Web.UI.WebControls.DropDownList DDL_Build;
         
         /// <summary>
-        /// l_ProgrammName-Steuerelement
+        /// ta_Programmdiscription-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label l_ProgrammName;
+        protected global::System.Web.UI.WebControls.TextBox ta_Programmdiscription;
         
         /// <summary>
-        /// lb_Release-Steuerelement
+        /// ta_Releasediscription-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ListBox lb_Release;
+        protected global::System.Web.UI.WebControls.TextBox ta_Releasediscription;
         
         /// <summary>
-        /// l_ReleaseNr-Steuerelement
+        /// ta_SubReleasediscription-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label l_ReleaseNr;
+        protected global::System.Web.UI.WebControls.TextBox ta_SubReleasediscription;
         
         /// <summary>
-        /// l_ReleaseDatum-Steuerelement
+        /// ta_Builddiscription-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label l_ReleaseDatum;
+        protected global::System.Web.UI.WebControls.TextBox ta_Builddiscription;
         
         /// <summary>
-        /// l_Beschreibung-Steuerelement
+        /// b_save-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label l_Beschreibung;
+        protected global::System.Web.UI.WebControls.Button b_save;
     }
 }

@@ -18,7 +18,7 @@ namespace HODOR.Members.Administration
             if (!IsPostBack)
             {
                 List<Rolle> roleList = HodorGlobals.getHodorContext().Rolles.ToList<Rolle>();
-                foreach(Rolle role in roleList)
+                foreach (Rolle role in roleList)
                 {
                     this.ddl_roles.Items.Add(new ListItem(role.Rollenname));
                 }
@@ -53,7 +53,7 @@ namespace HODOR.Members.Administration
             }
             this.Response.Redirect(this.Request.RawUrl);
         }
-
+       
         protected void lb_EditDeleteUser_Click(object source, CommandEventArgs e)
         {
             switch (e.CommandName)
@@ -70,7 +70,7 @@ namespace HODOR.Members.Administration
                     {
                         if (e.CommandArgument != null && BenutzerDAO.getUserByKundenNrOrNull(e.CommandArgument.ToString()) != null)
                         {
-                            editUser(BenutzerDAO.getUserByKundenNrOrNull(e.CommandArgument.ToString()));
+                            //editUser(BenutzerDAO.getUserByKundenNrOrNull(e.CommandArgument.ToString()));
                         }
                     }
                     break;
@@ -83,9 +83,9 @@ namespace HODOR.Members.Administration
             this.Response.Redirect(this.Request.RawUrl);
         }
 
-        protected void editUser(Benutzer user)
-        {
-            this.Response.Redirect(this.Request.
-        }
+        //protected void editUser(Benutzer user)
+        //{
+        //    this.Response.Redirect(this.Request.
+        //}
     }
 }

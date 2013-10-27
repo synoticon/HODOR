@@ -4,61 +4,60 @@
 <asp:Content ID="Title" ContentPlaceHolderID="TitlePlaceHolder" runat="server">
 </asp:Content>
 <asp:Content ID="Content" ContentPlaceHolderID="ContentPlaceHolder" runat="server">
-        <div>
-            <p>
-                <asp:Table runat="server">
-                    <asp:TableRow>
-                        <asp:TableCell>
-                            <asp:Label ID="l_SearchInput" runat="server" Text="Suchbegriff eingeben:    " /><br />
-                            <asp:TextBox ID="tb_SearchInput" runat="server" />
-                        </asp:TableCell><asp:TableCell>
-                            <asp:RadioButton ID="rb_UserSearch" runat="server" Text="Benutzer" GroupName="RadioButtonSearch" />
-                        </asp:TableCell><asp:TableCell>
-                            <asp:RadioButton ID="rb_ProductSearch" runat="server" Text="Produkt" GroupName="RadioButtonSearch" />
-                        </asp:TableCell></asp:TableRow><asp:TableRow>
-                        <asp:TableCell>
-                        <asp:RegularExpressionValidator ID="SearchInputValidator" runat="server" 
-                                ControlToValidate="tb_SearchInput" ErrorMessage="Bitte geben Sie einen Suchbegriff ein." 
-                                ValidationExpression="[a-zA-Z0-9]{1,254}"></asp:RegularExpressionValidator><br />
-                            </asp:TableCell><asp:TableCell>
-                            <asp:Button ID="b_Search" runat="server" OnClick="SearchButton_Click" Text="Suchen" />
-                        </asp:TableCell></asp:TableRow></asp:Table></p><br />
-            <asp:Label ID="l_noCatch" runat="server" Text="Kein Treffer." Visible="false" /><br />
-            <asp:MultiView ID="MultiView1" runat="server">
-                <asp:View ID="UserView" runat="server">
-                    <p>
-                        <asp:ListBox ID="lb_User" runat="server" OnSelectedIndexChanged="lb_SelectedIndexChanged_Main" Visible="false" AutoPostBack="true" /><br />
-                        <asp:Label ID="l_Name" runat="server" Text="" /><br />
-                        <asp:Label ID="l_NutzerNr" runat="server" Text="" /><br />
-                        <asp:Label ID="l_EMail" runat="server" Text="" /><br />
-                        <asp:Label ID="l_Rolle" runat="server" Text="" /><br />
-                        <asp:Label ID="l_LizenzZaehler" runat="server" Text="Der Kunde hat " Visible="false" />
-                        <asp:Label ID="l_LizenzAnzahl" runat="server" Text="" />
-                        <asp:Label ID="l_ende" runat="server" Text=" Lizenzen" Visible="false" />
-                    </p>
-                </asp:View>
-                <asp:View ID="ProductView" runat="server">
-                    <p>
-                        <asp:ListBox ID="lb_Product" runat="server" OnSelectedIndexChanged="lb_SelectedIndexChanged_Main" Visible="false" AutoPostBack="true"/>
-                        <asp:Label ID="l_ProgrammName" runat="server" Text="" /><br />
-                        <asp:ListBox ID="lb_Release" runat="server" OnSelectedIndexChanged="lb_SelectedIndexChanged_Sub" Visible="false" AutoPostBack="true"/><br />
-                        <asp:Label ID="l_ReleaseNr" runat="server" Text="" /><br />
-                        <asp:Label ID="l_ReleaseDatum" runat="server" Text="" /><br />
-                        <asp:Label ID="l_Beschreibung" runat="server" Text="" />
-                    </p>
-                </asp:View>
-                <asp:View ID="UploadView" runat="server">
-                    <div>
-                        <asp:FileUpload ID="FileUpload1" runat="server" /><br />
-                        <asp:RegularExpressionValidator ID="regexpName" runat="server"
-                            ErrorMessage="This expression does not validate."
-                            ControlToValidate="FileUpload1"
-                            ValidationExpression=".*[a-zA-Z0-9]{1,254}_\d{1,10}_\d{1,10}_\d{1,10}..*" />
-                        <br />
-                        <asp:Button ID="Button2" runat="server" OnClick="Button2_Click" Text="Upload File" />&nbsp;<br /> 
-                        <br /><asp:Label ID="Label1" runat="server"></asp:Label>
-                    </div><textarea id="TextArea1" cols="20" rows="2" runat="server"></textarea>
-                </asp:View>
-            </asp:MultiView>&nbsp;<br />
-        </div>
+    <div>
+        <p>
+            <asp:Table runat="server">
+                <asp:TableRow>
+                    <asp:TableCell>
+                        <asp:Label ID="l_SearchInput" runat="server" Text="Suchbegriff eingeben:    " /><br />
+                        <asp:TextBox ID="tb_SearchInput" runat="server" />
+                    </asp:TableCell>
+                    <asp:TableCell>
+                        <asp:RadioButton ID="rb_UserSearch" runat="server" Text="Benutzer" GroupName="RadioButtonSearch" />
+                    </asp:TableCell>
+                    <asp:TableCell>
+                        <asp:RadioButton ID="rb_ProductSearch" runat="server" Text="Produkt" GroupName="RadioButtonSearch" />
+                    </asp:TableCell>
+                </asp:TableRow>
+                <asp:TableRow>
+                    <asp:TableCell>
+                        <asp:RegularExpressionValidator ID="SearchInputValidator" runat="server"
+                            ControlToValidate="tb_SearchInput" ErrorMessage="Bitte geben Sie einen Suchbegriff ein."
+                            ValidationExpression="[a-zA-Z0-9]{1,254}"></asp:RegularExpressionValidator><br />
+                    </asp:TableCell>
+                    <asp:TableCell>
+                        <asp:Button ID="b_Search" runat="server" OnClick="SearchButton_Click" Text="Suchen" />
+                    </asp:TableCell>
+                </asp:TableRow>
+            </asp:Table>
+        </p>
+        <br />
+        <asp:Label ID="l_noCatch" runat="server" Text="Kein Treffer." Visible="false" /><br />
+          <asp:MultiView ID="MultiView1" runat="server">
+            <asp:View ID="UserView" runat="server">
+                <p>
+                    <asp:ListBox ID="lb_User" runat="server" OnSelectedIndexChanged="lb_SelectedIndexChanged_Main" AutoPostBack="true" /><br />
+                    <asp:Label ID="l_Name" runat="server" Text="" /><br />
+                    <asp:Label ID="l_NutzerNr" runat="server" Text="" /><br />
+                    <asp:Label ID="l_EMail" runat="server" Text="" /><br />
+                    <asp:Label ID="l_Rolle" runat="server" Text="" /><br />
+                    <asp:Label ID="l_LizenzZaehler" runat="server" Text="Der Kunde hat " Visible="false" />
+                    <asp:Label ID="l_LizenzAnzahl" runat="server" Text="" />
+                    <asp:Label ID="l_ende" runat="server" Text=" Lizenzen" Visible="false" />
+                </p>
+            </asp:View>
+            <asp:View ID="ProductView" runat="server">
+                <p>Bitte geben sie den genauen Produktnamen ein</p>
+                <p>
+                    <asp:ListBox ID="lb_Product" runat="server" OnSelectedIndexChanged="lb_SelectedIndexChanged_Main" /><br />
+                    <asp:Label ID="l_ProgrammName" runat="server" Text="" /><br />
+                    <asp:ListBox ID="lb_Release" runat="server" OnSelectedIndexChanged="lb_SelectedIndexChanged_Sub" Visible="false" /><br />
+                    <asp:Label ID="l_ReleaseNr" runat="server" Text="" /><br />
+                    <asp:Label ID="l_ReleaseDatum" runat="server" Text="" /><br />
+                    <asp:Label ID="l_Beschreibung" runat="server" Text="" />
+                </p>
+            </asp:View>
+          
+        </asp:MultiView>&nbsp;<br />
+    </div>
 </asp:Content>
