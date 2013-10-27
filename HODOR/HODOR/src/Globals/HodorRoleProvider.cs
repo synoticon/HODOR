@@ -150,25 +150,25 @@ namespace HODOR.src.Globals
 
         public static bool isSupportAllowed(Benutzer user)
         {
-            if (user.Rolle == RolleDAO.getRoleByNameOrNull("Administrator") || user.Rolle == RolleDAO.getRoleByNameOrNull("Support") || user.Rolle == RolleDAO.getRoleByNameOrNull("Useradmin"))
+            if (user.Rolle.Rollenname.Equals("Administrator") || user.Rolle.Rollenname.Equals("Support") || user.Rolle.Rollenname.Equals("Useradmin"))
             {
                 return true;
             }
             else
             {
-                return true;
+                return false;
             }
         }
 
         public static bool isAdminAllowed(Benutzer user)
         {
-            if (user.Rolle == RolleDAO.getRoleByNameOrNull("Administrator") || user.Rolle == RolleDAO.getRoleByNameOrNull("Useradmin"))
+            if (user.Rolle.Rollenname.Equals("Administrator") || user.Rolle.Rollenname.Equals("Useradmin"))
             {
                 return true;
             }
             else
             {
-                return true;
+                return false;
             }
         }
 

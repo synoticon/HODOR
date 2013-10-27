@@ -169,7 +169,7 @@ namespace HODOR
                     if (item.ReleaseID == int.Parse(DDL_SubRelease.SelectedValue))
                     {
                         l_SubReleasediscription.Text = item.Beschreibung;
-                        foreach (Build build in item.Builds)
+                        foreach (Build build in item.Builds.OrderBy(b => b.Releasenummer))
                         {
                             if (build.ReleaseID == int.Parse(DDL_Build.SelectedValue))
                             {

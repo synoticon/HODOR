@@ -1,5 +1,19 @@
-DROP TABLE gr1.Modul_Zu_Subrelease;
-GO
+--@author: Aaron
+--Get rid of obsolete tables only if they still exist
+IF EXISTS (SELECT * FROM sys.tables WHERE name = 'Modul_Zu_Subrelease')
+BEGIN
+	DROP TABLE gr1.Modul_Zu_Subrelease;
+END
+IF EXISTS (SELECT * FROM sys.tables WHERE name = 'Rolle_Zu_Rechte')
+BEGIN
+	DROP TABLE gr1.Rolle_Zu_Rechte;
+END
+IF EXISTS (SELECT * FROM sys.tables WHERE name = 'Rechte')
+BEGIN
+	DROP TABLE gr1.Rechte;
+END
+
+--non-obsolete tables to delete
 DROP TABLE gr1.Download_History;
 GO
 DROP TABLE gr1.Lizenz_Zeitlich;

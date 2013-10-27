@@ -7,7 +7,7 @@
     <title></title>
 </head>
 <body>
-    <form id="form1" runat="server">
+    <form id="form1" runat="server" onsubmit="createDemoDataWithInput" defaultbutton="bt_expandedDemoData">
     <div>
         <asp:Button ID="button" runat="server" OnClick="buttonClick" Text="CreateSingleDemoDataSet" />
         <br />

@@ -31,6 +31,9 @@
                            Eingestellt von
                                 </asp:TableHeaderCell>
                                 <asp:TableHeaderCell>
+                           Eingestellt am
+                                </asp:TableHeaderCell>
+                                <asp:TableHeaderCell>
                            Programm
                                 </asp:TableHeaderCell>
                                 <asp:TableHeaderCell>

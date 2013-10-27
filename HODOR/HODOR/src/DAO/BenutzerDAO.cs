@@ -13,13 +13,19 @@ namespace HODOR.src.DAO
     {
         public static Benutzer createAndGetUser(String nutzerNr, String name, MailAddress email, Rolle rolle)
         {
+            if (getUserByKundenNrOrNull(nutzerNr) != null)
+            {
+                //abort creation, no duplicates of nutzerNr allowed!
+                throw new ArgumentException("User with NutzerNr " + nutzerNr + " already exists. Creation aborted!");
+            }
+
             Benutzer user = new Benutzer();
             user.NutzerNr = nutzerNr;
             user.Name = name;
             user.Email = email.Address;
             user.RolleID = rolle.RolleID;
             HodorGlobals.getHodorContext().Benutzers.AddObject(user);
-            HodorGlobals.save(); //Other DAOs need this. Here it leads to errors...or not... since factoryMethods were thrown away
+            HodorGlobals.save(); //Other DAOs need this. Here it leads to errors...or not anymore... since factoryMethods were thrown away
             return user;
         }
 
@@ -133,7 +139,7 @@ namespace HODOR.src.DAO
 
             //if user is not Supporter/Admin, filter by his licenses
             var idsOfProgrammsTimespanLicensedQueryResult = from lz in user.Lizenzs.OfType<Lizenz_Zeitlich>()
-                                                            where lz.EndDatum <= DateTime.Now && lz.StartDatum >= DateTime.Now
+                                                            where lz.EndDatum.CompareTo(DateTime.Now) >= 0 && lz.StartDatum.CompareTo(DateTime.Now) <= 0
                                                             select lz.LizensiertProgramm;
 
             var idsOfReleasesVersionLicensedQueryResult = from lv in user.Lizenzs.OfType<Lizenz_Versionsorientiert>()
@@ -176,8 +182,8 @@ namespace HODOR.src.DAO
             //check if the user has a valid timespan license for this programm
             List<Lizenz_Zeitlich> licensesTimespan = user.Lizenzs.OfType<Lizenz_Zeitlich>().Where(
                 lz => lz.LizensiertProgramm == prog.ProgrammID
-                    && lz.StartDatum >= DateTime.Now
-                    && lz.EndDatum <= DateTime.Now
+                    && lz.StartDatum.CompareTo(DateTime.Now) <= 0
+                    && lz.EndDatum.CompareTo(DateTime.Now) >= 0
                 ).ToList<Lizenz_Zeitlich>();
 
             if (licensesTimespan.Count >= 1)
@@ -194,7 +200,10 @@ namespace HODOR.src.DAO
 
             foreach (Lizenz_Versionsorientiert license in licensesVersion)
             {
-                releaseList.Add(license.Release);
+                if (!releaseList.Contains(license.Release))
+                {
+                    releaseList.Add(license.Release);
+                }
             }
 
             return releaseList;
@@ -202,9 +211,16 @@ namespace HODOR.src.DAO
 
         public static List<Benutzer> getAllUsersWithLicenseForProgramm(Programm prog)
         {
+            //evil complexity ahead: get a coffee, take a deep breath, then read on
             var usersWithLicenseForProgrammQueryResult = from u in HodorGlobals.getHodorContext().Benutzers
-                                                      where u.Lizenzs.OfType<Lizenz_Zeitlich>().Where(lz => lz.StartDatum >= DateTime.Now && lz.EndDatum <= DateTime.Now).Select(lz => lz.Programm.ProgrammID).Contains(prog.ProgrammID)
-                                                      || u.Lizenzs.OfType<Lizenz_Versionsorientiert>().Select(lv => lv.Release).Select(rel => rel.Programm.ProgrammID).Contains(prog.ProgrammID)
+                                                      where u.Lizenzs.OfType<Lizenz_Zeitlich>()
+                                                                .Where(lz => lz.StartDatum.CompareTo(DateTime.Now) <= 0
+                                                                        && lz.EndDatum.CompareTo(DateTime.Now) >= 0)
+                                                                .Select(lz => lz.Programm.ProgrammID)
+                                                                .Contains(prog.ProgrammID)
+                                                            || u.Lizenzs.OfType<Lizenz_Versionsorientiert>()
+                                                                .Select(lv => lv.Release.Programm.ProgrammID)
+                                                                .Contains(prog.ProgrammID)
                                                       select u;
             return usersWithLicenseForProgrammQueryResult.OrderBy(u => u.BenutzerID).Distinct().ToList<Benutzer>();
         }
@@ -217,7 +233,8 @@ namespace HODOR.src.DAO
 
             SmtpClient smtp = new SmtpClient();
             MailMessage notification = new MailMessage();
-            notification.From = new MailAddress("noreply@HODOR-Releaseinformation.com");
+            //Too bad we don't have a real domain to use, but this way we can at least send mails without the relay complaining about the previous non-existing domain
+            notification.From = new MailAddress("noreply@example.com");
             notification.Subject = "New build of " + prog.Name;
 
             //let's respect some privacy and send seperate mails
@@ -227,24 +244,37 @@ namespace HODOR.src.DAO
                 notification.To.Add(new MailAddress(user.Email));
 
                 notification.Body = "Dear " + user.Name + "\n\n"
-                    + "a new build of " + prog.Name + " has been uploaded. You may want to consider to upgrade your current version of " + prog.Name + "\n\n"
-                    + "Description of the new build is:\n"
+                    + "a new build of " + prog.Name + " has been uploaded. You may want to consider to upgrade your current version of " + prog.Name + ".\n\n"
                     + "Version: " + BuildDAO.getVersionStringForBuild(build) + "\n"
+                    + "Description of the new build is:\n"
                     + build.Beschreibung + "\n\n"
                     + "Best regards\n"
                     + "HODOR Releasemanagement System";
 
-
-                smtp.Send(notification);
+                try
+                {
+                    smtp.Send(notification);
+                }
+                catch (Exception ex)
+                {
+                    //Recipient unavailable: no reason to stop notifying other recipients
+                    if (!(ex is SmtpFailedRecipientsException))
+                    {
+                        //Something else occured... better re-throw (with this exceptionally intuitive synthax...)
+                        throw;
+                    }
+                }
+                
             }
         }
 
         protected static String getSaltedMD5Hash(String source)
         {
-            //some salt for our dear users security
+            //some salt for our dear users security. Take that rainbowtables!
             String toHash = source + "H0d0r";
 
             MD5 md5 = MD5.Create();
+            //finally some byte related action!
             byte[] hash = md5.ComputeHash(Encoding.UTF8.GetBytes(toHash));
             StringBuilder stringBuilder = new StringBuilder();
             for (int i = 0; i < hash.Length; i++)

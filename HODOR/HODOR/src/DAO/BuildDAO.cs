@@ -109,5 +109,24 @@ namespace HODOR.src.DAO
 
             return result;
         }
+
+        public static Build getBuildByIDOrNull(Int32 buildId)
+        {
+            List<Build> resultList = HodorGlobals.getHodorContext().Releases.OfType<Build>().Where(b => b.ReleaseID == buildId).ToList<Build>();
+
+            if (resultList.Count == 0)
+            {
+                //no Build with that ID found!
+                return null;
+            }
+            if (resultList.Count >= 2)
+            {
+                throw new Exception("Data inconsistency detected! More than one Build with ReleaseID: " + buildId);
+            }
+
+            //safe to assume it's only one result:
+            
+            return resultList[0];
+        }
     }
 }

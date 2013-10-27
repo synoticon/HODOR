@@ -17,6 +17,7 @@
           <EntitySet Name="Release" EntityType="HODORModel.Store.Release" store:Type="Tables" Schema="gr1" />
           <EntitySet Name="Rolle" EntityType="HODORModel.Store.Rolle" store:Type="Tables" Schema="gr1" />
           <EntitySet Name="Subrelease" EntityType="HODORModel.Store.Subrelease" store:Type="Tables" Schema="gr1" />
+          <EntitySet Name="SupportTicket" EntityType="HODORModel.Store.SupportTicket" store:Type="Tables" Schema="gr1" />
           <AssociationSet Name="FK_Build_Zu_Oberrelease" Association="HODORModel.Store.FK_Build_Zu_Oberrelease">
             <End Role="Subrelease" EntitySet="Subrelease" />
             <End Role="Build" EntitySet="Build" />
@@ -64,6 +65,14 @@
           <AssociationSet Name="FK_Subrelease_Zu_Release" Association="HODORModel.Store.FK_Subrelease_Zu_Release">
             <End Role="Release" EntitySet="Release" />
             <End Role="Subrelease" EntitySet="Subrelease" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TicketErsteller" Association="HODORModel.Store.FK_TicketErsteller">
+            <End Role="Benutzer" EntitySet="Benutzer" />
+            <End Role="SupportTicket" EntitySet="SupportTicket" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TicketProgramm" Association="HODORModel.Store.FK_TicketProgramm">
+            <End Role="Programm" EntitySet="Programm" />
+            <End Role="SupportTicket" EntitySet="SupportTicket" />
           </AssociationSet>
           <AssociationSet Name="FK_Versionslizenz_Zu_Lizenz" Association="HODORModel.Store.FK_Versionslizenz_Zu_Lizenz">
             <End Role="Lizenz" EntitySet="Lizenz" />
@@ -139,6 +148,7 @@
           </Key>
           <Property Name="ProgrammID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="varchar" Nullable="false" MaxLength="255" />
+          <Property Name="Beschreibung" Type="nvarchar" MaxLength="511" />
         </EntityType>
         <EntityType Name="Release">
           <Key>
@@ -148,7 +158,7 @@
           <Property Name="ReleaseVonProgramm" Type="int" Nullable="false" />
           <Property Name="Releasedatum" Type="date" Nullable="false" />
           <Property Name="Releasenummer" Type="int" Nullable="false" />
-          <Property Name="Beschreibung" Type="varchar" MaxLength="511" />
+          <Property Name="Beschreibung" Type="nvarchar" MaxLength="511" />
         </EntityType>
         <EntityType Name="Rolle">
           <Key>
@@ -163,6 +173,20 @@
           </Key>
           <Property Name="ReleaseID" Type="int" Nullable="false" />
           <Property Name="SubreleaseVonRelease" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SupportTicket">
+          <Key>
+            <PropertyRef Name="TicketID" />
+          </Key>
+          <Property Name="TicketID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Fallbeschreibung" Type="nvarchar" MaxLength="1023" />
+          <Property Name="ErstellerID" Type="int" />
+          <Property Name="EinreichungsDatum" Type="date" Nullable="false" />
+          <Property Name="ProgrammID" Type="int" />
+          <Property Name="ReleaseNummer" Type="int" Nullable="false" />
+          <Property Name="SubreleaseNummer" Type="int" Nullable="false" />
+          <Property Name="BuildNummer" Type="int" Nullable="false" />
+          <Property Name="IsOpen" Type="bit" Nullable="false" />
         </EntityType>
         <Association Name="FK_Build_Zu_Oberrelease">
           <End Role="Subrelease" Type="HODORModel.Store.Subrelease" Multiplicity="1" />
@@ -326,6 +350,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_TicketErsteller">
+          <End Role="Benutzer" Type="HODORModel.Store.Benutzer" Multiplicity="0..1" />
+          <End Role="SupportTicket" Type="HODORModel.Store.SupportTicket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Benutzer">
+              <PropertyRef Name="BenutzerID" />
+            </Principal>
+            <Dependent Role="SupportTicket">
+              <PropertyRef Name="ErstellerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TicketProgramm">
+          <End Role="Programm" Type="HODORModel.Store.Programm" Multiplicity="0..1" />
+          <End Role="SupportTicket" Type="HODORModel.Store.SupportTicket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Programm">
+              <PropertyRef Name="ProgrammID" />
+            </Principal>
+            <Dependent Role="SupportTicket">
+              <PropertyRef Name="ProgrammID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Versionslizenz_Zu_Lizenz">
           <End Role="Lizenz" Type="HODORModel.Store.Lizenz" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -401,6 +449,15 @@
             <End Role="Benutzer" EntitySet="Benutzers" />
             <End Role="Lizenz" EntitySet="Lizenzs" />
           </AssociationSet>
+          <EntitySet Name="SupportTickets" EntityType="HODORModel.SupportTicket" />
+          <AssociationSet Name="FK_TicketErsteller" Association="HODORModel.FK_TicketErsteller">
+            <End Role="Benutzer" EntitySet="Benutzers" />
+            <End Role="SupportTicket" EntitySet="SupportTickets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TicketProgramm" Association="HODORModel.FK_TicketProgramm">
+            <End Role="Programm" EntitySet="Programms" />
+            <End Role="SupportTicket" EntitySet="SupportTickets" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Benutzer">
           <Key>
@@ -415,6 +472,7 @@
           <NavigationProperty Name="Download_History" Relationship="HODORModel.FK_Download_Zu_Benutzer" FromRole="Benutzer" ToRole="Download_History" />
           <NavigationProperty Name="Rolle" Relationship="HODORModel.FK_Rolle" FromRole="Benutzer" ToRole="Rolle" />
           <NavigationProperty Name="Lizenzs" Relationship="HODORModel.Benutzer_Zu_Lizenz" FromRole="Benutzer" ToRole="Lizenz" />
+          <NavigationProperty Name="SupportTickets" Relationship="HODORModel.FK_TicketErsteller" FromRole="Benutzer" ToRole="SupportTicket" />
         </EntityType>
         <EntityType Name="Build" BaseType="HODORModel.Release">
           <Property Type="Int32" Name="BuildVonSubrelease" Nullable="false" />
@@ -459,6 +517,8 @@
           <Property Type="String" Name="Name" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Lizenz_Zeitlich" Relationship="HODORModel.FK_Lizensiertes_Programm" FromRole="Programm" ToRole="Lizenz_Zeitlich" />
           <NavigationProperty Name="Releases" Relationship="HODORModel.FK_Release_Von_Programm" FromRole="Programm" ToRole="Release" />
+          <Property Type="String" Name="Beschreibung" MaxLength="511" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="SupportTickets" Relationship="HODORModel.FK_TicketProgramm" FromRole="Programm" ToRole="SupportTicket" />
         </EntityType>
         <EntityType Name="Release">
           <Key>
@@ -586,6 +646,46 @@
           <End Type="HODORModel.Benutzer" Role="Benutzer" Multiplicity="*" />
           <End Type="HODORModel.Lizenz" Role="Lizenz" Multiplicity="*" />
         </Association>
+        <EntityType Name="SupportTicket">
+          <Key>
+            <PropertyRef Name="TicketID" />
+          </Key>
+          <Property Type="Int32" Name="TicketID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Fallbeschreibung" MaxLength="1023" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="ErstellerID" />
+          <Property Type="Int32" Name="ProgrammID" />
+          <Property Type="Int32" Name="ReleaseNummer" Nullable="false" />
+          <Property Type="Int32" Name="SubreleaseNummer" Nullable="false" />
+          <Property Type="Int32" Name="BuildNummer" Nullable="false" />
+          <Property Type="Boolean" Name="IsOpen" Nullable="false" />
+          <NavigationProperty Name="Benutzer" Relationship="HODORModel.FK_TicketErsteller" FromRole="SupportTicket" ToRole="Benutzer" />
+          <NavigationProperty Name="Programm" Relationship="HODORModel.FK_TicketProgramm" FromRole="SupportTicket" ToRole="Programm" />
+          <Property Type="DateTime" Name="EinreichungsDatum" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_TicketErsteller">
+          <End Type="HODORModel.Benutzer" Role="Benutzer" Multiplicity="0..1" />
+          <End Type="HODORModel.SupportTicket" Role="SupportTicket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Benutzer">
+              <PropertyRef Name="BenutzerID" />
+            </Principal>
+            <Dependent Role="SupportTicket">
+              <PropertyRef Name="ErstellerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TicketProgramm">
+          <End Type="HODORModel.Programm" Role="Programm" Multiplicity="0..1" />
+          <End Type="HODORModel.SupportTicket" Role="SupportTicket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Programm">
+              <PropertyRef Name="ProgrammID" />
+            </Principal>
+            <Dependent Role="SupportTicket">
+              <PropertyRef Name="ProgrammID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -639,6 +739,7 @@
           <EntitySetMapping Name="Programms">
             <EntityTypeMapping TypeName="HODORModel.Programm">
               <MappingFragment StoreEntitySet="Programm">
+                <ScalarProperty Name="Beschreibung" ColumnName="Beschreibung" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ProgrammID" ColumnName="ProgrammID" />
               </MappingFragment>
@@ -684,6 +785,21 @@
               <ScalarProperty Name="BenutzerID" ColumnName="BenutzerID" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="SupportTickets">
+            <EntityTypeMapping TypeName="HODORModel.SupportTicket">
+              <MappingFragment StoreEntitySet="SupportTicket">
+                <ScalarProperty Name="EinreichungsDatum" ColumnName="EinreichungsDatum" />
+                <ScalarProperty Name="IsOpen" ColumnName="IsOpen" />
+                <ScalarProperty Name="BuildNummer" ColumnName="BuildNummer" />
+                <ScalarProperty Name="SubreleaseNummer" ColumnName="SubreleaseNummer" />
+                <ScalarProperty Name="ReleaseNummer" ColumnName="ReleaseNummer" />
+                <ScalarProperty Name="ProgrammID" ColumnName="ProgrammID" />
+                <ScalarProperty Name="ErstellerID" ColumnName="ErstellerID" />
+                <ScalarProperty Name="Fallbeschreibung" ColumnName="Fallbeschreibung" />
+                <ScalarProperty Name="TicketID" ColumnName="TicketID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -716,13 +832,13 @@
         <EntityTypeShape EntityType="HODORModel.Rolle" Width="1.5" PointX="0.5" PointY="4.375" Height="1.7879850260416674" />
         <EntityTypeShape EntityType="HODORModel.Subrelease" Width="1.5" PointX="5.375" PointY="7.625" Height="1.7879850260416657" />
         <AssociationConnector Association="HODORModel.FK_Download_Zu_Benutzer" >
-          <ConnectorPoint PointX="2.75" PointY="2.8505916341145885" />
-          <ConnectorPoint PointX="3.3750005" PointY="2.8505916341145885" />
-          <ConnectorPoint PointX="3.3750005" PointY="4.75" />
+          <ConnectorPoint PointX="2.75" PointY="2.9467423502604166" />
+          <ConnectorPoint PointX="3.4062525" PointY="2.9467423502604166" />
+          <ConnectorPoint PointX="3.4062525" PointY="4.75" />
         </AssociationConnector>
         <AssociationConnector Association="HODORModel.FK_Rolle" >
           <ConnectorPoint PointX="1.4375" PointY="4.375" />
-          <ConnectorPoint PointX="1.4375" PointY="3.8744921875000102" />
+          <ConnectorPoint PointX="1.4375" PointY="4.0667936197916665" />
         </AssociationConnector>
         <AssociationConnector Association="HODORModel.FK_Build_Zu_Oberrelease" >
           <ConnectorPoint PointX="5.375" PointY="8.5189925130208337" />
@@ -733,19 +849,21 @@
           <ConnectorPoint PointX="3.5625" PointY="6.92258789062501" />
         </AssociationConnector>
         <AssociationConnector Association="HODORModel.FK_Lizensiertes_Release" >
-          <ConnectorPoint PointX="6" PointY="6.2663378906249987" />
-          <ConnectorPoint PointX="8.0416666666666661" PointY="6.2663378906249978" />
-          <ConnectorPoint PointX="8.2083333333333339" PointY="6.2663378906249987" />
-          <ConnectorPoint PointX="9.875" PointY="6.2663378906249987" />
-          <ConnectorPoint PointX="9.875" PointY="2.09568359375" />
+          <ConnectorPoint PointX="6" PointY="3.875" />
+          <ConnectorPoint PointX="6.375" PointY="3.5" />
+          <ConnectorPoint PointX="7.666666666666667" PointY="3.4999999999999996" />
+          <ConnectorPoint PointX="7.833333333333333" PointY="3.5" />
+          <ConnectorPoint PointX="8.75" PointY="3.5" />
+          <ConnectorPoint PointX="8.75" PointY="2.4706835937499996" />
+          <ConnectorPoint PointX="9.125" PointY="2.09568359375" />
         </AssociationConnector>
         <AssociationConnector Association="HODORModel.FK_Lizensiertes_Programm" >
           <ConnectorPoint PointX="7.75" PointY="4.25" />
           <ConnectorPoint PointX="7.75" PointY="3.162985026041667" />
         </AssociationConnector>
         <AssociationConnector Association="HODORModel.FK_Release_Von_Programm" >
-          <ConnectorPoint PointX="7.375" PointY="5.1439925130208328" />
-          <ConnectorPoint PointX="6" PointY="5.1439925130208328" />
+          <ConnectorPoint PointX="7.375" PointY="5.3362939453125" />
+          <ConnectorPoint PointX="6" PointY="5.3362939453125" />
         </AssociationConnector>
         <AssociationConnector Association="HODORModel.FK_Subrelease_Zu_OberRelease" >
           <ConnectorPoint PointX="5.6875" PointY="6.4321907552083326" />
@@ -777,6 +895,21 @@
           <ConnectorPoint PointX="4" PointY="7.25" />
           <ConnectorPoint PointX="4" PointY="7.625" />
         </InheritanceConnector>
+        <EntityTypeShape EntityType="HODORModel.SupportTicket" Width="1.5" PointX="9.625" PointY="3.25" Height="2.9417936197916674" />
+        <AssociationConnector Association="HODORModel.FK_TicketErsteller" >
+          <ConnectorPoint PointX="2.75" PointY="3.71875" />
+          <ConnectorPoint PointX="3.3229191666666664" PointY="3.7187499999999996" />
+          <ConnectorPoint PointX="3.4895858333333334" PointY="3.71875" />
+          <ConnectorPoint PointX="6.072916666666667" PointY="3.7187499999999996" />
+          <ConnectorPoint PointX="6.239583333333333" PointY="3.71875" />
+          <ConnectorPoint PointX="7.666666666666667" PointY="3.7187499999999996" />
+          <ConnectorPoint PointX="7.833333333333333" PointY="3.71875" />
+          <ConnectorPoint PointX="9.625" PointY="3.71875" />
+        </AssociationConnector>
+        <AssociationConnector Association="HODORModel.FK_TicketProgramm" >
+          <ConnectorPoint PointX="8.875" PointY="5.2208968098958337" />
+          <ConnectorPoint PointX="9.625" PointY="5.2208968098958337" />
+        </AssociationConnector>
       </Diagram>
     </Diagrams>
   </Designer>

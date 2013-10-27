@@ -10,6 +10,11 @@ namespace HODOR.src.DAO
     {
         public static Rolle createAndGetRolle(String roleName)
         {
+            if (getRoleByNameOrNull(roleName) != null)
+            {
+                //abort creation of already existing role
+                throw new ArgumentException("Role with name " + roleName + " already exists. Creation aborted!");
+            }
             Rolle role = new Rolle(); //Rolle.CreateRolle(roleName);
             role.Rollenname = roleName;
 
