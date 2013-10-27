@@ -380,3 +380,13 @@ a:hover {
     padding-left: 50px;   
     margin: 0px 4px;
 }
+
+.ListView li
+{
+    display: inline;
+    width:200px;
+    float: left;
+    margin: 0 20px 20px 0;
+    color: #000000;
+    text-align: center;
+}

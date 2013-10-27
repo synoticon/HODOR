@@ -94,76 +94,22 @@ namespace HODOR.Members.Administration {
         protected global::System.Web.UI.WebControls.View UserView;
         
         /// <summary>
-        /// lb_User-Steuerelement
+        /// UserDataSource-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ListBox lb_User;
+        protected global::System.Web.UI.WebControls.EntityDataSource UserDataSource;
         
         /// <summary>
-        /// l_Name-Steuerelement
+        /// lv_User-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label l_Name;
-        
-        /// <summary>
-        /// l_NutzerNr-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label l_NutzerNr;
-        
-        /// <summary>
-        /// l_EMail-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label l_EMail;
-        
-        /// <summary>
-        /// l_Rolle-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label l_Rolle;
-        
-        /// <summary>
-        /// l_LizenzZaehler-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label l_LizenzZaehler;
-        
-        /// <summary>
-        /// l_LizenzAnzahl-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label l_LizenzAnzahl;
-        
-        /// <summary>
-        /// l_ende-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label l_ende;
+        protected global::System.Web.UI.WebControls.ListView lv_User;
         
         /// <summary>
         /// ProductView-Steuerelement
@@ -193,39 +139,21 @@ namespace HODOR.Members.Administration {
         protected global::System.Web.UI.WebControls.Label l_ProgrammName;
         
         /// <summary>
-        /// lb_Release-Steuerelement
+        /// ProductDataSource-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ListBox lb_Release;
+        protected global::System.Web.UI.WebControls.EntityDataSource ProductDataSource;
         
         /// <summary>
-        /// l_ReleaseNr-Steuerelement
+        /// lv_Product-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label l_ReleaseNr;
-        
-        /// <summary>
-        /// l_ReleaseDatum-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label l_ReleaseDatum;
-        
-        /// <summary>
-        /// l_Beschreibung-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label l_Beschreibung;
+        protected global::System.Web.UI.WebControls.ListView lv_Product;
     }
 }

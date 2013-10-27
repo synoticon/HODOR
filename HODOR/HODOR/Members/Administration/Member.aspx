@@ -19,7 +19,7 @@
                 <asp:MultiView ID="MultiView1" runat="server" ActiveViewIndex="0">
                     <asp:View ID="SightView" runat="server">
                         <p>
-                            <asp:Label ID="is_registered" runat="server" Text="Benutzer konnte nicht angelegt werden!" />
+                            <asp:Label ID="is_registered" runat="server" Text="Benutzer konnte nicht angelegt werden!" /> <!-- Baustelle! -->
                         </p>
                         <p>
                             &nbsp;<asp:Repeater runat="server" DataSourceID="BenutzerDataSource">
@@ -69,6 +69,9 @@
                         </p>
                         <p>
                             <asp:TextBox ID="tb_EMail" runat="server"></asp:TextBox>
+                            <asp:RegularExpressionValidator ID="SearchInputValidator" runat="server"
+                            ControlToValidate="tb_EMail" ErrorMessage="Bitte geben Sie eine valide E-Mail-Adresse ein (bsp.: Member@Domain.de)."
+                            ValidationExpression="[a-zA-Z0-9]{1,254}"></asp:RegularExpressionValidator> <!-- Baustelle! -->
                         </p>
                         <p>
                             <asp:Label ID="l_role" runat="server" Text="Berechtigungsrolle:"></asp:Label>
@@ -82,12 +85,8 @@
                                 OnClick="b_Register_Click" />
                         </p>
                     </asp:View>
-
-                  
                 </asp:MultiView>
-               
             </ContentTemplate>
         </asp:UpdatePanel>
-          
     </div>
 </asp:Content>
