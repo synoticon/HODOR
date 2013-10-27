@@ -60,31 +60,31 @@ namespace HODOR.src.DAO
 
         public static List<SupportTicket> getAllSupportTickets()
         {
-            return HodorGlobals.getHodorContext().SupportTickets.ToList<SupportTicket>();
+            return HodorGlobals.getHodorContext().SupportTickets.OrderByDescending(t => t.EinreichungsDatum).ToList<SupportTicket>();
         }
 
         public static List<SupportTicket> getAllOpenSupportTickets()
         {
-            List<SupportTicket> resultList = HodorGlobals.getHodorContext().SupportTickets.Where(t => t.IsOpen == true).ToList<SupportTicket>();
+            List<SupportTicket> resultList = HodorGlobals.getHodorContext().SupportTickets.Where(t => t.IsOpen == true).OrderByDescending(t => t.EinreichungsDatum).ToList<SupportTicket>();
 
             return resultList;
         }
 
         public static List<SupportTicket> getAllOpenSupportTicketsForUser(Benutzer user)
         {
-            return HodorGlobals.getHodorContext().SupportTickets.Where(t => t.IsOpen == true && t.ErstellerID == user.BenutzerID).ToList<SupportTicket>();
+            return HodorGlobals.getHodorContext().SupportTickets.Where(t => t.IsOpen == true && t.ErstellerID == user.BenutzerID).OrderByDescending(t => t.EinreichungsDatum).ToList<SupportTicket>();
         }
 
         public static List<SupportTicket> getAllClosedSupportTickets()
         {
-            List<SupportTicket> resultList = HodorGlobals.getHodorContext().SupportTickets.Where(t => t.IsOpen == false).ToList<SupportTicket>();
+            List<SupportTicket> resultList = HodorGlobals.getHodorContext().SupportTickets.Where(t => t.IsOpen == false).OrderByDescending(t => t.EinreichungsDatum).ToList<SupportTicket>();
 
             return resultList;
         }
 
         public static List<SupportTicket> getAllClosedSupportTicketsForUser(Benutzer user)
         {
-            return HodorGlobals.getHodorContext().SupportTickets.Where(t => t.IsOpen == false && t.ErstellerID == user.BenutzerID).ToList<SupportTicket>();
+            return HodorGlobals.getHodorContext().SupportTickets.Where(t => t.IsOpen == false && t.ErstellerID == user.BenutzerID).OrderByDescending(t => t.EinreichungsDatum).ToList<SupportTicket>();
         }
     }
 }

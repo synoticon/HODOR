@@ -90,7 +90,7 @@ namespace HODOR.Members
                 }
                 r.Cells.Add(createNewTableCell(BuildDAO.getVersionStringForBuild(build)));
 
-                r.Cells.Add(createNewTableCell(item.DownloadDatum.ToString()));
+                r.Cells.Add(createNewTableCell(String.Format("{0:dd.MM.yyyy}", item.DownloadDatum)));
                 Table1.Rows.Add(r);
             }
 

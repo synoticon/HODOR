@@ -13,6 +13,12 @@ namespace HODOR.src.DAO
     {
         public static Benutzer createAndGetUser(String nutzerNr, String name, MailAddress email, Rolle rolle)
         {
+            if (getUserByKundenNrOrNull(nutzerNr) != null)
+            {
+                //abort creation, no duplicates of nutzerNr allowed!
+                throw new ArgumentException("User with NutzerNr " + nutzerNr + " already exists. Creation aborted!");
+            }
+
             Benutzer user = new Benutzer();
             user.NutzerNr = nutzerNr;
             user.Name = name;
