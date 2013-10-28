@@ -19,8 +19,9 @@
     <%-- Suche nach Benutzern mit der NutzerNr als Suchkriterium --%>
     <asp:EntityDataSource ID="UserDataSourceByNutzerNr" runat="server"
         ConnectionString="name=HODOR_entities" DefaultContainerName="HODOR_entities"
-        EnableFlattening="False" EntitySetName="Benutzers" AutoGenerateWhereClause="True"
-        Select="it.[NutzerNr], it.[Email], it.[Name], it.[RolleID]" EntityTypeFilter="" Where="">
+        EnableFlattening="False" EntitySetName="Benutzers" AutoGenerateWhereClause="false"
+        Select="it.[NutzerNr], it.[Email], it.[Name], it.[RolleID]" EntityTypeFilter="" 
+        Where="it.[NutzerNr] LIKE '%' + @NutzerNr + '%'">
         <WhereParameters>
             <asp:ControlParameter ControlID="tb_SearchInput" Name="NutzerNr" PropertyName="Text" Type="String" />
         </WhereParameters>
@@ -29,8 +30,9 @@
     <%-- Suche nach Benutzern mit dem Namen als Suchkriterium --%>
     <asp:EntityDataSource ID="UserDataSourceByName" runat="server"
         ConnectionString="name=HODOR_entities" DefaultContainerName="HODOR_entities"
-        EnableFlattening="False" EntitySetName="Benutzers" AutoGenerateWhereClause="True"
-        Select="it.[NutzerNr], it.[Email], it.[Name], it.[RolleID]" EntityTypeFilter="" Where="">
+        EnableFlattening="False" EntitySetName="Benutzers" AutoGenerateWhereClause="false"
+        Select="it.[NutzerNr], it.[Email], it.[Name], it.[RolleID]" EntityTypeFilter="" 
+        Where="it.[NutzerNr] LIKE '%' + @Name + '%'">
         <WhereParameters>
             <asp:ControlParameter ControlID="tb_SearchInput" Name="Name" PropertyName="Text" Type="String" />
         </WhereParameters>
@@ -40,7 +42,8 @@
     <asp:EntityDataSource ID="UserDataSourceByNutzerNrAndName" runat="server"
         ConnectionString="name=HODOR_entities" DefaultContainerName="HODOR_entities"
         EnableFlattening="False" EntitySetName="Benutzers" AutoGenerateWhereClause="True"
-        Select="it.[NutzerNr], it.[Email], it.[Name], it.[RolleID]" Where="">
+        Select="it.[NutzerNr], it.[Email], it.[Name], it.[RolleID]" 
+        Where="it.[NutzerNr] LIKE '%' + @NutzerNr + '%' OR it.[Name] LIKE '%' + @Name + '%'" >
         <WhereParameters>
             <asp:ControlParameter ControlID="tb_SearchInput" Name="NutzerNr" PropertyName="Text" Type="String" />
             <asp:ControlParameter ControlID="tb_SearchInput" Name="Name" PropertyName="Text" Type="String" />
@@ -85,7 +88,8 @@
             <asp:View ID="ResultView" runat="server">
                 <p>
                     <asp:Label ID="l_ProgrammName" runat="server" Text="" />
-                    <asp:Label ID="l_ProgrammID" runat="server" Text="" Visible="false" /><br />
+                    <asp:Label ID="l_ProgrammID" runat="server" Text="" Visible="false" />
+                    <asp:Label ID="l_test" runat="server" Text="" Visible="false" /><br />
 
                     <%-- ListView für die Ergebnisse der UserSuche --%>
                     <asp:ListView ID="lv_User" runat="server" DataSourceID=""
