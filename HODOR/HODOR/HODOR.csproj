@@ -136,6 +136,13 @@
     <Compile Include="Kontakt.aspx.designer.cs">
       <DependentUpon>Kontakt.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Members\Administration\Verwaltung.aspx.cs">
+      <DependentUpon>Verwaltung.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Members\Administration\Verwaltung.aspx.designer.cs">
+      <DependentUpon>Verwaltung.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Members\Logout.aspx.cs">
       <DependentUpon>Logout.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -156,13 +163,6 @@
     </Compile>
     <Compile Include="Members\Produkte.aspx.designer.cs">
       <DependentUpon>Produkte.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Members\Administration\Verwaltung.aspx.cs">
-      <DependentUpon>Verwaltung.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Members\Administration\Verwaltung.aspx.designer.cs">
-      <DependentUpon>Verwaltung.aspx</DependentUpon>
     </Compile>
     <Compile Include="HODOR_Model.Designer.cs">
       <AutoGen>True</AutoGen>

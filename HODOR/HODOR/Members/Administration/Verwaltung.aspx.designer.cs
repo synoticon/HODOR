@@ -10,7 +10,16 @@
 namespace HODOR.Members.Administration {
     
     
-    public partial class ProduktVerwaltung {
+    public partial class Verwaltung {
+        
+        /// <summary>
+        /// Table1-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Table Table1;
         
         /// <summary>
         /// l_SearchInput-Steuerelement
@@ -49,15 +58,6 @@ namespace HODOR.Members.Administration {
         protected global::System.Web.UI.WebControls.RadioButton rb_ProductSearch;
         
         /// <summary>
-        /// SearchInputValidator-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RegularExpressionValidator SearchInputValidator;
-        
-        /// <summary>
         /// b_Search-Steuerelement
         /// </summary>
         /// <remarks>
@@ -67,13 +67,13 @@ namespace HODOR.Members.Administration {
         protected global::System.Web.UI.WebControls.Button b_Search;
         
         /// <summary>
-        /// l_noCatch-Steuerelement
+        /// SearchInputValidator-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label l_noCatch;
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator SearchInputValidator;
         
         /// <summary>
         /// MultiView1-Steuerelement
@@ -121,6 +121,15 @@ namespace HODOR.Members.Administration {
         protected global::System.Web.UI.WebControls.View ProductView;
         
         /// <summary>
+        /// l_noCatch-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label l_noCatch;
+        
+        /// <summary>
         /// lb_Product-Steuerelement
         /// </summary>
         /// <remarks>
@@ -130,6 +139,15 @@ namespace HODOR.Members.Administration {
         protected global::System.Web.UI.WebControls.ListBox lb_Product;
         
         /// <summary>
+        /// ResultView-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.View ResultView;
+        
+        /// <summary>
         /// l_ProgrammName-Steuerelement
         /// </summary>
         /// <remarks>
@@ -137,6 +155,15 @@ namespace HODOR.Members.Administration {
         /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label l_ProgrammName;
+        
+        /// <summary>
+        /// l_ProgrammID-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label l_ProgrammID;
         
         /// <summary>
         /// ProductDataSource-Steuerelement
