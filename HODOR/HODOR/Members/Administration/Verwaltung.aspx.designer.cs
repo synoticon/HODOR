@@ -13,6 +13,42 @@ namespace HODOR.Members.Administration {
     public partial class Verwaltung {
         
         /// <summary>
+        /// ProductDataSource-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.EntityDataSource ProductDataSource;
+        
+        /// <summary>
+        /// UserDataSourceByNutzerNr-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.EntityDataSource UserDataSourceByNutzerNr;
+        
+        /// <summary>
+        /// UserDataSourceByName-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.EntityDataSource UserDataSourceByName;
+        
+        /// <summary>
+        /// UserDataSourceByNutzerNrAndName-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.EntityDataSource UserDataSourceByNutzerNrAndName;
+        
+        /// <summary>
         /// Table1-Steuerelement
         /// </summary>
         /// <remarks>
@@ -58,6 +94,24 @@ namespace HODOR.Members.Administration {
         protected global::System.Web.UI.WebControls.RadioButton rb_ProductSearch;
         
         /// <summary>
+        /// cb_NutzerNr-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox cb_NutzerNr;
+        
+        /// <summary>
+        /// cb_Name-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox cb_Name;
+        
+        /// <summary>
         /// b_Search-Steuerelement
         /// </summary>
         /// <remarks>
@@ -85,40 +139,13 @@ namespace HODOR.Members.Administration {
         protected global::System.Web.UI.WebControls.MultiView MultiView1;
         
         /// <summary>
-        /// UserView-Steuerelement
+        /// PreResultView-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.View UserView;
-        
-        /// <summary>
-        /// UserDataSource-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.EntityDataSource UserDataSource;
-        
-        /// <summary>
-        /// lv_User-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ListView lv_User;
-        
-        /// <summary>
-        /// ProductView-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.View ProductView;
+        protected global::System.Web.UI.WebControls.View PreResultView;
         
         /// <summary>
         /// l_noCatch-Steuerelement
@@ -166,13 +193,13 @@ namespace HODOR.Members.Administration {
         protected global::System.Web.UI.WebControls.Label l_ProgrammID;
         
         /// <summary>
-        /// ProductDataSource-Steuerelement
+        /// lv_User-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.EntityDataSource ProductDataSource;
+        protected global::System.Web.UI.WebControls.ListView lv_User;
         
         /// <summary>
         /// lv_Product-Steuerelement

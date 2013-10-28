@@ -4,6 +4,49 @@
 <asp:Content ID="Title" ContentPlaceHolderID="TitlePlaceHolder" runat="server">
 </asp:Content>
 <asp:Content ID="Content" ContentPlaceHolderID="ContentPlaceHolder" runat="server">
+
+    <%--DataSourcen für die ListViews--%>
+    <%-- Suche nach Produkten mit dem Programmnamen als Suchkriterium --%>
+    <asp:EntityDataSource ID="ProductDataSource" runat="server"
+        ConnectionString="name=HODOR_entities" DefaultContainerName="HODOR_entities"
+        EnableFlattening="False" EntitySetName="Releases" AutoGenerateWhereClause="True"
+        Select="it.[Releasenummer], it.[Releasedatum], it.[Beschreibung]" EntityTypeFilter="" Where="">
+        <WhereParameters>
+            <asp:ControlParameter ControlID="l_ProgrammID" Name="ReleaseVonProgramm" PropertyName="Text" Type="Int32" />
+        </WhereParameters>
+    </asp:EntityDataSource>
+
+    <%-- Suche nach Benutzern mit der NutzerNr als Suchkriterium --%>
+    <asp:EntityDataSource ID="UserDataSourceByNutzerNr" runat="server"
+        ConnectionString="name=HODOR_entities" DefaultContainerName="HODOR_entities"
+        EnableFlattening="False" EntitySetName="Benutzers" AutoGenerateWhereClause="True"
+        Select="it.[NutzerNr], it.[Email], it.[Name], it.[RolleID]" EntityTypeFilter="" Where="">
+        <WhereParameters>
+            <asp:ControlParameter ControlID="tb_SearchInput" Name="NutzerNr" PropertyName="Text" Type="String" />
+        </WhereParameters>
+    </asp:EntityDataSource>
+
+    <%-- Suche nach Benutzern mit dem Namen als Suchkriterium --%>
+    <asp:EntityDataSource ID="UserDataSourceByName" runat="server"
+        ConnectionString="name=HODOR_entities" DefaultContainerName="HODOR_entities"
+        EnableFlattening="False" EntitySetName="Benutzers" AutoGenerateWhereClause="True"
+        Select="it.[NutzerNr], it.[Email], it.[Name], it.[RolleID]" EntityTypeFilter="" Where="">
+        <WhereParameters>
+            <asp:ControlParameter ControlID="tb_SearchInput" Name="Name" PropertyName="Text" Type="String" />
+        </WhereParameters>
+    </asp:EntityDataSource>
+
+    <%-- Suche nach Benutzern mit dem Namen und der NutzerNr als Suchkriterien --%>
+    <asp:EntityDataSource ID="UserDataSourceByNutzerNrAndName" runat="server"
+        ConnectionString="name=HODOR_entities" DefaultContainerName="HODOR_entities"
+        EnableFlattening="False" EntitySetName="Benutzers" AutoGenerateWhereClause="True"
+        Select="it.[NutzerNr], it.[Email], it.[Name], it.[RolleID]" Where="">
+        <WhereParameters>
+            <asp:ControlParameter ControlID="tb_SearchInput" Name="NutzerNr" PropertyName="Text" Type="String" />
+            <asp:ControlParameter ControlID="tb_SearchInput" Name="Name" PropertyName="Text" Type="String" />
+        </WhereParameters>
+    </asp:EntityDataSource>
+
     <div>
         <p>
             <asp:Table ID="Table1" runat="server">
@@ -11,12 +54,13 @@
                     <asp:TableCell>
                         <asp:Label ID="l_SearchInput" runat="server" Text="Suchbegriff eingeben:    " /><br />
                         <asp:TextBox ID="tb_SearchInput" runat="server" />
-                    </asp:TableCell>
-                    <asp:TableCell>
-                        <asp:RadioButton ID="rb_UserSearch" runat="server" Text="Benutzer" GroupName="RadioButtonSearch" /><br />
-                        <asp:RadioButton ID="rb_ProductSearch" runat="server" Text="Produkt" GroupName="RadioButtonSearch" />
-                    </asp:TableCell>
-                    <asp:TableCell>
+                    </asp:TableCell><asp:TableCell>
+                        <asp:RadioButton ID="rb_UserSearch" runat="server" Text="Benutzer" GroupName="RadioButtonSearch" OnCheckedChanged="rb_UserSearch_CheckedChanged" AutoPostBack="true" /><br />
+                        <asp:RadioButton ID="rb_ProductSearch" runat="server" Text="Produkt" GroupName="RadioButtonSearch" OnCheckedChanged="rb_ProductSearch_CheckedChanged" AutoPostBack="true" />
+                    </asp:TableCell><asp:TableCell>
+                        <asp:CheckBox ID="cb_NutzerNr" runat="server" Text="per NutzerNr" ValidationGroup="CheckBoxSearch" Visible="false" /><br />
+                        <asp:CheckBox ID="cb_Name" runat="server" Text="per Firmenname" ValidationGroup="CheckBoxSearch" Visible="false" />
+                    </asp:TableCell><asp:TableCell>
                         <asp:Button ID="b_Search" runat="server" OnClick="SearchButton_Click" Text="Suchen" />
                     </asp:TableCell>
                 </asp:TableRow>
@@ -31,25 +75,33 @@
         </p>
         <br />
         <asp:MultiView ID="MultiView1" runat="server">
-            <asp:View ID="UserView" runat="server">
+            <asp:View ID="PreResultView" runat="server">
                 <p>
-                    <asp:EntityDataSource ID="UserDataSource" runat="server"
-                        ConnectionString="name=HODOR_entities" DefaultContainerName="HODOR_entities"
-                        EnableFlattening="false" EntitySetName="Benutzers" AutoGenerateWhereClause="false"
-                        Select="it.[NutzerNr], it.[Email], it.[Name], it.[RolleID]"
-                        Where="it.[NutzerNr] LIKE @NutzerNr">
-                        <WhereParameters>
-                            <asp:FormParameter FormField="tb_SearchInput" Name="NutzerNr" Type="String" DefaultValue="%" />
-                        </WhereParameters>
-                    </asp:EntityDataSource>
+                    <asp:Label ID="l_noCatch" runat="server" Text="Kein Treffer." Visible="false" /><br />
+                    <asp:ListBox ID="lb_Product" runat="server" OnSelectedIndexChanged="lb_SelectedIndexChanged"
+                        AutoPostBack="true" Visible="false" /><br />
+                </p>
+            </asp:View>
+            <asp:View ID="ResultView" runat="server">
+                <p>
+                    <asp:Label ID="l_ProgrammName" runat="server" Text="" />
+                    <asp:Label ID="l_ProgrammID" runat="server" Text="" Visible="false" /><br />
 
-                    <asp:ListView ID="lv_User" runat="server" DataSourceID="UserDataSource"
+                    <%-- ListView für die Ergebnisse der UserSuche --%>
+                    <asp:ListView ID="lv_User" runat="server" DataSourceID=""
                         OnSelectedIndexChanging="lvwUsers_SelectedIndexChanging">
                         <LayoutTemplate>
                             <table width="100%" border="0" cellspacing="0" cellpadding="0" class="ListView">
                                 <asp:PlaceHolder ID="itemPlaceHolder" runat="server" />
                             </table>
                         </LayoutTemplate>
+                        <EmptyDataTemplate>
+                            <table id="Table2" runat="server" style="">
+                                <tr>
+                                    <td>No data was returned.</td>
+                                </tr>
+                            </table>
+                        </EmptyDataTemplate>
                         <ItemTemplate>
                             <tr>
                                 <th class="NzNr_incon1">
@@ -93,35 +145,19 @@
                                 </td>
                                 <td colspan="4">
                                     <li>
-                                        <asp:Label ID="l_Rolle" runat="server" Text=""></asp:Label></li>
+                                        <asp:Label ID="l_Rolle" runat="server" Text="" />
+                                    </li>
                                 </td>
                             </tr>
                         </SelectedItemTemplate>
+                        <EditItemTemplate>
+                            <tr>
+                            </tr>
+                        </EditItemTemplate>
                     </asp:ListView>
-                </p>
-            </asp:View>
-            <asp:View ID="ProductView" runat="server">
-                <p>
-                    <asp:Label ID="l_noCatch" runat="server" Text="Kein Treffer." Visible="false" /><br />
-                    <asp:ListBox ID="lb_Product" runat="server" OnSelectedIndexChanged="lb_SelectedIndexChanged"
-                        AutoPostBack="true" Visible="false" /><br />
-                </p>
-            </asp:View>
-            <asp:View ID="ResultView" runat="server">
-                <p>
-                    <asp:Label ID="l_ProgrammName" runat="server" Text="" />
-                    <asp:Label ID="l_ProgrammID" runat="server" Text="" Visible="false" /><br />
 
-                    <asp:EntityDataSource ID="ProductDataSource" runat="server"
-                        ConnectionString="name=HODOR_entities" DefaultContainerName="HODOR_entities"
-                        EnableFlattening="False" EntitySetName="Releases" AutoGenerateWhereClause="True"
-                        Select="it.[Releasenummer], it.[Releasedatum], it.[Beschreibung]" EntityTypeFilter="" Where="">
-                        <WhereParameters>
-                            <asp:ControlParameter ControlID="l_ProgrammID" Name="ReleaseVonProgramm" PropertyName="Text" Type="Int32" />
-                        </WhereParameters>
-                    </asp:EntityDataSource>
-
-                    <asp:ListView ID="lv_Product" runat="server" DataSourceID="ProductDataSource"
+                    <%-- ListView für die Ergebnisse der Prduktsuche --%>
+                    <asp:ListView ID="lv_Product" runat="server" DataSourceID=""
                         OnSelectedIndexChanging="lvwProducts_SelectedIndexChanging">
                         <LayoutTemplate>
                             <table width="100%" border="0" cellspacing="0" cellpadding="0" class="ListView">
@@ -141,7 +177,7 @@
                                     <li><%# Eval("Releasenummer") %></li>
                                 </th>
                                 <th>
-                                    <li><%# Eval("Releasedatum", "[0:dd.MM.yy]") %></li>
+                                    <li><%# Eval("Releasedatum") %></li>
                                 </th>
                                 <th class="action">
                                     <asp:LinkButton ID="lb_Details1" runat="server" Text="Details"
@@ -155,7 +191,7 @@
                                     <li><%# Eval("Releasenummer") %></li>
                                 </th>
                                 <th>
-                                    <li><%# Eval("Releasedatum", "[0:dd.MM.yy]") %></li>
+                                    <li><%# Eval("Releasedatum") %></li>
                                 </th>
                                 <th class="action">
                                     <asp:LinkButton ID="lb_Details1" runat="server" Text="Details"
@@ -169,7 +205,7 @@
                                     <li><%# Eval("Releasenummer") %></li>
                                 </th>
                                 <th>
-                                    <li><%# Eval("Releasedatum", "[0:dd.MM.yy]") %></li>
+                                    <li><%# Eval("Releasedatum") %></li>
                                 </th>
                                 <th class="action">
                                     <asp:LinkButton ID="lb_Details1" runat="server" Text="Bearbeiten"

@@ -32,119 +32,94 @@ namespace HODOR.Members.Administration
             {
                 if (rb_UserSearch.Checked)
                 {
-                    MultiView1.ActiveViewIndex = (int)SearchType.User;
-                    getSearchContext();
+                    if (this.cb_NutzerNr.Checked && !this.cb_Name.Checked)
+                    {
+                        this.lv_User.DataSourceID = this.UserDataSourceByNutzerNr.ID;
+                    }
+                    else if (this.cb_Name.Checked && !this.cb_NutzerNr.Checked)
+                    {
+                        this.lv_User.DataSourceID = this.UserDataSourceByName.ID;
+                    }
+                    else if (this.cb_Name.Checked && this.cb_NutzerNr.Checked)
+                    {
+                        this.lv_User.DataSourceID = this.UserDataSourceByNutzerNrAndName.ID;
+                    }
+
+                    showResult(1);
                 }
                 else if (rb_ProductSearch.Checked)
                 {
+                    this.lb_Product.Items.Clear();
                     MultiView1.ActiveViewIndex = (int)SearchType.Product;
-                    getSearchContext();
+                    DoSearch();
                 }
             }
         }
 
-        protected void getSearchContext()
+        protected void DoSearch()
         {
-            if (MultiView1.ActiveViewIndex > -1)
+            List<Programm> foundPrograms = ProgrammDAO.getProgrammeWithNameContainingOrNull(tb_SearchInput.Text);
+            if (foundPrograms.Count != 0)
             {
-                SearchType mSearchType =
-                     (SearchType)MultiView1.ActiveViewIndex;
-
-                DoSearch(tb_SearchInput.Text, mSearchType);
-            }
-        }
-
-        protected void DoSearch(String searchTerm, SearchType type)
-        {
-
-            switch (type)
-            {
-                //case SearchType.User:
-                //    {
-                //        List<Benutzer> allUsers = BenutzerDAO.getAllUsers();
-                //        foreach (Benutzer user in allUsers)
-                //        {
-                //            if (user.Name.Contains(searchTerm) || user.NutzerNr.Contains(searchTerm))
-                //            {
-                //                this.lb_User.Visible = true;
-                //                if (lb_User.Items.FindByText(user.NutzerNr) == null)
-                //                {
-                //                    this.lb_User.Items.Add(new ListItem(user.NutzerNr));
-                //                }
-                //            }
-                //            else
-                //            {
-                //                this.l_noCatch.Visible = true;
-                //            }
-                //        }
-                //    }
-                //    break;
-                case SearchType.Product:
+                this.lb_Product.Visible = true;
+                foreach (Programm program in foundPrograms)
+                {
+                    if (lb_Product.Items.FindByText(program.Name) == null)
                     {
-                        List<Programm> foundPrograms = ProgrammDAO.getProgrammeWithNameContainingOrNull(tb_SearchInput.Text);
-                        if (foundPrograms != null)
-                        {
-                            this.lb_Product.Visible = true;
-                            foreach (Programm program in foundPrograms)
-                            {
-                                this.lb_Product.Visible = true;
-                                if (lb_Product.Items.FindByText(program.Name) == null)
-                                {
-                                    this.lb_Product.Items.Add(new ListItem(program.Name));
-                                }
-                            }
-                        }
-                        else
-                        {
-                            this.l_noCatch.Visible = true;
-                        }
+                        this.lb_Product.Items.Add(new ListItem(program.Name));
                     }
-                    break;
-                case SearchType.NotSet:
-                    break;
+                }
+                showResult(0);
+            }
+            else
+            {
+                this.l_noCatch.Visible = true;
+                showResult(0);
             }
         }
 
         protected void lb_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (MultiView1.ActiveViewIndex == 0)
+            Programm selectedProgram = ProgrammDAO.getProgrammByExactNameOrNull(this.lb_Product.SelectedItem.Text);
+            List<Release> allReleases = ReleaseDAO.getAllMajorReleasesFor(selectedProgram);
+                
+            if(selectedProgram != null)
             {
-                //Benutzer user = BenutzerDAO.getUserByKundenNrOrNull(this.lb_User.SelectedItem.Text);
-                //if (user != null)
-                //{
-                //    this.l_Name.Text = user.Name;
-                //    this.l_NutzerNr.Text = user.NutzerNr;
-                //    this.l_Name.Text = user.Rolle.Rollenname;
-                //    this.l_EMail.Text = user.Email;
-                //    this.l_LizenzAnzahl.Text = user.Lizenzs.Count.ToString();
-                //    this.l_LizenzZaehler.Visible = true;
-                //    this.l_ende.Visible = true;
-                //}
-            }
-            else if(MultiView1.ActiveViewIndex == 1)
-            {
-                Programm selectedProgram = ProgrammDAO.getProgrammByExactNameOrNull(this.lb_Product.SelectedItem.Text);
-                List<Release> allReleases = ReleaseDAO.getAllMajorReleasesFor(selectedProgram);
-                if(selectedProgram != null)
-                {
-                    this.l_ProgrammName.Text = selectedProgram.Name;
-                    this.l_ProgrammID.Text = selectedProgram.ProgrammID.ToString();
+                showResult(1);
 
-                    string viewName = "ResultView";
-
-                    View newView = this.MultiView1.FindControl(viewName) as View;
-
-                    if (newView != null)
-                    {
-                        this.MultiView1.SetActiveView(newView);
-                    }
-                }
+                this.l_ProgrammName.Text = selectedProgram.Name;
+                this.l_ProgrammID.Text = selectedProgram.ProgrammID.ToString();
+                
+                this.lv_Product.DataSourceID = this.ProductDataSource.ID;
             }
         }
 
-        /*
-         * Upload Funktionalität
-         */
+        private void showResult(int showType)
+        {
+            if(showType.Equals(0))
+            {
+                string viewName = "PreResultView";
+
+                View newView = this.MultiView1.FindControl(viewName) as View;
+
+                if (newView != null)
+                {
+                    this.MultiView1.SetActiveView(newView);
+                }
+            }
+            else if (showType.Equals(1))
+            {
+                string viewName = "ResultView";
+
+                View newView = this.MultiView1.FindControl(viewName) as View;
+
+                if (newView != null)
+                {
+                    this.MultiView1.SetActiveView(newView);
+                }
+            }
+            
+        }
 
         protected void lvwUsers_SelectedIndexChanging(Object sender, ListViewSelectEventArgs e)
         {
@@ -179,6 +154,18 @@ namespace HODOR.Members.Administration
             {
                 //this.l_
             }
+        }
+
+        protected void rb_UserSearch_CheckedChanged(object sender, EventArgs e)
+        {
+            this.cb_Name.Visible = true;
+            this.cb_NutzerNr.Visible = true;
+        }
+
+        protected void rb_ProductSearch_CheckedChanged(object sender, EventArgs e)
+        {
+            this.cb_Name.Visible = false;
+            this.cb_NutzerNr.Visible = false;
         }
     }
 }
