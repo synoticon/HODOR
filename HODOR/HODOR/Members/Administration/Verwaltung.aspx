@@ -20,7 +20,7 @@
     <asp:EntityDataSource ID="UserDataSourceByNutzerNr" runat="server"
         ConnectionString="name=HODOR_entities" DefaultContainerName="HODOR_entities"
         EnableFlattening="False" EntitySetName="Benutzers" AutoGenerateWhereClause="false"
-        Select="it.[NutzerNr], it.[Email], it.[Name], it.[RolleID]" EntityTypeFilter="" 
+        Select="it.[NutzerNr], it.[Email], it.[Name], it.[RolleID]" EntityTypeFilter=""
         Where="it.[NutzerNr] LIKE '%' + @NutzerNr + '%'">
         <WhereParameters>
             <asp:ControlParameter ControlID="tb_SearchInput" Name="NutzerNr" PropertyName="Text" Type="String" />
@@ -31,7 +31,7 @@
     <asp:EntityDataSource ID="UserDataSourceByName" runat="server"
         ConnectionString="name=HODOR_entities" DefaultContainerName="HODOR_entities"
         EnableFlattening="False" EntitySetName="Benutzers" AutoGenerateWhereClause="false"
-        Select="it.[NutzerNr], it.[Email], it.[Name], it.[RolleID]" EntityTypeFilter="" 
+        Select="it.[NutzerNr], it.[Email], it.[Name], it.[RolleID]" EntityTypeFilter=""
         Where="it.[NutzerNr] LIKE '%' + @Name + '%'">
         <WhereParameters>
             <asp:ControlParameter ControlID="tb_SearchInput" Name="Name" PropertyName="Text" Type="String" />
@@ -41,9 +41,9 @@
     <%-- Suche nach Benutzern mit dem Namen und der NutzerNr als Suchkriterien --%>
     <asp:EntityDataSource ID="UserDataSourceByNutzerNrAndName" runat="server"
         ConnectionString="name=HODOR_entities" DefaultContainerName="HODOR_entities"
-        EnableFlattening="False" EntitySetName="Benutzers" AutoGenerateWhereClause="True"
-        Select="it.[NutzerNr], it.[Email], it.[Name], it.[RolleID]" 
-        Where="it.[NutzerNr] LIKE '%' + @NutzerNr + '%' OR it.[Name] LIKE '%' + @Name + '%'" >
+        EnableFlattening="False" EntitySetName="Benutzers" AutoGenerateWhereClause="false"
+        Select="it.[NutzerNr], it.[Email], it.[Name], it.[RolleID]"
+        Where="it.[NutzerNr] LIKE '%' + @NutzerNr + '%' OR it.[Name] LIKE '%' + @Name + '%'">
         <WhereParameters>
             <asp:ControlParameter ControlID="tb_SearchInput" Name="NutzerNr" PropertyName="Text" Type="String" />
             <asp:ControlParameter ControlID="tb_SearchInput" Name="Name" PropertyName="Text" Type="String" />
@@ -88,11 +88,10 @@
             <asp:View ID="ResultView" runat="server">
                 <p>
                     <asp:Label ID="l_ProgrammName" runat="server" Text="" />
-                    <asp:Label ID="l_ProgrammID" runat="server" Text="" Visible="false" />
-                    <asp:Label ID="l_test" runat="server" Text="" Visible="false" /><br />
+                    <asp:Label ID="l_ProgrammID" runat="server" Text="" Visible="false" />><br />
 
                     <%-- ListView für die Ergebnisse der UserSuche --%>
-                    <asp:ListView ID="lv_User" runat="server" DataSourceID=""
+                    <asp:ListView ID="lv_User" runat="server"
                         OnSelectedIndexChanging="lvwUsers_SelectedIndexChanging">
                         <LayoutTemplate>
                             <table width="100%" border="0" cellspacing="0" cellpadding="0" class="ListView">
@@ -109,31 +108,29 @@
                         <ItemTemplate>
                             <tr>
                                 <th class="NzNr_incon1">
-                                    <li><%# Eval("NutzerNr") %></li>
+                                    <li><%# Eval("nutzerNr") %></li>
                                 </th>
                                 <th class="action">
                                     <asp:LinkButton ID="lb_Details1" runat="server" Text="Details"
-                                        CommandName="Select" CommandArgument='<%# Eval("NutzerNr") %>'
-                                        OnCommand="l_Rolle_Load" />
+                                        CommandName="Select" CommandArgument='<%# Eval("nutzerNr") %>' />
                                 </th>
                             </tr>
                         </ItemTemplate>
                         <AlternatingItemTemplate>
                             <tr>
                                 <th class="NzNr_incon2">
-                                    <li><%# Eval("NutzerNr") %></li>
+                                    <li><%# Eval("nutzerNr") %></li>
                                 </th>
                                 <th class="action">
                                     <asp:LinkButton ID="lb_Details1" runat="server" Text="Details"
-                                        CommandName="Select" CommandArgument='<%# Eval("NutzerNr") %>'
-                                        OnCommand="l_Rolle_Load" />
+                                        CommandName="Select" CommandArgument='<%# Eval("nutzerNr") %>' />
                                 </th>
                             </tr>
                         </AlternatingItemTemplate>
                         <SelectedItemTemplate>
                             <tr>
                                 <th class="NzNr_incon3">
-                                    <li><%# Eval("NutzerNr") %></li>
+                                    <li><%# Eval("nutzerNr") %></li>
                                 </th>
                                 <th class="action">
                                     <asp:LinkButton ID="lb_Details1" runat="server" Text="Bearbeiten"
@@ -142,15 +139,13 @@
                             </tr>
                             <tr class="sub">
                                 <td colspan="4">
-                                    <li><%# Eval("Name") %></li>
+                                    <li><%# Eval("name") %></li>
                                 </td>
                                 <td colspan="4">
-                                    <li><%# Eval("Email") %></li>
+                                    <li><%# Eval("email") %></li>
                                 </td>
                                 <td colspan="4">
-                                    <li>
-                                        <asp:Label ID="l_Rolle" runat="server" Text="" />
-                                    </li>
+                                    <li><%# Eval("rolle") %></li>
                                 </td>
                             </tr>
                         </SelectedItemTemplate>

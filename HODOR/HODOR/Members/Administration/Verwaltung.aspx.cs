@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using HODOR.src.DAO;
 using HODOR.src.Globals;
+using System.Data.Objects;
 
 namespace HODOR.Members.Administration
 {
@@ -34,7 +35,23 @@ namespace HODOR.Members.Administration
                 {
                     if (this.cb_NutzerNr.Checked && !this.cb_Name.Checked)
                     {
-                        this.lv_User.DataSourceID = this.UserDataSourceByNutzerNr.ID;
+                        string searchInput =  this.tb_SearchInput.Text;
+
+                        HODOR_entities hodorDB = HodorGlobals.getHodorContext();
+                        var nutzerNrQuery = from u in hodorDB.Benutzers
+                                            join rolle in hodorDB.Rolles
+                                            on u.RolleID equals rolle.RolleID
+                                            where u.NutzerNr.Contains(searchInput)
+                                            select new
+                                            {
+                                                nutzerNr = u.NutzerNr,
+                                                name = u.Name,
+                                                email = u.Email,
+                                                rolle = rolle.Rollenname
+                                            };
+
+                        this.lv_User.DataSource = nutzerNrQuery.ToList();
+                        this.lv_User.DataBind();
                     }
                     else if (this.cb_Name.Checked && !this.cb_NutzerNr.Checked)
                     {
