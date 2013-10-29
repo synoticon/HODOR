@@ -11,40 +11,38 @@
 </head>
 <body>
     <form id="form1" runat="server" action="">
-    <asp:ScriptManager ID="MainScriptManager" runat="server" EnablePartialRendering="true">
-    </asp:ScriptManager>
-    <div id="header">
-        <div id="content-header-location" class="content-header-location">
-            <asp:SiteMapPath ID="SiteMapPath1" runat="server" />
-        </div>
-        <div class="content-header-logo">
-            <div class="content-header-logo-img">
-                <a href="../../Startseite.aspx">
-                    <img alt="HODOR - Startseite" src="../../images/HODOR_Logo.png" />
-                </a>
+        <asp:ScriptManager ID="MainScriptManager" runat="server" EnablePartialRendering="true">
+        </asp:ScriptManager>
+        <div id="header">
+            <div id="content-header-location" class="content-header-location">
+                <asp:SiteMapPath ID="SiteMapPath1" runat="server" />
+            </div>
+            <div class="content-header-logo">
+                <div class="content-header-logo-img">
+                    <a href="../../Startseite.aspx">
+                        <img alt="HODOR - Startseite" src="../../images/HODOR_Logo.png" />
+                    </a>
+                </div>
             </div>
         </div>
-    </div>
-    <div id="wrapper">
-        <div id="navi">
-            <div id="main-menu">
-                <asp:ContentPlaceHolder runat="server" ID="NaviContentPlaceHolder">
+        <div id="wrapper">
+            <div id="navi">
+                <div id="main-menu">
+                    <asp:ContentPlaceHolder runat="server" ID="NaviContentPlaceHolder">
+                    </asp:ContentPlaceHolder>
+                </div>
+            </div>
+            <div id="main">
+                <asp:ContentPlaceHolder ID="MainContentPlaceHolder" runat="server">
                 </asp:ContentPlaceHolder>
             </div>
-        </div>
-        <div id="main">
-            <asp:ContentPlaceHolder ID="MainContentPlaceHolder" runat="server">
-            </asp:ContentPlaceHolder>
-        </div>
-        <div id="footer">
-            <div id="support">
-                <a href="/Kontakt.aspx" class="supporttextklein">Kontakt</a> <a class="supporttextklein">
-                    &bull;</a> <a href="/Impressum.aspx" class="supporttextklein">Impressum</a>
-                <a class="supporttextklein">&bull;</a> <a href="/FAQ.aspx" class="supporttextklein">
-                    FAQ</a>
+            <div id="footer">
+                <div id="support">
+                    <a href="/Kontakt.aspx" class="supporttextklein">Kontakt</a> <a class="supporttextklein">&bull;</a> <a href="/Impressum.aspx" class="supporttextklein">Impressum</a>
+                    <a class="supporttextklein">&bull;</a> <a href="/FAQ.aspx" class="supporttextklein">FAQ</a>
+                </div>
             </div>
         </div>
-    </div>
     </form>
 </body>
 </html>

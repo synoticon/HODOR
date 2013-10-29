@@ -7,6 +7,8 @@ using System.Web.UI.WebControls;
 using HODOR.src.DAO;
 using HODOR.src.Globals;
 using System.Data.Objects;
+using System.Net.Mail;
+
 
 namespace HODOR.Members.Administration
 {
@@ -16,7 +18,6 @@ namespace HODOR.Members.Administration
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
         }
 
         public enum SearchType
@@ -35,23 +36,25 @@ namespace HODOR.Members.Administration
                 {
                     if (this.cb_NutzerNr.Checked && !this.cb_Name.Checked)
                     {
-                        string searchInput =  this.tb_SearchInput.Text;
+                        this.lv_User.DataSourceID = this.UserDataSourceByNutzerNr.ID;
+                        //Bis jetzt leider noch keine Lösung gefunden über die EDS einen Join durchzuführen
+                        //string searchInput =  this.tb_SearchInput.Text;
 
-                        HODOR_entities hodorDB = HodorGlobals.getHodorContext();
-                        var nutzerNrQuery = from u in hodorDB.Benutzers
-                                            join rolle in hodorDB.Rolles
-                                            on u.RolleID equals rolle.RolleID
-                                            where u.NutzerNr.Contains(searchInput)
-                                            select new
-                                            {
-                                                nutzerNr = u.NutzerNr,
-                                                name = u.Name,
-                                                email = u.Email,
-                                                rolle = rolle.Rollenname
-                                            };
+                        //HODOR_entities hodorDB = HodorGlobals.getHodorContext();
+                        //var nutzerNrQuery = from u in hodorDB.Benutzers
+                        //                    join rolle in hodorDB.Rolles
+                        //                    on u.RolleID equals rolle.RolleID
+                        //                    where u.NutzerNr.Contains(searchInput)
+                        //                    select new
+                        //                    {
+                        //                        nutzerNr = u.NutzerNr,
+                        //                        name = u.Name,
+                        //                        email = u.Email,
+                        //                        rolle = rolle.Rollenname
+                        //                    };
 
-                        this.lv_User.DataSource = nutzerNrQuery.ToList();
-                        this.lv_User.DataBind();
+                        //this.lv_User.DataSource = nutzerNrQuery.ToList();
+                        //this.lv_User.DataBind();
                     }
                     else if (this.cb_Name.Checked && !this.cb_NutzerNr.Checked)
                     {
@@ -104,6 +107,7 @@ namespace HODOR.Members.Administration
             {
                 showResult(1);
 
+                this.l_ProgrammName.Visible = true;
                 this.l_ProgrammName.Text = selectedProgram.Name;
                 this.l_ProgrammID.Text = selectedProgram.ProgrammID.ToString();
                 
@@ -183,6 +187,11 @@ namespace HODOR.Members.Administration
         {
             this.cb_Name.Visible = false;
             this.cb_NutzerNr.Visible = false;
+        }
+
+        protected void lb_Build_Command(object sender, CommandEventArgs e)
+        {
+
         }
     }
 }

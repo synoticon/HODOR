@@ -4,27 +4,23 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Web.Security;
 using HODOR.src.DAO;
-using System.Net.Mail;
 using HODOR.src.Globals;
+using System.Net.Mail;
 
 namespace HODOR.Members.Administration
 {
-    public partial class Produktverwaltung : System.Web.UI.Page
+    public partial class NeuAnlegen : System.Web.UI.Page
     {
-
         protected void Page_Load(object sender, EventArgs e)
         {
-            String Username = System.Threading.Thread.CurrentPrincipal.Identity.Name;
-            Benutzer user = BenutzerDAO.getUserByKundenNrOrNull(Username);
-            if (!HodorRoleProvider.isSupportAllowed(user))
+            if (!IsPostBack)
             {
-                Response.Redirect("Members/LandingPage.aspx");
-            }
-            else
-            {
-                SelectProgrammView(user);
+                List<Rolle> roleList = HodorGlobals.getHodorContext().Rolles.ToList<Rolle>();
+                foreach (Rolle role in roleList)
+                {
+                    this.ddl_roles.Items.Add(new ListItem(role.Rollenname));
+                }
             }
         }
 
@@ -40,6 +36,32 @@ namespace HODOR.Members.Administration
             }
         }
 
+        /*
+         *  Methoden für die Benutzererstellung
+         */
+
+        protected void b_Register_Click(object sender, EventArgs e)
+        {
+            Rolle role = RolleDAO.getRoleByNameOrNull(this.ddl_roles.SelectedItem.Text);
+            if (role == null)
+            {
+                //oh nooo, we're screwed! What now? Throw an Exception? Naah, shouldn't happen, because values were supplied by the DB. Just abort, if murphys law strikes.
+                this.is_registered.Visible = false;
+                return;
+            }
+            Benutzer user = BenutzerDAO.createAndGetUser(this.tb_KdNr.Text.Trim(), this.tb_Firmenname.Text.Trim(), new MailAddress(this.tb_EMail.Text.Trim()), this.tb_PW.Text, role);
+            if (user == null)
+            {
+                this.is_registered.Visible = false;
+            }
+            this.Response.Redirect(this.Request.RawUrl);
+        }
+
+
+
+        /*
+         *  Methoden für den Produkterstellung 
+         */
 
         protected void OnClick_b_upload(object sender, EventArgs e)
         {
@@ -115,6 +137,7 @@ namespace HODOR.Members.Administration
             }
 
         }
+
         protected void ClearAllDDL()
         {
             DDL_SubRelease.Items.Clear();
@@ -247,9 +270,9 @@ namespace HODOR.Members.Administration
             {
                 if (DDL_Release.SelectedValue != "null")
                 {
-                   ReleaseDAO.getSingleReleaseByID(int.Parse(DDL_Release.SelectedValue)).Beschreibung = ta_Releasediscription.Text;                 
+                    ReleaseDAO.getSingleReleaseByID(int.Parse(DDL_Release.SelectedValue)).Beschreibung = ta_Releasediscription.Text;
                 }
-              
+
             }
 
             if (ta_SubReleasediscription != null)
@@ -295,4 +318,3 @@ namespace HODOR.Members.Administration
         }
     }
 }
-

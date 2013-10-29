@@ -69,11 +69,12 @@
   <ItemGroup>
     <Content Include="Impressum.aspx" />
     <Content Include="LoadDirectory\myfile.txt" />
-    <Content Include="Members\Administration\Produktverwaltung.aspx" />
+    <Content Include="Members\Administration\NeuAnlegen.aspx" />
     <Content Include="Members\Administration\TicketSupport.aspx" />
     <Content Include="Members\Administration\Verwaltung.aspx" />
     <Content Include="Members\Logout.aspx" />
     <Content Include="Members\LandingPage.aspx" />
+    <Content Include="Stylesheet\ListView.css" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -94,12 +95,12 @@
     <Compile Include="Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Members\Administration\Produktverwaltung.aspx.cs">
-      <DependentUpon>Produktverwaltung.aspx</DependentUpon>
+    <Compile Include="Members\Administration\NeuAnlegen.aspx.cs">
+      <DependentUpon>NeuAnlegen.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Members\Administration\Produktverwaltung.aspx.designer.cs">
-      <DependentUpon>Produktverwaltung.aspx</DependentUpon>
+    <Compile Include="Members\Administration\NeuAnlegen.aspx.designer.cs">
+      <DependentUpon>NeuAnlegen.aspx</DependentUpon>
     </Compile>
     <Compile Include="Members\Administration\TicketSupport.aspx.cs">
       <DependentUpon>TicketSupport.aspx</DependentUpon>
@@ -107,13 +108,6 @@
     </Compile>
     <Compile Include="Members\Administration\TicketSupport.aspx.designer.cs">
       <DependentUpon>TicketSupport.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Members\Administration\Member.aspx.cs">
-      <DependentUpon>Member.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Members\Administration\Member.aspx.designer.cs">
-      <DependentUpon>Member.aspx</DependentUpon>
     </Compile>
     <Compile Include="FAQ.aspx.cs">
       <DependentUpon>FAQ.aspx</DependentUpon>
@@ -225,7 +219,6 @@
   <ItemGroup>
     <Content Include="App_Themes\Standard\Logo.skin" />
     <Content Include="Login.aspx" />
-    <Content Include="Members\Administration\Member.aspx" />
     <Content Include="images\NAVI_-_Button_Layout_Submenu.png" />
     <Content Include="Kontakt.aspx" />
     <Content Include="Members\Produkte.aspx" />

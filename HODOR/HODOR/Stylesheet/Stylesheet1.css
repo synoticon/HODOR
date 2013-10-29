@@ -381,12 +381,69 @@ a:hover {
     margin: 0px 4px;
 }
 
-.ListView li
+
+
+/*
+*   ListView Design
+*   Hauptdefinition
+*/
+.userTable
 {
     display: inline;
-    width:200px;
     float: left;
-    margin: 0 20px 20px 0;
-    color: #000000;
+    margin: 0px 10px 10px -2px;
+    width: 100%;
+}
+
+/*
+    Headerbereich
+    */
+.emptyTH
+{
+    padding: 0px 50px 0px 0px;
+}
+
+.KdNrTH
+{
+    padding: 0px 5px 0px 0px;
+}
+
+.NameTH
+{
+    padding: 0px 10px 0px 0px;
+}
+
+.EMailTH
+{
+    padding: 0px 20px 0px 0px;
+}
+
+.ActionTH
+{
+    padding: 0px 5px 0px 0px;
     text-align: center;
+}
+
+.RlsTH
+{
+    padding: 0px 50px 0px 0px;
+}
+
+.RlsDatTH
+{
+    padding: 0px 150px 0px 0px;
+}
+
+
+/*
+*   ContentBereich
+*/
+.itemTemplate
+{
+    background-color: lightgray;
+}
+
+.selectedItemTemplate
+{
+    background-color: lightsteelblue;
 }

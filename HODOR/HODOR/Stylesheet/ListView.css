@@ -1,0 +1,20 @@
+﻿body {
+}
+
+.userTable 
+{
+    display: inline;
+    float: left;
+    margin-left: 15px;
+    margin-bottom: 10px;
+    border-bottom-color: blue;
+}
+
+.userTable th
+{
+    display: inline;
+    float: left;
+    margin-left: 15px;
+    margin-bottom: 0px;
+    border-bottom-color: green;
+}
