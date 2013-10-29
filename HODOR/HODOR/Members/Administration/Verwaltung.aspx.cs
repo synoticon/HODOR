@@ -18,6 +18,42 @@ namespace HODOR.Members.Administration
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if(!IsPostBack)
+            {
+                string viewString = Request.QueryString["view"];
+                string nutzerNrString = Request.QueryString["nutzernr"];
+                if (viewString != null)
+                {
+                    if (viewString == "ResultView")
+                    {
+                        MultiView1.SetActiveView(ResultView);
+                        if(nutzerNrString != null)
+                        {
+                            this.lv_User.DataKeyNames = null;
+                            editUser(nutzerNrString);   
+                        }
+                    }
+                }
+            }
+        }
+
+        protected void editUser(string searchInput)
+        {
+            HODOR_entities hodorDB = HodorGlobals.getHodorContext();
+            var nutzerNrQuery = from u in hodorDB.Benutzers
+                                join rolle in hodorDB.Rolles
+                                on u.RolleID equals rolle.RolleID
+                                where u.NutzerNr.Equals(searchInput)
+                                select new
+                                {
+                                    nutzerNr = u.NutzerNr,
+                                    name = u.Name,
+                                    email = u.Email,
+                                    rolle = rolle.Rollenname
+                                };
+
+            this.lv_User.DataSource = nutzerNrQuery.ToList();
+            this.lv_User.DataBind();
         }
 
         public enum SearchType
@@ -187,11 +223,6 @@ namespace HODOR.Members.Administration
         {
             this.cb_Name.Visible = false;
             this.cb_NutzerNr.Visible = false;
-        }
-
-        protected void lb_Build_Command(object sender, CommandEventArgs e)
-        {
-
         }
     }
 }

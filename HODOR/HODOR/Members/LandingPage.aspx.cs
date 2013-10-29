@@ -157,7 +157,7 @@ namespace HODOR.Members
         protected void b_edit_Click(object sender, EventArgs e)
         {
             //@Timo Hier Link eintragen wo der User Hingepostet werden muss.
-            Response.Redirect("Administration/TicketSupport.aspx");
+            Response.Redirect("Administration/Verwaltung.aspx?view=ResultView&nutzernr=" + this.l_kundenNummer.Text);
         }
     }
 }

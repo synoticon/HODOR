@@ -16,12 +16,20 @@ namespace HODOR.Members.Administration
         {
             if (!IsPostBack)
             {
-                List<Rolle> roleList = HodorGlobals.getHodorContext().Rolles.ToList<Rolle>();
-                foreach (Rolle role in roleList)
+                String viewString = Request.QueryString["view"];
+                if (viewString != null)
                 {
-                    this.ddl_roles.Items.Add(new ListItem(role.Rollenname));
+                    if (viewString == "UserView")
+                    {
+                        MultiView1.SetActiveView(UserView);
+                        List<Rolle> roleList = HodorGlobals.getHodorContext().Rolles.ToList<Rolle>();
+                        foreach (Rolle role in roleList)
+                        {
+                            this.ddl_roles.Items.Add(new ListItem(role.Rollenname));
+                        }
+                    }
                 }
-            }
+            }            
         }
 
         protected void MenuLink_Command(object sender, CommandEventArgs e)
@@ -49,7 +57,7 @@ namespace HODOR.Members.Administration
                 this.is_registered.Visible = false;
                 return;
             }
-            Benutzer user = BenutzerDAO.createAndGetUser(this.tb_KdNr.Text.Trim(), this.tb_Firmenname.Text.Trim(), new MailAddress(this.tb_EMail.Text.Trim()), this.tb_PW.Text, role);
+            Benutzer user = BenutzerDAO.createAndGetUser(this.tb_KdNr.Text.Trim(), this.tb_Firmenname.Text.Trim(), new MailAddress(this.tb_EMail.Text.Trim()), this.tb_PW.Text.Trim(), role);
             if (user == null)
             {
                 this.is_registered.Visible = false;
