@@ -83,5 +83,56 @@ namespace HODOR.src.DAO
 
             return result;
         }
+
+        //public static IQueryable<Subrelease> getAllSubReleasesByRelease(Release rel)
+        //{
+        //    IQueryable<Subrelease> result = HodorGlobals.getHodorContext().Releases.OfType<Subrelease>().Where(s => s.SubreleaseVonRelease == rel.ReleaseID);
+
+        //    if(result.Count() == 0)
+        //    {
+        //        return null;
+        //    }
+        //    else
+        //    {
+        //        return result;
+        //    }
+            
+        //}
+
+        public static List<Subrelease> getAllSubReleases()
+        {
+            HODOR_entities ctx = HodorGlobals.getHodorContext();
+            var allSubReleaseQueryResult = from r in ctx.Releases.OfType<Subrelease>()
+                                            where !(ctx.Releases.OfType<Subrelease>().Select(s => s.SubreleaseVonRelease).Contains(r.ReleaseID))
+                                            select r;
+
+            return allSubReleaseQueryResult.ToList<Subrelease>();
+        }
+
+        public static List<Subrelease> getAllSubReleasesByRelease(Release rel)
+        {
+            return getAllSubReleases().Where(p => p.SubreleaseVonRelease == rel.ReleaseID).OrderBy(r => r.Releasenummer).ToList<Subrelease>();
+        }
+
+        public static Subrelease getSingleSubReleaseByID(int subReleaseID)
+        {
+
+            List<Subrelease> subReleaseList = HodorGlobals.getHodorContext().Releases.OfType<Subrelease>().Where(r => r.ReleaseID == subReleaseID).ToList<Subrelease>();
+
+            if (subReleaseList.Count == 1)
+            {
+                //everything ok
+                return subReleaseList[0];
+            }
+            else if (subReleaseList.Count == 0)
+            {
+                //no Program with that name found
+                return null;
+            }
+            else
+            {
+                throw new Exception("Entities for Release are inconsistent. Duplicate (" + subReleaseList.Count + ") ReleaseID detected: " + subReleaseID.ToString());
+            }
+        }
     }
 }

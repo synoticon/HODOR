@@ -91,10 +91,10 @@ namespace HODOR.src.DAO
             return allReleaseQueryResult.ToList<Release>();
         }
 
-        public static List<Release> getAllMajorReleasesFor(Programm prog)
-        {
-            return getAllMajorReleases().Where(p => p.ReleaseVonProgramm == prog.ProgrammID).OrderBy(r => r.Releasenummer).ToList<Release>();
-        }
+            public static List<Release> getAllMajorReleasesFor(Programm prog)
+            {
+                return getAllMajorReleases().Where(p => p.ReleaseVonProgramm == prog.ProgrammID).OrderBy(r => r.Releasenummer).ToList<Release>();
+            }
 
         public static Release getSingleReleaseByID(int ReleaseID)
         {

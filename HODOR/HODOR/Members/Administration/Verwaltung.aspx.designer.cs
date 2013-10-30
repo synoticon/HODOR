@@ -193,6 +193,42 @@ namespace HODOR.Members.Administration {
         protected global::System.Web.UI.WebControls.View ResultView;
         
         /// <summary>
+        /// l_BuildVon-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label l_BuildVon;
+        
+        /// <summary>
+        /// l_SubReleaseNr-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label l_SubReleaseNr;
+        
+        /// <summary>
+        /// l_SubReleaseVon-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label l_SubReleaseVon;
+        
+        /// <summary>
+        /// l_vonXY-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label l_vonXY;
+        
+        /// <summary>
         /// l_ProgrammName-Steuerelement
         /// </summary>
         /// <remarks>
@@ -211,6 +247,15 @@ namespace HODOR.Members.Administration {
         protected global::System.Web.UI.WebControls.Label l_ProgrammID;
         
         /// <summary>
+        /// l_ReleaseNummer-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label l_ReleaseNummer;
+        
+        /// <summary>
         /// lv_User-Steuerelement
         /// </summary>
         /// <remarks>
@@ -227,5 +272,23 @@ namespace HODOR.Members.Administration {
         /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ListView lv_Product;
+        
+        /// <summary>
+        /// lv_subRelease-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ListView lv_subRelease;
+        
+        /// <summary>
+        /// lv_Build-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ListView lv_Build;
     }
 }

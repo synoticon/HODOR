@@ -128,5 +128,20 @@ namespace HODOR.src.DAO
             
             return resultList[0];
         }
+
+        public static List<Build> getAllBuilds()
+        {
+            HODOR_entities ctx = HodorGlobals.getHodorContext();
+            var allBuildsQueryResult = from r in ctx.Releases.OfType<Build>()
+                                           where !(ctx.Releases.OfType<Build>().Select(s => s.BuildVonSubrelease).Contains(r.ReleaseID))
+                                           select r;
+
+            return allBuildsQueryResult.ToList<Build>();
+        }
+
+        public static List<Build> getAllBuildsBySubReleases(Subrelease subRel)
+        {
+            return getAllBuilds().Where(p => p.BuildVonSubrelease == subRel.ReleaseID).OrderBy(r => r.Releasenummer).ToList<Build>();
+        }
     }
 }

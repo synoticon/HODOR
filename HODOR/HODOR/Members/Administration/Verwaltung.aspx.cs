@@ -22,6 +22,10 @@ namespace HODOR.Members.Administration
             {
                 string viewString = Request.QueryString["view"];
                 string nutzerNrString = Request.QueryString["nutzernr"];
+                string programString = Request.QueryString["programID"];
+                string releaseString = Request.QueryString["releasenummer"];
+                string subReleaseString = Request.QueryString["subreleasenummer"];
+
                 if (viewString != null)
                 {
                     if (viewString == "ResultView")
@@ -32,18 +36,53 @@ namespace HODOR.Members.Administration
                             this.lv_User.DataKeyNames = null;
                             editUser(nutzerNrString);   
                         }
+                        else if (programString != null)
+                        {
+                            if (releaseString != null && subReleaseString == null)
+                            {
+                                showSubReleases(programString, releaseString);
+
+                                Programm prog = ProgrammDAO.getProgrammByProgrammIDOrNull(Convert.ToInt32(programString));
+                                string progName = prog.Name;
+
+                                this.l_ProgrammName.Text = progName;
+
+                                this.l_SubReleaseVon.Visible = true;
+                                this.l_ProgrammName.Visible = true;
+
+                            }
+                            else if (releaseString != null && subReleaseString != null)
+                            {
+                                showBuilds(programString, releaseString, subReleaseString);
+
+                                Programm prog = ProgrammDAO.getProgrammByProgrammIDOrNull(Convert.ToInt32(programString));
+                                string progName = prog.Name;
+
+                                this.l_SubReleaseNr.Text = subReleaseString;
+                                this.l_ProgrammName.Text = progName;
+
+                                this.l_BuildVon.Visible = true;
+                                this.l_SubReleaseNr.Visible = true;
+                                this.l_vonXY.Visible = true;
+                                this.l_ProgrammName.Visible = true;
+                            }
+                        }
                     }
                 }
             }
         }
 
-        protected void editUser(string searchInput)
+        /*
+         *  Wiedergabe des gesuchten Users, welcher im ListView lv_User bearbeitet werden soll 
+         */
+
+        protected void editUser(string editInput)
         {
             HODOR_entities hodorDB = HodorGlobals.getHodorContext();
             var nutzerNrQuery = from u in hodorDB.Benutzers
                                 join rolle in hodorDB.Rolles
                                 on u.RolleID equals rolle.RolleID
-                                where u.NutzerNr.Equals(searchInput)
+                                where u.NutzerNr.Equals(editInput)
                                 select new
                                 {
                                     nutzerNr = u.NutzerNr,
@@ -56,6 +95,28 @@ namespace HODOR.Members.Administration
             this.lv_User.DataBind();
         }
 
+        /*
+         *  Anzeigen des jeweiligen Contextes (SubRelease, Build) 
+         */
+
+        protected void showSubReleases(string programID, string releaseNr)
+        {
+            Release release = ReleaseDAO.getSingleReleaseByNumberAndProgramm(Convert.ToInt32(programID), Convert.ToInt32(releaseNr));
+            List<Subrelease> subReleases = SubreleaseDAO.getAllSubReleasesByRelease(release);
+            
+            this.lv_subRelease.DataSource = subReleases;
+            this.lv_subRelease.DataBind();
+        }
+
+        protected void showBuilds(string programID, string releaseNr, string subReleaseNr)
+        {
+            Subrelease subRelease = SubreleaseDAO.getSingleSubReleaseByID(Convert.ToInt32(subReleaseNr));
+            List<Build> buildList = BuildDAO.getAllBuildsBySubReleases(subRelease);
+
+            this.lv_Build.DataSource = buildList;
+            this.lv_Build.DataBind();
+        }
+
         public enum SearchType
         {
             NotSet = -1,
@@ -63,6 +124,10 @@ namespace HODOR.Members.Administration
             Product = 1,
             Upload = 2
         }
+
+        /*
+         *  Controll für das Auswählen des Searchbutton 
+         */
 
         protected void SearchButton_Click(object sender, EventArgs e)
         {
@@ -73,24 +138,6 @@ namespace HODOR.Members.Administration
                     if (this.cb_NutzerNr.Checked && !this.cb_Name.Checked)
                     {
                         this.lv_User.DataSourceID = this.UserDataSourceByNutzerNr.ID;
-                        //Bis jetzt leider noch keine Lösung gefunden über die EDS einen Join durchzuführen
-                        //string searchInput =  this.tb_SearchInput.Text;
-
-                        //HODOR_entities hodorDB = HodorGlobals.getHodorContext();
-                        //var nutzerNrQuery = from u in hodorDB.Benutzers
-                        //                    join rolle in hodorDB.Rolles
-                        //                    on u.RolleID equals rolle.RolleID
-                        //                    where u.NutzerNr.Contains(searchInput)
-                        //                    select new
-                        //                    {
-                        //                        nutzerNr = u.NutzerNr,
-                        //                        name = u.Name,
-                        //                        email = u.Email,
-                        //                        rolle = rolle.Rollenname
-                        //                    };
-
-                        //this.lv_User.DataSource = nutzerNrQuery.ToList();
-                        //this.lv_User.DataBind();
                     }
                     else if (this.cb_Name.Checked && !this.cb_NutzerNr.Checked)
                     {
@@ -101,7 +148,7 @@ namespace HODOR.Members.Administration
                         this.lv_User.DataSourceID = this.UserDataSourceByNutzerNrAndName.ID;
                     }
 
-                    showResult(1);
+                    showResult("Result");
                 }
                 else if (rb_ProductSearch.Checked)
                 {
@@ -111,6 +158,10 @@ namespace HODOR.Members.Administration
                 }
             }
         }
+
+        /*
+         *  Suchvorgang nach Programmnamen, welche teile des Suchfeldes beinhalten 
+         */
 
         protected void DoSearch()
         {
@@ -125,14 +176,19 @@ namespace HODOR.Members.Administration
                         this.lb_Product.Items.Add(new ListItem(program.Name));
                     }
                 }
-                showResult(0);
+                showResult("PreResult");
             }
             else
             {
                 this.l_noCatch.Visible = true;
-                showResult(0);
+                showResult("PreResult");
             }
         }
+
+        /*
+         *  Controll falls sich ein selektiertes Item wechselt bzw. ausgewählt wird
+         *  und gleichzeitige Setzung des neuen Contextes
+         */
 
         protected void lb_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -141,7 +197,7 @@ namespace HODOR.Members.Administration
                 
             if(selectedProgram != null)
             {
-                showResult(1);
+                showResult("Result");
 
                 this.l_ProgrammName.Visible = true;
                 this.l_ProgrammName.Text = selectedProgram.Name;
@@ -151,32 +207,27 @@ namespace HODOR.Members.Administration
             }
         }
 
-        private void showResult(int showType)
+        /*
+         *  Anzeigen des jeweilig angewählten View durch einen angestoßenen Suchvorgang
+         */
+
+        protected void showResult(string viewType)
         {
-            if(showType.Equals(0))
+            string viewName = viewType + "View";
+
+            View newView = this.MultiView1.FindControl(viewName) as View;
+
+            if (newView != null)
             {
-                string viewName = "PreResultView";
-
-                View newView = this.MultiView1.FindControl(viewName) as View;
-
-                if (newView != null)
-                {
-                    this.MultiView1.SetActiveView(newView);
-                }
+                this.MultiView1.SetActiveView(newView);
             }
-            else if (showType.Equals(1))
-            {
-                string viewName = "ResultView";
 
-                View newView = this.MultiView1.FindControl(viewName) as View;
-
-                if (newView != null)
-                {
-                    this.MultiView1.SetActiveView(newView);
-                }
-            }
-            
         }
+
+        /*
+         *  Controlls für das Feststellen von Änderungen innerhalb eines ListViews 
+         *  um den zuverwendenden Context festzulegen
+         */
 
         protected void lvwUsers_SelectedIndexChanging(Object sender, ListViewSelectEventArgs e)
         {
@@ -190,28 +241,21 @@ namespace HODOR.Members.Administration
             Label lablId = (Label)item.FindControl("CONTROL_ID");
         }
 
-
-        protected void MenuLink_Command(object sender, CommandEventArgs e)
+        protected void lv_subRelease_SelectedIndexChanging(object sender, ListViewSelectEventArgs e)
         {
-            string viewName = e.CommandName + "View";
-
-            View newView = this.MultiView1.FindControl(viewName) as View;
-
-            if (newView != null)
-            {
-                this.MultiView1.SetActiveView(newView);
-            }
-
+            ListViewItem item = (ListViewItem)lv_subRelease.Items[e.NewSelectedIndex];                  // <<<<<<<<<<<<<<<<<<<<<<<<<< Eventuell hier
+            Label lablId = (Label)item.FindControl("CONTROL_ID");
         }
 
-        protected void l_Rolle_Load(object sender, CommandEventArgs e)
+        protected void lv_Build_SelectedIndexChanging(object sender, ListViewSelectEventArgs e)
         {
-            Benutzer user = BenutzerDAO.getUserByKundenNrOrNull(e.CommandArgument.ToString());
-            if (user != null)
-            {
-                //this.l_
-            }
+            ListViewItem item = (ListViewItem)lv_Build.Items[e.NewSelectedIndex];
+            Label lablId = (Label)item.FindControl("CONTROL_ID");
         }
+
+        /*
+         *  Umstellung bzw. Erweiterung der Sucheigenschaften 
+         */
 
         protected void rb_UserSearch_CheckedChanged(object sender, EventArgs e)
         {
@@ -223,6 +267,26 @@ namespace HODOR.Members.Administration
         {
             this.cb_Name.Visible = false;
             this.cb_NutzerNr.Visible = false;
+        }
+
+        /*
+         *  Verweise auf die jeweiligen Views mit zugeteiltem Release bzw. SubRelease 
+         */
+        
+        protected void lb_subRelease_Command(object sender, CommandEventArgs e)
+        {                                                                                   // <<<<<<<<<<<<<<<<<<<<<<<<<< Eventuell hier
+            string[] arg = new string[2];
+            arg = e.CommandArgument.ToString().Split(';');
+            string queryString = "&programID=" + arg[0] + "&releasenummer=" + arg[1];           
+            Response.Redirect("~/Members/Administration/Verwaltung.aspx?view=ResultView" + queryString);
+        }
+
+        protected void lb_Builds_Command(object sender, CommandEventArgs e)
+        {
+            string[] arg = new string[3];
+            arg = e.CommandArgument.ToString().Split(';');
+            string queryString = "&programID=" + arg[0] + "&releasenummer=" + arg[1] + "&subreleasenummer=" + arg[2];
+            Response.Redirect("~/Members/Administration/Verwaltung.aspx?view=ResultView" + queryString);
         }
     }
 }
