@@ -26,7 +26,9 @@ namespace HODOR.Members
                         this.l_FirmenName.Text = user.Name;
                         this.l_EMail.Text = user.Email;
 
-                        
+                        this.lv_User.DataSource = user.Lizenzs.OfType<Lizenz_Zeitlich>().ToList();
+
+                        this.lv_User.DataBind();
                     }
                 }
             }
@@ -36,6 +38,12 @@ namespace HODOR.Members
         {
             ListViewItem item = (ListViewItem)lv_User.Items[e.NewSelectedIndex];
             Label lablId = (Label)item.FindControl("CONTROL_ID");
+        }
+
+        protected void lv_User_ItemEditing(object sender, ListViewEditEventArgs e)
+        {
+            ListViewItem item = (ListViewItem)lv_User.Items[e.NewEditIndex];
+            Label lablId = (Label)item.FindControl("LizenzID");
         }
     }
 }

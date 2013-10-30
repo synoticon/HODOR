@@ -8,10 +8,11 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder" runat="server">
     
-    <asp:TabContainer runat="server"
-        OnClientActiveTabChanged="ClientFunction"
-        Height="150px">
-        <asp:TabPanel runat="server" HeaderText="Signatur" CssClass="CustomTabStyle">
+    <br />
+    <br />
+    <br />
+    <asp:TabContainer ID="tc_Test" runat="server" Visible="true">
+        <asp:TabPanel ID="sadasd" runat="server" HeaderText="Signatur" >
             <HeaderTemplate>
                 sadfdsfsadf
             </HeaderTemplate>
@@ -20,6 +21,9 @@
             </ContentTemplate>
         </asp:TabPanel>
     </asp:TabContainer>
+
+    <asp:TextBox ID="testBox" runat="server" />
+    <asp:CalendarExtender ID="textCal" runat="server" TargetControlID="testBox" />
 
     <asp:Table ID="t_user" runat="server">
         <asp:TableHeaderRow>
@@ -41,7 +45,8 @@
     </asp:Table>
 
     <asp:ListView ID="lv_User" runat="server" DataKeyNames=""
-        OnSelectedIndexChanging="lv_User_SelectedIndexChanging">
+        OnSelectedIndexChanging="lv_User_SelectedIndexChanging"
+        OnItemEditing="lv_User_ItemEditing">
         <LayoutTemplate>
             <table id="Table3" class="ExampleView" runat="server" width="100%">
                 <tr id="Tr1" runat="server">
@@ -50,8 +55,8 @@
                             <tr id="Tr2" runat="server" style="">
                                 <th id="Th1" class="emptyTH" runat="server"></th>
                                 <th id="Th2" class="KdNrTH" runat="server">Lizenz Nr.</th>
-                                <th id="Th3" class="NameTH" runat="server">Typ</th>
-                                <th id="Th4" class="EMailTH" runat="server"></th>
+                                <th id="Th3" class="NameTH" runat="server">Lizenzbeginn</th>
+                                <th id="Th4" class="EMailTH" runat="server">Lizenzende</th>
                                 <th id="Th5" class="ActionTH" runat="server">&bull;</th>
                             </tr>
                             <tr id="itemPlaceHolder" runat="server">
@@ -75,14 +80,19 @@
                         ImageUrl="~/images/ListView/ArrowItem.png" />
                 </td>
                 <td>
-                    <%# Eval("LizenzID") %>
+                    <asp:Label ID="l_lizenzID" runat="server" Text='<%# Eval("LizenzID") %>' />
                 </td>
                 <td>
-                    <asp:Label ID="l_typ" runat="server" />
+                    <%# Eval("StartDatum", "{0:dd.MM.yy}") %>
                 </td>
-                <td></td>
+                <td>
+                    <%# Eval("EndDatum", "{0:dd.MM.yy}") %>
+                </td>
                 <td class="action">
-                    <asp:LinkButton ID="lb_Details1" runat="server" Text="Bearbeiten" CommandName="Edit" />
+                    <asp:LinkButton ID="lb_Details1" runat="server" Text="Bearbeiten"
+                        CommandName="Edit" /><br />
+                    <asp:LinkButton ID="lb_delete" runat="server" Text="Löschen"
+                        CommandName="Delete" OnClientClick="return confirm('Sind Sie sicher, dass Sie diesen Benutzer löschen wolle?');" />
                 </td>
             </tr>
         </ItemTemplate>
@@ -96,28 +106,10 @@
                     <%# Eval("LizenzID") %>
                 </td>
                 <td>
-                    <asp:Label ID="l_typ" runat="server" />
-                </td>
-                <td></td>
-                <td class="action">
-                    <asp:LinkButton ID="lb_Details1" runat="server" Text="Bearbeiten" CommandName="Edit" />
-                </td>
-            </tr>
-        </AlternatingItemTemplate>
-        <SelectedItemTemplate>
-            <tr class="selectedItemTemplate">
-                <td>
-                    <asp:Image ID="pictureControlID" runat="server" AlternateText="ArrowDetails"
-                        ImageUrl="~/images/ListView/ArrowDetails.png" />
+                    <%# Eval("StartDatum", "{0:dd.MM.yy}") %>
                 </td>
                 <td>
-                    <%# Eval("LizenzID") %>
-                </td>
-                <td>
-                    <asp:Label ID="l_typ" runat="server" />
-                </td>
-                <td>
-                    <asp:Label ID="l_dauer" runat="server" />
+                    <%# Eval("EndDatum", "{0:dd.MM.yy}") %>
                 </td>
                 <td class="action">
                     <asp:LinkButton ID="lb_Details1" runat="server" Text="Bearbeiten"
@@ -126,7 +118,7 @@
                         CommandName="Delete" OnClientClick="return confirm('Sind Sie sicher, dass Sie diesen Benutzer löschen wolle?');" />
                 </td>
             </tr>
-        </SelectedItemTemplate>
+        </AlternatingItemTemplate>
         <EditItemTemplate>
             <tr class="editItemTemplate">
                 <td>
@@ -137,17 +129,11 @@
                     <asp:TextBox ID="EditNutzerNr" runat="server" Text='<%# Bind("LizenzID") %>' TextMode="SingleLine" MaxLength="255" />
                 </td>
                 <td>
-                    <asp:DropDownList ID="ddl_typ" runat="server" />
+                    <asp:TextBox ID="tb_startDate" runat="server" Text='<%# Bind("StartDatum") %>' />
+                    <asp:CalendarExtender ID="ce_startDate" runat="server" TargetControlID="tb_startDate" />
                 </td>
                 <td>
-                    <asp:DropDownList ID="ddl_release" runat="server" />
-
-                    <asp:ToolkitScriptManager ID="tksm_date" runat="server" />
-
-                    <asp:TextBox ID="tb_startDate" runat="server" Text="" /><br />
-                    <asp:CalendarExtender ID="ce_startDate" runat="server" TargetControlID="tb_startDate" />
-
-                    <asp:TextBox ID="tb_endDate" runat="server" Text="" />
+                    <asp:TextBox ID="tb_endDate" runat="server" Text='<%# Bind("EndDatum") %>' />
                     <asp:CalendarExtender ID="ce_endDate" runat="server" TargetControlID="tb_endDate" />
                 </td>
                 <td>

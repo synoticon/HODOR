@@ -22,6 +22,42 @@ namespace HODOR.Members {
         protected global::System.Web.UI.WebControls.Label Header;
         
         /// <summary>
+        /// tc_Test-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
+        /// </remarks>
+        protected global::AjaxControlToolkit.TabContainer tc_Test;
+        
+        /// <summary>
+        /// sadasd-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
+        /// </remarks>
+        protected global::AjaxControlToolkit.TabPanel sadasd;
+        
+        /// <summary>
+        /// testBox-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox testBox;
+        
+        /// <summary>
+        /// textCal-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
+        /// </remarks>
+        protected global::AjaxControlToolkit.CalendarExtender textCal;
+        
+        /// <summary>
         /// t_user-Steuerelement
         /// </summary>
         /// <remarks>

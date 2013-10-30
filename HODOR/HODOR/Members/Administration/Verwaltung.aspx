@@ -77,7 +77,7 @@
         </asp:TableRow>
         <asp:TableHeaderRow>
             <asp:TableCell>
-                <asp:LinkButton ID="lb_Build" runat="server" PostBackUrl="~/Members/Administration/NeuAnlegen.aspx?view=UserView">Neu anlegen</asp:LinkButton><br />
+                <asp:LinkButton ID="lb_Build" runat="server" PostBackUrl="~/Members/Administration/NeuAnlegen.aspx">Neu anlegen</asp:LinkButton><br />
             </asp:TableCell>
         </asp:TableHeaderRow>
     </asp:Table>
@@ -288,7 +288,6 @@
                                 <%# Eval("Beschreibung") %>
                             </td>
                             <td class="action">
-                                <%--PostBackUrl="~/Members/Administration/Verwaltung.aspx?view=ResultView&programID='<%# Eval("ReleaseVonProgramm") %>'&releaseID='<%# Eval("Releasenummer") %>'"--%>
                                 <asp:LinkButton ID="lb_subRelease" runat="server" Text="Sub-Release"
                                     CommandArgument='<%# Eval("ReleaseVonProgramm") + ";" + Eval("Releasenummer") %>' OnCommand="lb_subRelease_Command" /><br />
                                 <asp:LinkButton ID="lb_Details1" runat="server" Text="Bearbeiten"
