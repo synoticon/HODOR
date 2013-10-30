@@ -8,11 +8,11 @@ namespace HODOR.src.DAO
 {
     public class LizenzDAO
     {
-        public static Lizenz_Zeitlich createAndGetZeitlizenz(Programm licensedProgramm, DateTime startDate, DateTime endDate)
+        public static Lizenz_Zeitlich createAndGetZeitlizenz(Programm licensedProgramm, DateTime endDate)
         {
             Lizenz_Zeitlich license = new Lizenz_Zeitlich();//Lizenz_Zeitlich.CreateLizenz_Zeitlich(licensedProgramm.ProgrammID, startDate, endDate);
             license.LizensiertProgramm = licensedProgramm.ProgrammID;
-            license.StartDatum = startDate;
+            license.StartDatum = DateTime.Now;
             license.EndDatum = endDate;
 
             HodorGlobals.getHodorContext().Lizenzs.AddObject(license);
@@ -20,14 +20,9 @@ namespace HODOR.src.DAO
             return license;
         }
 
-        public static Lizenz_Zeitlich createAndGetZeitlizenz(Programm licensedProgramm, DateTime endDate)
-        {
-            return createAndGetZeitlizenz(licensedProgramm, DateTime.Now, endDate);
-        }
-
         public static Lizenz_Zeitlich createAndGetZeitlizenzForUser(Benutzer user, Programm licensedProgramm, DateTime endDate)
         {
-            Lizenz_Zeitlich license =createAndGetZeitlizenz(licensedProgramm, DateTime.Now, endDate);
+            Lizenz_Zeitlich license =createAndGetZeitlizenz(licensedProgramm, endDate);
             BenutzerDAO.addLicenseToUser(user, license);
             return license;
         }

@@ -2,6 +2,7 @@
     CodeBehind="Verwaltung.aspx.cs" Inherits="HODOR.Members.Administration.Verwaltung" %>
 
 <asp:Content ID="Title" ContentPlaceHolderID="TitlePlaceHolder" runat="server">
+    <asp:Label ID="Header" runat="server" Text="Verwaltung " />
 </asp:Content>
 <asp:Content ID="Content" ContentPlaceHolderID="ContentPlaceHolder" runat="server">
 
@@ -144,13 +145,12 @@
                                 <%# Eval("Email") %>
                             </td>
                             <td class="action">
+                                <asp:LinkButton ID="lb_Lizenzen" runat="server" Text="Lizenzen"
+                                    CommandArgument='<%# Eval("NutzerNr") %>' /><br />
                                 <asp:LinkButton ID="lb_Details1" runat="server" Text="Bearbeiten"
                                     CommandName="Edit" /><br />
                                 <asp:LinkButton ID="lb_delete" runat="server" Text="Löschen"
-                                    CommandName="Delete" OnClientClick="return confirm('Sind Sie sicher, dass Sie diesen Benutzer löschen wolle?');" /><br />
-                                <asp:LinkButton ID="lb_Lizenzen" runat="server" Text="Lizenzen"
-                                    CommandArgument='<%# Eval("NutzerNr") %>' />
-                                <%-- Hier kommt noch der Link zur Lizenzverwaltung --%>
+                                    CommandName="Delete" OnClientClick="return confirm('Sind Sie sicher, dass Sie diesen Benutzer löschen wolle?');" />
                             </td>
                         </tr>
                     </ItemTemplate>
@@ -160,7 +160,7 @@
                                 <asp:Image ID="pictureControlID" runat="server" AlternateText="ArrowAlternativ"
                                     ImageUrl="~/images/ListView/ArrowAlternativ.png" />
                             </td>
-                            <td class="NzNr_incon2">
+                            <td>
                                 <%# Eval("NutzerNr") %>
                             </td>
                             <td>
@@ -170,13 +170,12 @@
                                 <%# Eval("Email") %>
                             </td>
                             <td class="action">
+                                <asp:LinkButton ID="LinkButton1" runat="server" Text="Lizenzen"
+                                    CommandArgument='<%# Eval("NutzerNr") %>' /><br />
                                 <asp:LinkButton ID="lb_Details1" runat="server" Text="Bearbeiten"
                                     CommandName="Edit" /><br />
                                 <asp:LinkButton ID="lb_delete" runat="server" Text="Löschen"
-                                    CommandName="Delete" OnClientClick="return confirm('Sind Sie sicher, dass Sie diesen Benutzer löschen wollen?');" /><br />
-                                <asp:LinkButton ID="lb_Lizenzen" runat="server" Text="Lizenzen"
-                                    CommandArgument='<%# Eval("NutzerNr") %>' />
-                                <%-- Hier kommt noch der Link zur Lizenzverwaltung --%>
+                                    CommandName="Delete" OnClientClick="return confirm('Sind Sie sicher, dass Sie diesen Benutzer löschen wollen?');" />
                             </td>
                         </tr>
                     </AlternatingItemTemplate>
@@ -245,7 +244,7 @@
                                 <%# Eval("Releasenummer") %>
                             </td>
                             <td>
-                                <%# Eval("Releasedatum") %>
+                                <%# Eval("Releasedatum", "{0:dd.MM.yy}") %>
                             </td>
                             <td></td>
                             <td class="action">
@@ -264,7 +263,7 @@
                                 <%# Eval("Releasenummer") %>
                             </td>
                             <td>
-                                <%# Eval("Releasedatum") %>
+                                <%# Eval("Releasedatum", "{0:dd.MM.yy}") %>
                             </td>
                             <td></td>
                             <td class="action">
@@ -283,7 +282,7 @@
                                 <%# Eval("Releasenummer") %>
                             </td>
                             <td>
-                                <%# Eval("Releasedatum") %>
+                                <%# Eval("Releasedatum", "{0:dd.MM.yy}") %>
                             </td>
                             <td>
                                 <%# Eval("Beschreibung") %>
@@ -363,7 +362,7 @@
                                 <%# Eval("Releasenummer") %>
                             </td>
                             <td>
-                                <%# Eval("Releasedatum") %>
+                                <%# Eval("Releasedatum", "{0:dd.MM.yy}") %>
                             </td>
                             <td></td>
                             <td class="action">
@@ -382,7 +381,7 @@
                                 <%# Eval("Releasenummer") %>
                             </td>
                             <td>
-                                <%# Eval("Releasedatum") %>
+                                <%# Eval("Releasedatum", "{0:dd.MM.yy}") %>
                             </td>
                             <td></td>
                             <td class="action">
@@ -404,7 +403,7 @@
                                 <%# Eval("Releasedatum") %>
                             </td>
                             <td>
-                                <%# Eval("Beschreibung") %>
+                                <%# Eval("Beschreibung", "{0:dd.MM.yy}") %>
                             </td>
                             <td class="action">
                                 <asp:LinkButton ID="lb_Builds" runat="server" Text="Builds"
@@ -480,7 +479,7 @@
                                 <%# Eval("Releasenummer") %>
                             </td>
                             <td>
-                                <%# Eval("Releasedatum") %>
+                                <%# Eval("Releasedatum", "{0:dd.MM.yy}") %>
                             </td>
                             <td></td>
                             <td class="action">
@@ -499,7 +498,7 @@
                                 <%# Eval("Releasenummer") %>
                             </td>
                             <td>
-                                <%# Eval("Releasedatum") %>
+                                <%# Eval("Releasedatum", "{0:dd.MM.yy}") %>
                             </td>
                             <td></td>
                             <td class="action">
@@ -521,7 +520,7 @@
                                 <%# Eval("Releasedatum") %>
                             </td>
                             <td>
-                                <%# Eval("Beschreibung") %>
+                                <%# Eval("Beschreibung", "{0:dd.MM.yy}") %>
                             </td>
                             <td class="action">
                                 <asp:LinkButton ID="lb_Details1" runat="server" Text="Bearbeiten"

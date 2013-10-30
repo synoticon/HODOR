@@ -13,6 +13,15 @@ namespace HODOR.Members.Administration {
     public partial class Verwaltung {
         
         /// <summary>
+        /// Header-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Header;
+        
+        /// <summary>
         /// ProductDataSource-Steuerelement
         /// </summary>
         /// <remarks>

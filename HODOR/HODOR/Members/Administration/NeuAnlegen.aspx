@@ -1,6 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/SubPageIntern.Master" AutoEventWireup="true" CodeBehind="NeuAnlegen.aspx.cs" Inherits="HODOR.Members.Administration.NeuAnlegen" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitlePlaceHolder" runat="server">
+    <asp:Label ID="Header" runat="server" Text="Erstellung neuer Inhalte " />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder" runat="server">
 

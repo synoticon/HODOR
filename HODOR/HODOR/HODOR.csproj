@@ -44,6 +44,10 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AjaxControlToolkit, Version=4.1.7.1005, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Users\synC'\Downloads\AjaxControlToolkit.Binary.NET40\AjaxControlToolkit.dll</HintPath>
+    </Reference>
     <Reference Include="CSSFriendly">
       <HintPath>lib\CSSFriendly.dll</HintPath>
     </Reference>
@@ -72,6 +76,7 @@
     <Content Include="Members\Administration\NeuAnlegen.aspx" />
     <Content Include="Members\Administration\TicketSupport.aspx" />
     <Content Include="Members\Administration\Verwaltung.aspx" />
+    <Content Include="Members\Lizenzen.aspx" />
     <Content Include="Members\Logout.aspx" />
     <Content Include="Members\LandingPage.aspx" />
     <Content Include="Stylesheet\ListView.css" />
@@ -136,6 +141,13 @@
     </Compile>
     <Compile Include="Members\Administration\Verwaltung.aspx.designer.cs">
       <DependentUpon>Verwaltung.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Members\Lizenzen.aspx.cs">
+      <DependentUpon>Lizenzen.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Members\Lizenzen.aspx.designer.cs">
+      <DependentUpon>Lizenzen.aspx</DependentUpon>
     </Compile>
     <Compile Include="Members\Logout.aspx.cs">
       <DependentUpon>Logout.aspx</DependentUpon>

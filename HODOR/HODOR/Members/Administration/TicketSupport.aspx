@@ -2,6 +2,7 @@
     CodeBehind="TicketSupport.aspx.cs" Inherits="HODOR.Members.Administration.TicketSupport" %>
 
 <asp:Content ID="Title" ContentPlaceHolderID="TitlePlaceHolder" runat="server">
+    <asp:Label ID="Header" runat="server" Text="Support-Tickets" />
 </asp:Content>
 <asp:Content ID="Content" ContentPlaceHolderID="ContentPlaceHolder" runat="server">
     <div>
