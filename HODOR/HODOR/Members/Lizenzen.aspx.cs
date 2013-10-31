@@ -23,8 +23,6 @@ namespace HODOR.Members
                     if (user != null)
                     {
                         this.l_KdNr.Text = user.NutzerNr;
-                        this.l_FirmenName.Text = user.Name;
-                        this.l_EMail.Text = user.Email;
 
                         this.lv_User.DataSource = user.Lizenzs.OfType<Lizenz_Zeitlich>().ToList();
 
@@ -45,5 +43,11 @@ namespace HODOR.Members
             ListViewItem item = (ListViewItem)lv_User.Items[e.NewEditIndex];
             Label lablId = (Label)item.FindControl("LizenzID");
         }
+
+        protected void lb_Build_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Members/Administration/NeuAnlegen.aspx?view=LizenzView&nutzernr=" + this.l_KdNr.Text);
+        }
+
     }
 }

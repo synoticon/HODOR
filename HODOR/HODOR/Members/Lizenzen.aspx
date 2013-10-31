@@ -4,45 +4,13 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitlePlaceHolder" runat="server">
-    <asp:Label ID="Header" runat="server" Text="Lizenzen für " />
+    <asp:Label ID="Header" runat="server" Text="Lizenzen von " />
+    <asp:Label ID="l_KdNr" runat="server" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder" runat="server">
     
     <br />
     <br />
-    <br />
-    <asp:TabContainer ID="tc_Test" runat="server" Visible="true">
-        <asp:TabPanel ID="sadasd" runat="server" HeaderText="Signatur" >
-            <HeaderTemplate>
-                sadfdsfsadf
-            </HeaderTemplate>
-            <ContentTemplate>
-                fkajsdfljdfkj
-            </ContentTemplate>
-        </asp:TabPanel>
-    </asp:TabContainer>
-
-    <asp:TextBox ID="testBox" runat="server" />
-    <asp:CalendarExtender ID="textCal" runat="server" TargetControlID="testBox" />
-
-    <asp:Table ID="t_user" runat="server">
-        <asp:TableHeaderRow>
-            <asp:TableHeaderCell CssClass="kdNrHeader">KdNr</asp:TableHeaderCell>
-            <asp:TableHeaderCell CssClass="nameHeader">Firmenname</asp:TableHeaderCell>
-            <asp:TableHeaderCell CssClass="eMailHeader">E-Mail-Adresse</asp:TableHeaderCell>
-        </asp:TableHeaderRow>
-        <asp:TableRow CssClass="contentRow">
-            <asp:TableCell>
-                <asp:Label ID="l_KdNr" runat="server" />
-            </asp:TableCell>
-            <asp:TableCell>
-                <asp:Label ID="l_FirmenName" runat="server" />
-            </asp:TableCell>
-            <asp:TableCell>
-                <asp:Label ID="l_EMail" runat="server" />
-            </asp:TableCell>
-        </asp:TableRow>
-    </asp:Table>
 
     <asp:ListView ID="lv_User" runat="server" DataKeyNames=""
         OnSelectedIndexChanging="lv_User_SelectedIndexChanging"
@@ -92,7 +60,7 @@
                     <asp:LinkButton ID="lb_Details1" runat="server" Text="Bearbeiten"
                         CommandName="Edit" /><br />
                     <asp:LinkButton ID="lb_delete" runat="server" Text="Löschen"
-                        CommandName="Delete" OnClientClick="return confirm('Sind Sie sicher, dass Sie diesen Benutzer löschen wolle?');" />
+                        CommandName="Delete" OnClientClick="return confirm('Sind Sie sicher, dass Sie diese Lizenz löschen wolle?');" />
                 </td>
             </tr>
         </ItemTemplate>
@@ -115,7 +83,7 @@
                     <asp:LinkButton ID="lb_Details1" runat="server" Text="Bearbeiten"
                         CommandName="Edit" /><br />
                     <asp:LinkButton ID="lb_delete" runat="server" Text="Löschen"
-                        CommandName="Delete" OnClientClick="return confirm('Sind Sie sicher, dass Sie diesen Benutzer löschen wolle?');" />
+                        CommandName="Delete" OnClientClick="return confirm('Sind Sie sicher, dass Sie diese Lizenz löschen wolle?');" />
                 </td>
             </tr>
         </AlternatingItemTemplate>
@@ -145,5 +113,8 @@
             </tr>
         </EditItemTemplate>
     </asp:ListView>
+
+    <br />
+    <asp:LinkButton ID="lb_Build" runat="server" OnClick="lb_Build_Click" >Neu anlegen</asp:LinkButton><br />
 
 </asp:Content>

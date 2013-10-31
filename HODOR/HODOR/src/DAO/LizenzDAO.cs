@@ -8,10 +8,10 @@ namespace HODOR.src.DAO
 {
     public class LizenzDAO
     {
-        public static Lizenz_Zeitlich createAndGetZeitlizenz(Programm licensedProgramm, DateTime endDate)
+        public static Lizenz_Zeitlich createAndGetZeitlizenz(DateTime endDate)
         {
-            Lizenz_Zeitlich license = new Lizenz_Zeitlich();//Lizenz_Zeitlich.CreateLizenz_Zeitlich(licensedProgramm.ProgrammID, startDate, endDate);
-            license.LizensiertProgramm = licensedProgramm.ProgrammID;
+            Lizenz_Zeitlich license = new Lizenz_Zeitlich();
+            //license.LizensiertProgramm = licensedProgramm.ProgrammID; <<<<<<<<<<<<<<< Hier darf keine Version lizenziert werden, da es sich um einen Zeitraum handelt!!!!!!!!!
             license.StartDatum = DateTime.Now;
             license.EndDatum = endDate;
 
@@ -20,17 +20,17 @@ namespace HODOR.src.DAO
             return license;
         }
 
-        public static Lizenz_Zeitlich createAndGetZeitlizenzForUser(Benutzer user, Programm licensedProgramm, DateTime endDate)
+        public static Lizenz_Zeitlich createAndGetZeitlizenzForUser(Benutzer user, DateTime endDate)
         {
-            Lizenz_Zeitlich license =createAndGetZeitlizenz(licensedProgramm, endDate);
+            Lizenz_Zeitlich license =createAndGetZeitlizenz(endDate);
             BenutzerDAO.addLicenseToUser(user, license);
             return license;
         }
 
-        public static Lizenz_Versionsorientiert createAndGetVersionslizenz(Release licensedRelease, Int32 versionIncremention)
+        public static Lizenz_Versionsorientiert createAndGetVersionslizenz(Release licensedRelease)
         {
             Lizenz_Versionsorientiert license = new Lizenz_Versionsorientiert();//Lizenz_Versionsorientiert.CreateLizenz_Versionsorientiert(versionIncremention, licensedRelease.ReleaseID);
-            license.Versionserhöhung = versionIncremention;
+            license.Versionserhöhung = 0;
             license.LizensiertRelease = licensedRelease.ReleaseID;
 
             HodorGlobals.getHodorContext().Lizenzs.AddObject(license);
@@ -39,9 +39,9 @@ namespace HODOR.src.DAO
             return license;
         }
 
-        public static Lizenz_Versionsorientiert createAndGetVersionslizenzForUser(Benutzer user, Release licensedRelease, Int32 versionIncremention)
+        public static Lizenz_Versionsorientiert createAndGetVersionslizenzForUser(Benutzer user, Release licensedRelease)
         {
-            Lizenz_Versionsorientiert license = createAndGetVersionslizenz(licensedRelease, versionIncremention);
+            Lizenz_Versionsorientiert license = createAndGetVersionslizenz(licensedRelease);
             BenutzerDAO.addLicenseToUser(user, license);
             return license;
         }

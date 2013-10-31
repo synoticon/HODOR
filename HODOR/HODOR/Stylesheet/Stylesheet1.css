@@ -472,9 +472,14 @@ a:hover {
     background-color: lightsteelblue;
 }
 
-.CustomTabStyle .ajax__tab_header {
+/*.CustomTabStyle .ajax__tab_header {
     font-family:verdana,tahoma,helvetica;
     font-size:11px;
     color: red;
-    border:dashed;
+    visibility: visible;
+}*/
+
+.test
+{
+    visibility: visible;
 }

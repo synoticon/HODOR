@@ -7,7 +7,8 @@
 
     <asp:Label ID="l_Build" runat="server" Text="Was möchten Sie anlegen: " Font-Bold="true" Font-Size="Larger" /><br />
     <asp:LinkButton ID="lb_user" runat="server" OnCommand="MenuLink_Command" CommandName="User">Benutzer</asp:LinkButton><br />
-    <asp:LinkButton ID="lv_product" runat="server" OnCommand="MenuLink_Command" CommandName="Product">Produkt</asp:LinkButton>
+    <asp:LinkButton ID="lb_product" runat="server" OnCommand="MenuLink_Command" CommandName="Product">Produkt</asp:LinkButton><br />
+
     <br />
     <br />
     <asp:Label ID="is_registered" runat="server" Visible="false" Text="Erstellung erfolgreich." />
@@ -30,6 +31,7 @@
             <asp:Button ID="b_register" runat="server" Text="Registrieren"
                 OnClick="b_Register_Click" /><br />
         </asp:View>
+
         <asp:View ID="ProductView" runat="server">
 
             <asp:FileUpload ID="FileUpload1" runat="server" />
@@ -90,6 +92,53 @@
                 </asp:TableRow>
             </asp:Table>
             <asp:Button ID="b_save" OnClick="OnClick_b_save" Text="Save" runat="server" />
+        </asp:View>
+
+        <asp:View ID="LizenzView" runat="server">
+            <asp:Label ID="l_Titel" runat="server" Text="Neue Lizenz für " Font-Bold="true" Font-Size="Larger" />
+            <asp:Label ID="l_KundenNr" runat="server" Text="" Font-Bold="true" Font-Size="Larger" /><br />
+
+            <asp:Table ID="t_Lizenz" runat="server">
+                <asp:TableHeaderRow BackColor="LightGray" >
+                    <asp:TableHeaderCell>
+                        <asp:Label ID="l_Typ" runat="server" Text="Lizenz Typ" />
+                    </asp:TableHeaderCell>
+                    <asp:TableHeaderCell ID="thc_MajorRelease" Visible="false">
+                        <asp:Label ID="l_MajorRelease" runat="server" Text="Major-Release" />
+                    </asp:TableHeaderCell>
+                    <asp:TableHeaderCell ID="thc_sDatum" Visible="false">
+                        <asp:Label ID="l_StartDatum" runat="server" Text="Von" />
+                    </asp:TableHeaderCell>
+                    <asp:TableHeaderCell ID="thc_eDatum" Visible="false">
+                        <asp:Label ID="l_EndDatum" runat="server" Text="Bis" />
+                    </asp:TableHeaderCell>
+                    <asp:TableHeaderCell>
+                    </asp:TableHeaderCell>
+                </asp:TableHeaderRow>
+                <asp:TableRow>
+                    <asp:TableCell>
+                        <asp:DropDownList ID="ddl_Typ" runat="server" OnSelectedIndexChanged="ddl_Typ_SelectedIndexChanged" AutoPostBack="true">
+                            <asp:ListItem Text="---Select---" Value="null" />
+                        </asp:DropDownList>
+                    </asp:TableCell>
+                    <asp:TableCell ID="tc_MajorRelease" Visible="false">
+                        <asp:DropDownList ID="ddl_MajorReleases" runat="server">
+                            <asp:ListItem Text="---Select---" Value="null" />
+                        </asp:DropDownList>
+                    </asp:TableCell>
+                    <asp:TableCell ID="tc_sDatum" Visible="false">
+                        <asp:TextBox ID="tb_StartDatum" runat="server" Text="dfsdf" />
+                    </asp:TableCell>
+                    <asp:TableCell ID="tc_eDatum" Visible="false">
+                        <asp:TextBox ID="tb_EndDatum" runat="server" Text="afadsf" />
+                    </asp:TableCell>
+                </asp:TableRow>
+                <asp:TableRow ID="tr_button" Visible="false" >
+                    <asp:TableCell>
+                        <asp:Button ID="b_LizenzErstellen" runat="server" OnClick="b_LizenzErstellen_Click" />
+                    </asp:TableCell>
+                </asp:TableRow>
+            </asp:Table>
         </asp:View>
     </asp:MultiView>
 </asp:Content>

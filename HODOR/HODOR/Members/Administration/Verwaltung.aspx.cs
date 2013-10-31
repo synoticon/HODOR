@@ -70,6 +70,11 @@ namespace HODOR.Members.Administration
                     }
                 }
             }
+            else
+            {
+                string releaseQueryString = Request.QueryString["releasenummer"];
+                this.l_ReleaseNummer.Text = releaseQueryString;
+            }
         }
 
         /*
@@ -277,7 +282,7 @@ namespace HODOR.Members.Administration
         {                                                                                   // <<<<<<<<<<<<<<<<<<<<<<<<<< Eventuell hier
             string[] arg = new string[2];
             arg = e.CommandArgument.ToString().Split(';');
-            string queryString = "&programID=" + arg[0] + "&releasenummer=" + arg[1];           
+            string queryString = "&programID=" + arg[0] + "&releasenummer=" + arg[1];
             Response.Redirect("~/Members/Administration/Verwaltung.aspx?view=ResultView" + queryString);
         }
 
@@ -287,6 +292,13 @@ namespace HODOR.Members.Administration
             arg = e.CommandArgument.ToString().Split(';');
             string queryString = "&programID=" + arg[0] + "&releasenummer=" + arg[1] + "&subreleasenummer=" + arg[2];
             Response.Redirect("~/Members/Administration/Verwaltung.aspx?view=ResultView" + queryString);
+        }
+
+        protected void lb_Lizenzen_Command(object sender, CommandEventArgs e)
+        {
+            string argument = e.CommandArgument.ToString();
+            string queryString = "?nutzernr=" + argument;
+            Response.Redirect("~/Members/Lizenzen.aspx" + queryString);
         }
     }
 }

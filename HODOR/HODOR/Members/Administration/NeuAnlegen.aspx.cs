@@ -17,16 +17,21 @@ namespace HODOR.Members.Administration
             if (!IsPostBack)
             {
                 String viewString = Request.QueryString["view"];
+                String nutzerNrString = Request.QueryString["nutzernr"];
                 if (viewString != null)
                 {
-                    if (viewString == "UserView")
+                    if (viewString == "LizenzView")
                     {
-                        MultiView1.SetActiveView(UserView);
-                        List<Rolle> roleList = HodorGlobals.getHodorContext().Rolles.ToList<Rolle>();
-                        foreach (Rolle role in roleList)
+                        MultiView1.SetActiveView(LizenzView);
+                        string[] typ = new string[2];
+                        typ[0] = "Zeitlich";
+                        typ[1] = "Majo-Release";
+                        List<String> typList = new List<string>();
+                        for (int i = 0; i < typ.Length; i++)
                         {
-                            this.ddl_roles.Items.Add(new ListItem(role.Rollenname));
+                            this.ddl_Typ.Items.Add(new ListItem(typ[i]));
                         }
+                        this.l_KundenNr.Text = nutzerNrString;
                     }
                 }
             }            
@@ -41,6 +46,11 @@ namespace HODOR.Members.Administration
             if (newView != null)
             {
                 this.MultiView1.SetActiveView(newView);
+                List<Rolle> roleList = HodorGlobals.getHodorContext().Rolles.ToList<Rolle>();
+                foreach (Rolle role in roleList)
+                {
+                    this.ddl_roles.Items.Add(new ListItem(role.Rollenname));
+                }
             }
         }
 
@@ -322,6 +332,66 @@ namespace HODOR.Members.Administration
 
                 }
                 HodorGlobals.save();
+            }
+        }
+
+        protected void ddl_Typ_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string lizenzTypString = this.ddl_Typ.SelectedIndex.ToString();
+
+            if(lizenzTypString != null)
+            {
+                this.tr_button.Visible = true;
+
+                if (lizenzTypString == "1")
+                {
+                    this.thc_MajorRelease.Visible = false;
+                    this.tc_MajorRelease.Visible = false;
+
+                    this.thc_sDatum.Visible = true;
+                    this.thc_eDatum.Visible = true;
+                    this.tc_sDatum.Visible = true;
+                    this.tc_eDatum.Visible = true;
+                }
+                else if (lizenzTypString == "2")
+                {
+                    this.thc_sDatum.Visible = false;
+                    this.thc_eDatum.Visible = false;
+                    this.tc_sDatum.Visible = false;
+                    this.tc_eDatum.Visible = false;
+
+                    this.thc_MajorRelease.Visible = true;
+                    this.tc_MajorRelease.Visible = true;
+                    List<Release> releaseList = ReleaseDAO.getAllMajorReleases();
+                    foreach (Release release in releaseList)
+                    {
+                        if (ddl_MajorReleases.Items.FindByText(release.Releasenummer.ToString()) == null)
+                        {
+                            this.ddl_MajorReleases.Items.Add(new ListItem(release.Releasenummer.ToString()));
+                        }
+                    }
+                }
+            }
+        }
+
+        protected void b_LizenzErstellen_Click(object sender, EventArgs e)
+        {
+            string lizenzTyp = this.ddl_Typ.SelectedIndex.ToString();
+            string majorRelease = this.ddl_MajorReleases.SelectedIndex.ToString();
+
+            if (lizenzTyp != null)
+            {
+                Benutzer user = BenutzerDAO.getUserByKundenNrOrNull(this.l_KdNr.Text);
+
+                if (lizenzTyp == "1")
+                {
+                    Release release = ReleaseDAO.getSingleReleaseByID(Convert.ToInt32(majorRelease));
+                    Lizenz lizenz = LizenzDAO.createAndGetVersionslizenzForUser(user, release);
+                }
+                else if (lizenzTyp == "2")
+                {
+                    Lizenzen lizenz = LizenzDAO.createAndGetZeitlizenzForUser(user, this.tb_EndDatum.Text);
+                }
             }
         }
     }
