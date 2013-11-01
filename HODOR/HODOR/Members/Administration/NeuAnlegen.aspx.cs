@@ -7,11 +7,15 @@ using System.Web.UI.WebControls;
 using HODOR.src.DAO;
 using HODOR.src.Globals;
 using System.Net.Mail;
+//using System.Text.RegularExpressions;
 
 namespace HODOR.Members.Administration
 {
     public partial class NeuAnlegen : System.Web.UI.Page
     {
+        protected const string LICENSE_TIMESPAN = "Zeitlich";
+        protected const string LICENSE_VERSION = "Majo-Release";
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -24,12 +28,23 @@ namespace HODOR.Members.Administration
                     {
                         MultiView1.SetActiveView(LizenzView);
                         string[] typ = new string[2];
-                        typ[0] = "Zeitlich";
-                        typ[1] = "Majo-Release";
+                        typ[0] = LICENSE_TIMESPAN;
+                        typ[1] = LICENSE_VERSION;
                         List<String> typList = new List<string>();
                         for (int i = 0; i < typ.Length; i++)
                         {
                             this.ddl_Typ.Items.Add(new ListItem(typ[i]));
+                        }
+
+                        fillDDLLicUser();
+                        if (nutzerNrString != null)
+                        {
+                            //Let's dance the index Limbo!
+                            ListItem initialSelectedItem = ddl_licUser.Items.FindByText(nutzerNrString);
+                            if (initialSelectedItem != null)
+                            {
+                                ddl_licUser.SelectedIndex = ddl_licUser.Items.IndexOf(initialSelectedItem);
+                            }
                         }
                         this.l_KundenNr.Text = nutzerNrString;
                     }
@@ -337,32 +352,82 @@ namespace HODOR.Members.Administration
 
         protected void ddl_Typ_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string lizenzTypString = this.ddl_Typ.SelectedIndex.ToString();
-
-            if(lizenzTypString != null)
+            if (ddl_Typ.SelectedIndex != 0)
             {
-                this.tr_button.Visible = true;
-
-                if (lizenzTypString == "1")
+                updateLicenseTypeSpecificColumns();
+                List<Programm> progs = ProgrammDAO.getAllProgramme().OrderBy(p => p.Name).ToList<Programm>();
+                foreach (Programm prog in progs)
                 {
-                    this.thc_MajorRelease.Visible = false;
-                    this.tc_MajorRelease.Visible = false;
-
-                    this.thc_sDatum.Visible = true;
-                    this.thc_eDatum.Visible = true;
-                    this.tc_sDatum.Visible = true;
-                    this.tc_eDatum.Visible = true;
+                    if (ddl_licProgramm.Items.FindByText(prog.Name) == null)
+                    {
+                        ddl_licProgramm.Items.Add(prog.Name);
+                    }
                 }
-                else if (lizenzTypString == "2")
-                {
-                    this.thc_sDatum.Visible = false;
-                    this.thc_eDatum.Visible = false;
-                    this.tc_sDatum.Visible = false;
-                    this.tc_eDatum.Visible = false;
+                tc_Program.Visible = true;
+                thc_Program.Visible = true;
 
-                    this.thc_MajorRelease.Visible = true;
-                    this.tc_MajorRelease.Visible = true;
-                    List<Release> releaseList = ReleaseDAO.getAllMajorReleases();
+                fillDDLLicUser();
+                tc_User.Visible = true;
+                thc_User.Visible = true;
+            }
+            else
+            {
+                tc_Program.Visible = false;
+                thc_Program.Visible = false;
+
+                tc_User.Visible = false;
+                thc_User.Visible = false;
+
+                this.thc_sDatum.Visible = false;
+                this.thc_eDatum.Visible = false;
+                this.tc_sDatum.Visible = false;
+                this.tc_eDatum.Visible = false;
+
+                this.thc_MajorRelease.Visible = false;
+                this.tc_MajorRelease.Visible = false;
+            }
+        }
+
+        protected void fillDDLLicUser()
+        {
+            List<Benutzer> members = BenutzerDAO.getAllMembers().OrderBy(u => u.NutzerNr).ToList<Benutzer>();
+            foreach (Benutzer user in members)
+            {
+                if (ddl_licUser.Items.FindByText(user.NutzerNr) == null)
+                {
+                    ddl_licUser.Items.Add(user.NutzerNr);
+                }
+            }
+        }
+
+        protected void updateLicenseTypeSpecificColumns()
+        {
+            if (ddl_Typ.SelectedItem.Text.Equals(LICENSE_VERSION) && (ddl_licProgramm.SelectedIndex != 0))
+            {
+                presentVersionLicenseTableColumns();
+            }
+            else if (ddl_Typ.SelectedItem.Text.Equals(LICENSE_TIMESPAN) && (ddl_licProgramm.SelectedIndex != 0))
+            {
+                presentTimespanLicenseTableColumns();
+            }
+        }
+
+        protected void presentVersionLicenseTableColumns()
+        {
+            if (ddl_Typ.SelectedIndex!=0)
+            {
+                this.thc_sDatum.Visible = false;
+                this.thc_eDatum.Visible = false;
+                this.tc_sDatum.Visible = false;
+                this.tc_eDatum.Visible = false;
+
+                if (ddl_licProgramm.SelectedIndex != 0)
+                {
+                    String selectedProgName = ddl_licProgramm.SelectedItem.Text;
+                    Programm selectedProg = ProgrammDAO.getProgrammByExactNameOrNull(selectedProgName);
+
+                    ddl_MajorReleases.Items.Clear();
+                    List<Release> releaseList = ReleaseDAO.getAllMajorReleasesFor(selectedProg);
                     foreach (Release release in releaseList)
                     {
                         if (ddl_MajorReleases.Items.FindByText(release.Releasenummer.ToString()) == null)
@@ -371,26 +436,77 @@ namespace HODOR.Members.Administration
                         }
                     }
                 }
+
+                this.thc_MajorRelease.Visible = true;
+                this.tc_MajorRelease.Visible = true;
+            }
+        }
+        protected void presentTimespanLicenseTableColumns()
+        {
+            if (ddl_Typ.SelectedIndex!=0)
+            {
+                this.thc_MajorRelease.Visible = false;
+                this.tc_MajorRelease.Visible = false;
+
+                this.thc_sDatum.Visible = true;
+                this.thc_eDatum.Visible = true;
+                this.tc_sDatum.Visible = true;
+                this.tc_eDatum.Visible = true;
+
+                tb_StartDatum.Text = DateTime.Now.Date.Day + "." + DateTime.Now.Date.Month + "." + DateTime.Now.Date.Year;
+                tb_EndDatum.Text = DateTime.Now.Date.Day + "." + DateTime.Now.Date.Month + "." + DateTime.Now.Date.Year;
+            }
+        }
+
+        protected void ddl_Programm_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int lizenzTypString = this.ddl_Typ.SelectedIndex;
+
+            updateLicenseTypeSpecificColumns();
+
+            //habe es auf int umgestellt, der nie null ist. war vorher string, der auch nie null ist... deswegen prüfen wir mal lieber auf die zahl 0
+            if (lizenzTypString != 0)
+            {
+                this.tr_button.Visible = true;
+
+                
+                if (lizenzTypString == 1)
+                {
+                    presentTimespanLicenseTableColumns();
+                }
+                else if (lizenzTypString == 2)
+                {
+                    presentVersionLicenseTableColumns();
+                }
             }
         }
 
         protected void b_LizenzErstellen_Click(object sender, EventArgs e)
         {
-            string lizenzTyp = this.ddl_Typ.SelectedIndex.ToString();
+            int lizenzTyp = this.ddl_Typ.SelectedIndex;
             string majorRelease = this.ddl_MajorReleases.SelectedIndex.ToString();
 
-            if (lizenzTyp != null)
+            if ((lizenzTyp != 0) && (ddl_licUser.SelectedIndex != 0) && (ddl_licProgramm.SelectedIndex != 0))
             {
-                Benutzer user = BenutzerDAO.getUserByKundenNrOrNull(this.l_KdNr.Text);
+                Benutzer user = BenutzerDAO.getUserByKundenNrOrNull(ddl_licUser.SelectedItem.Text);
+                string progName = ddl_licProgramm.SelectedItem.Text;
 
-                if (lizenzTyp == "1")
+                if (lizenzTyp == 1)
                 {
-                    Release release = ReleaseDAO.getSingleReleaseByID(Convert.ToInt32(majorRelease));
-                    Lizenz lizenz = LizenzDAO.createAndGetVersionslizenzForUser(user, release);
+                    Programm prog = ProgrammDAO.getProgrammByExactNameOrNull(progName);
+
+                    //string pattern = @"(?<!\d)(?=\d{1,2}\.\d{1,2}\.\d{4})";
+                    //string[] dateParts = Regex.Split(tb_EndDatum.Text, pattern);
+                    string[] dateParts = tb_EndDatum.Text.Split('.');
+                    DateTime endDate = new DateTime(Int32.Parse(dateParts[2]), Int32.Parse(dateParts[1]), Int32.Parse(dateParts[0]));
+
+                    Lizenz lizenz = LizenzDAO.createAndGetZeitlizenzForUser(user, prog, endDate);
                 }
-                else if (lizenzTyp == "2")
+                else if (lizenzTyp == 2)
                 {
-                    Lizenzen lizenz = LizenzDAO.createAndGetZeitlizenzForUser(user, this.tb_EndDatum.Text);
+                    Int32 progId = ProgrammDAO.getProgrammByExactNameOrNull(progName).ProgrammID;
+                    Release release = ReleaseDAO.getSingleReleaseByNumberAndProgramm(progId, Int32.Parse(ddl_MajorReleases.SelectedItem.Text));
+                    Lizenz lizenz = LizenzDAO.createAndGetVersionslizenzForUser(user, release);
                 }
             }
         }

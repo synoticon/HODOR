@@ -34,7 +34,7 @@ namespace HODOR
 
             DownloadHistoryDAO.createAndGetDownloadHistory(user, build);
 
-            Lizenz_Versionsorientiert versionLicense = LizenzDAO.createAndGetVersionslizenz(release, 1);
+            Lizenz_Versionsorientiert versionLicense = LizenzDAO.createAndGetVersionslizenz(release);
             user.Lizenzs.Add(versionLicense);
 
             Lizenz_Zeitlich timedLicense = LizenzDAO.createAndGetZeitlizenz(prog, DateTime.Now.AddYears(1));
@@ -75,7 +75,7 @@ namespace HODOR
 
                 DownloadHistoryDAO.createAndGetDownloadHistory(user, build1);
 
-                Lizenz_Versionsorientiert versionLicense = LizenzDAO.createAndGetVersionslizenz(release1, 1);
+                Lizenz_Versionsorientiert versionLicense = LizenzDAO.createAndGetVersionslizenz(release1);
                 user.Lizenzs.Add(versionLicense);
 
                 Lizenz_Zeitlich timedLicense = LizenzDAO.createAndGetZeitlizenz(prog, DateTime.Now.AddYears(1));
@@ -113,7 +113,7 @@ namespace HODOR
 
             Benutzer userFlash = BenutzerDAO.getUserByKundenNrOrNull("Flash");
 
-            LizenzDAO.createAndGetVersionslizenzForUser(userFlash, rel, 5);
+            LizenzDAO.createAndGetVersionslizenzForUser(userFlash, rel);
 
             List<Release> relList = BenutzerDAO.getAllReleasesOfProgrammLicensedForUser(userFlash, prog);
 

@@ -95,6 +95,12 @@ namespace HODOR.src.DAO
             return users;
         }
 
+        public static List<Benutzer> getAllMembers()
+        {
+            Rolle memberRole = RolleDAO.getRoleByNameOrNull("Member");
+            return RolleDAO.getAllUsersWithRole(memberRole);
+        }
+
         public static Benutzer getUserMatchingKundenNrAndPasswordOrNull(String KundenNr, String Password)
         {
             //check validity of arguments

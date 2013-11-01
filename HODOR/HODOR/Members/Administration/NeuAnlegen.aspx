@@ -103,6 +103,12 @@
                     <asp:TableHeaderCell>
                         <asp:Label ID="l_Typ" runat="server" Text="Lizenz Typ" />
                     </asp:TableHeaderCell>
+                    <asp:TableHeaderCell ID="thc_User" Visible="false">
+                        <asp:Label ID="l_User" runat="server" Text="Benutzer"/>
+                    </asp:TableHeaderCell>
+                    <asp:TableHeaderCell ID="thc_Program" Visible="false">
+                        <asp:Label ID="l_Program" runat="server" Text="Programm"/>
+                    </asp:TableHeaderCell>
                     <asp:TableHeaderCell ID="thc_MajorRelease" Visible="false">
                         <asp:Label ID="l_MajorRelease" runat="server" Text="Major-Release" />
                     </asp:TableHeaderCell>
@@ -118,6 +124,16 @@
                 <asp:TableRow>
                     <asp:TableCell>
                         <asp:DropDownList ID="ddl_Typ" runat="server" OnSelectedIndexChanged="ddl_Typ_SelectedIndexChanged" AutoPostBack="true">
+                            <asp:ListItem Text="---Select---" Value="null" />
+                        </asp:DropDownList>
+                    </asp:TableCell>
+                    <asp:TableCell ID="tc_User" Visible="false">
+                        <asp:DropDownList ID="ddl_licUser" runat="server" AutoPostBack="true">
+                            <asp:ListItem Text="---Select---" Value="null" />
+                        </asp:DropDownList>
+                    </asp:TableCell>
+                    <asp:TableCell ID="tc_Program" Visible="false">
+                        <asp:DropDownList ID="ddl_licProgramm" runat="server" OnSelectedIndexChanged="ddl_Programm_SelectedIndexChanged" AutoPostBack="true">
                             <asp:ListItem Text="---Select---" Value="null" />
                         </asp:DropDownList>
                     </asp:TableCell>
