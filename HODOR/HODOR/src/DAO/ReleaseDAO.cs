@@ -64,6 +64,7 @@ namespace HODOR.src.DAO
 
             HODOR_entities db = HodorGlobals.getHodorContext();
 
+            //*whistle* small trick to prevent mean InvalidOperationExceptions. "Max()" doesn't like empty Lists
             IQueryable<Release> queryResult = db.Releases.Except(db.Releases.OfType<Subrelease>()).Except(db.Releases.OfType<Build>())
                                                 .Where(r => r.ReleaseVonProgramm == prog.ProgrammID);//Max(r => r.Releasenummer);
             if (queryResult.Count() == 0)
@@ -84,8 +85,8 @@ namespace HODOR.src.DAO
         {
             HODOR_entities ctx = HodorGlobals.getHodorContext();
             var allReleaseQueryResult = from r in ctx.Releases.OfType<Release>()
-                                        where !(ctx.Releases.OfType<Subrelease>().Select(s => s.ReleaseID).Contains(r.ReleaseID)
-                                            || ctx.Releases.OfType<Build>().Select(b => b.ReleaseID).Contains(r.ReleaseID))
+                                        where !(ctx.Releases.OfType<Subrelease>().Select(s => s.ReleaseID).Contains(r.ReleaseID))
+                                            && !(ctx.Releases.OfType<Build>().Select(b => b.ReleaseID).Contains(r.ReleaseID))
                                         select r;
 
             return allReleaseQueryResult.ToList<Release>();
@@ -93,6 +94,7 @@ namespace HODOR.src.DAO
 
             public static List<Release> getAllMajorReleasesFor(Programm prog)
             {
+                //TODO: Don't load all Releases from database, and ignore most of them. Complete query needed to only load those needed
                 return getAllMajorReleases().Where(p => p.ReleaseVonProgramm == prog.ProgrammID).OrderBy(r => r.Releasenummer).ToList<Release>();
             }
 
@@ -120,15 +122,28 @@ namespace HODOR.src.DAO
         public static Release getSingleReleaseByNumberAndProgramm(int ProgrammID,int ReleaseNumber)
         {
 
-            List<Int32> allSubreleaseIDs = SubreleaseDAO.getAllSubreleaseIDs();
-            List<Int32> allBuildIDs = BuildDAO.getAllBuildIDs();
+            //List<Int32> allSubreleaseIDs = SubreleaseDAO.getAllSubreleaseIDs();
+            //List<Int32> allBuildIDs = BuildDAO.getAllBuildIDs();
 
-            List<Release> releaseList = HodorGlobals.getHodorContext().Releases
-                .Where(r => r.Releasenummer == ReleaseNumber 
-                    && r.Programm.ProgrammID == ProgrammID 
-                    && !allBuildIDs.Contains(r.ReleaseID)
-                    && !allSubreleaseIDs.Contains(r.ReleaseID)).ToList<Release>();
+            //Really Bad performance for bigger datasets, i'll try to improve it. I had a timeout because evaluation took too long...
+            //List<Release> releaseList = HodorGlobals.getHodorContext().Releases
+            //    .Where(r => r.Releasenummer == ReleaseNumber 
+            //        && r.Programm.ProgrammID == ProgrammID 
+            //        && !allBuildIDs.Contains(r.ReleaseID)
+            //        && !allSubreleaseIDs.Contains(r.ReleaseID)).ToList<Release>();
+            
+            //Improvement: Use a Linq Query and Querieables instead of possibly huge C#-Lists, to prevent enormous queries that can't be well optimized by the SQL Server
+            HODOR_entities ctx = HodorGlobals.getHodorContext();
 
+            var releaseListQueryResult = from r in ctx.Releases.OfType<Release>()
+                                         where (r.Programm.ProgrammID == ProgrammID)
+                                            && (r.Releasenummer == ReleaseNumber)
+                                            && !(ctx.Releases.OfType<Subrelease>().Select(s => s.ReleaseID).Contains(r.ReleaseID))
+                                            && !(ctx.Releases.OfType<Build>().Select(b => b.ReleaseID).Contains(r.ReleaseID))
+                                         select r;
+
+
+            List<Release> releaseList = releaseListQueryResult.ToList<Release>();
             if (releaseList.Count == 1)
             {
                 //everything ok
