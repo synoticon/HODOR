@@ -27,69 +27,6 @@ namespace HODOR.Members.Administration
 
             ticketview();
            
-            //// Total number of rows.
-            //int rowCnt;
-            //// Current row count.
-            //int rowCtr;
-
-
-            ////Anzahl der Reports
-            //rowCnt = 10;
-
-            //for (rowCtr = 1; rowCtr <= rowCnt; rowCtr++)
-            //{
-            //    // Create new row and add it to the table.
-            //    TableRow tRow = new TableRow();
-
-            //    TableCell tCell = new TableCell();
-            //    tCell.Text = "Ticketnummer";
-            //    tRow.Cells.Add(tCell);
-
-            //    tCell = new TableCell();
-            //    tCell.Text = "Erstellt von";
-            //    tRow.Cells.Add(tCell);
-
-            //    tCell = new TableCell();
-            //    tCell.Text = "Erstellt am";
-            //    tRow.Cells.Add(tCell); 
-
-            //    tCell = new TableCell();
-            //    tCell.Text = "Programm";
-            //    tRow.Cells.Add(tCell);
-
-            //    tCell = new TableCell();
-            //    tCell.Text = "Release";
-            //    tRow.Cells.Add(tCell);
-
-            //    tCell = new TableCell();
-            //    tCell.Text = "Subrelease";
-            //    tRow.Cells.Add(tCell);
-
-            //    tCell = new TableCell();
-            //    tCell.Text = "Build";
-            //    tRow.Cells.Add(tCell);
-
-            //    tCell = new TableCell();
-            //    tCell.Text = "Beschreibung";
-            //    tRow.Cells.Add(tCell);
-
-            //    tCell = new TableCell();
-            //    tCell.Text = "Status";
-            //    tRow.Cells.Add(tCell);
-
-            //    //if( stauts== offen)
-            //    Button btn = new Button();
-            //    btn.Text = "Bestätigen";
-            //    btn.CommandName = "text";
-            //    btn.ID = "Button" + rowCtr.ToString();
-            //    btn.CommandArgument = "test";
-            //    btn.Click += Button3_Click;
-            //    tCell.Controls.Add(btn);
-            //    tRow.Cells.Add(tCell);
-            //    //else tCell.text= Status
-                
-            //    Table1.Rows.Add(tRow);
-            //}
         }
 
         protected void Button3_Click(object sender, EventArgs e)
@@ -230,8 +167,10 @@ namespace HODOR.Members.Administration
 
         protected void SelectedChangeRelease(object sender, EventArgs e)
         {
-            DDL_SubRelease.Items.Clear();
-            DDL_SubRelease.Items.Add((new ListItem("---Select---", "null")));
+          DDL_SubRelease.Items.Clear();
+          DDL_SubRelease.Items.Add((new ListItem("---Select---", "null")));
+          DDL_Build.Items.Clear();
+          DDL_Build.Items.Add((new ListItem("---Select---", "null")));
             if (DDL_Release.SelectedValue != "null")
             {
                 foreach (Subrelease item in ReleaseDAO.getSingleReleaseByID(int.Parse(DDL_Release.SelectedValue)).Subreleases)
@@ -309,5 +248,21 @@ namespace HODOR.Members.Administration
                 }
             }
         }
-    }
+
+        protected void OnClick_b_erstell(object sender, EventArgs e)
+        {
+          try
+          {
+            String Username = System.Threading.Thread.CurrentPrincipal.Identity.Name;
+            Benutzer user = BenutzerDAO.getUserByKundenNrOrNull(Username);
+            SupportTicketDAO.createAndGetSupportTicket(user, ta_Fallbeispiel.Text, ProgrammDAO.getProgrammByProgrammIDOrNull(int.Parse(DDL_Programm.SelectedValue)), int.Parse(DDL_Release.SelectedItem.Text), int.Parse(DDL_SubRelease.SelectedItem.Text), int.Parse(DDL_Build.SelectedItem.Text));
+          }
+          catch (Exception)
+          {
+            l_error.Text = "Es ist ein Feher bei der Ticketerstellung aufgetreten";
+          }
+        }
+
+
+     }
 }
