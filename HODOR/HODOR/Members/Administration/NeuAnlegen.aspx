@@ -39,7 +39,7 @@
             <asp:RegularExpressionValidator ID="regexpName" runat="server"
                 ErrorMessage="This expression does not validate."
                 ControlToValidate="FileUpload1"
-                ValidationExpression=".*[a-zA-Z0-9]{1,254}_\d{1,10}_\d{1,10}_\d{1,10}..*" />
+                ValidationExpression=".*[a-zA-Z0-9]{1,254}_\d{1,10}_\d{1,10}_\d{1,10}.[a-zA-Z0-9]{1,10}..*" />
             <br />
             <br />
             <asp:Button ID="b_upload" runat="server" OnClick="OnClick_b_upload" Text="Upload File" /><br />

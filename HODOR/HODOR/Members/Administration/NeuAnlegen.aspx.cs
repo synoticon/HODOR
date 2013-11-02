@@ -37,6 +37,7 @@ namespace HODOR.Members.Administration
                         }
 
                         fillDDLLicUser();
+                 
                         if (nutzerNrString != null)
                         {
                             //Let's dance the index Limbo!
@@ -49,6 +50,9 @@ namespace HODOR.Members.Administration
                         this.l_KundenNr.Text = nutzerNrString;
                     }
                 }
+                String Username = System.Threading.Thread.CurrentPrincipal.Identity.Name;
+                Benutzer user = BenutzerDAO.getUserByKundenNrOrNull(Username);
+                SelectProgrammView(user);
             }            
         }
 
@@ -113,7 +117,8 @@ namespace HODOR.Members.Administration
                          FileUpload1.PostedFile.ContentLength + " kb<br>" +
                          "Content type: " +
                          FileUpload1.PostedFile.ContentType;
-                    string[] splitfilename = FileUpload1.FileName.Split('_');
+                    string[] dotsplit = FileUpload1.FileName.Split('.');
+                    string[] splitfilename = dotsplit[0].Split('_');
                     string message = "";
                     //Überprüfe ob Programm vorhanden, wenn nicht erstellen
                     Programm newProgramm = ProgrammDAO.getProgrammByExactNameOrNull(splitfilename[0]);
@@ -296,7 +301,7 @@ namespace HODOR.Members.Administration
         {
             if (ta_Programmdiscription != null)
             {
-                //programm discription speichern
+              ProgrammDAO.getProgrammByProgrammIDOrNull(int.Parse(DDL_Programm.SelectedValue)).Beschreibung = ta_Programmdiscription.Text;
             }
 
             if (ta_Releasediscription != null)

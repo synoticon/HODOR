@@ -13,7 +13,10 @@
                <asp:DropDownList ID="DDL_Programm" runat="server" OnSelectedIndexChanged="SelectedChangeProgramm" AutoPostBack="true" Visible ="false">
                             <asp:ListItem Text="---Select---" Value="null" />
                         </asp:DropDownList>
-
+              <br />
+            Beschreibung:
+             <br />
+              <asp:Label ID="l_Programmdiscripion" runat="server" Text="" />
             <br />
             <asp:Table ID="Table1" runat="server" BorderStyle="Dashed" BorderColor="Black" BorderWidth="1" CellPadding="10" GridLines="Both">
                 <asp:TableHeaderRow>
@@ -51,6 +54,7 @@
                     </asp:TableCell>
                       <asp:TableCell>
                         <asp:Label ID="l_Builddiscription" runat="server" Text="" />
+                           <br />
                            <asp:Button ID="b_download" runat="server" OnClick="OnClick_b_download" Text="Download" Visible="false"/>
                     </asp:TableCell>
                 </asp:TableRow>

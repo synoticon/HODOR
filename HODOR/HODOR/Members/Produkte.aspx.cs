@@ -65,6 +65,7 @@ namespace HODOR
                     if (DDL_Programm.Items.FindByText(item.Name) == null)
                     {
                         DDL_Programm.Items.Add(new ListItem(item.Name, item.ProgrammID.ToString()));
+                     
                     }
                 }
             }
@@ -148,14 +149,33 @@ namespace HODOR
                     if (DDL_Release.Items.FindByText(item.Releasenummer.ToString()) == null)
                     {
                         DDL_Release.Items.Add(new ListItem(item.Releasenummer.ToString(), item.ReleaseID.ToString()));
+                       
                     }
                 }
             }
+            l_Programmdiscripion.Text = ProgrammDAO.getProgrammByProgrammIDOrNull(int.Parse(DDL_Programm.SelectedValue)).Beschreibung;
         }
 
         protected void SelectedChangeBuild(object sender, EventArgs e)
         {
-            b_download.Visible = true;
+          b_download.Visible = true;
+          if (DDL_Build.SelectedValue != "null")
+          {
+            foreach (Subrelease item in ReleaseDAO.getSingleReleaseByID(int.Parse(DDL_Release.SelectedValue)).Subreleases)
+            {
+              if (item.ReleaseID == int.Parse(DDL_SubRelease.SelectedValue))
+              {
+
+                foreach (Build build in item.Builds)
+                {
+                  if (build.ReleaseID.ToString() == DDL_Build.SelectedValue)
+                  {
+                    l_Builddiscription.Text = build.Beschreibung;
+                  }
+                }
+              }
+            }
+          }
         }
 
         protected void OnClick_b_download(object sender, EventArgs e)
