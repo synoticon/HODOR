@@ -14,7 +14,7 @@ namespace HODOR.Members.Administration
     public partial class NeuAnlegen : System.Web.UI.Page
     {
         protected const string LICENSE_TIMESPAN = "Zeitlich";
-        protected const string LICENSE_VERSION = "Majo-Release";
+        protected const string LICENSE_VERSION = "Major-Release"; //WAS: Majo-Release...
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -37,7 +37,8 @@ namespace HODOR.Members.Administration
                         }
 
                         fillDDLLicUser();
-                 
+                        
+                        //preselect user if parameter is set
                         if (nutzerNrString != null)
                         {
                             //Let's dance the index Limbo!
@@ -357,6 +358,7 @@ namespace HODOR.Members.Administration
 
         protected void ddl_Typ_SelectedIndexChanged(object sender, EventArgs e)
         {
+            l_ErstellungsErgebnis.Text = "";
             if (ddl_Typ.SelectedIndex != 0)
             {
                 updateLicenseTypeSpecificColumns();
@@ -466,7 +468,7 @@ namespace HODOR.Members.Administration
         protected void ddl_Programm_SelectedIndexChanged(object sender, EventArgs e)
         {
             int lizenzTypString = this.ddl_Typ.SelectedIndex;
-
+            l_ErstellungsErgebnis.Text = "";
             updateLicenseTypeSpecificColumns();
 
             //habe es auf int umgestellt, der nie null ist. war vorher string, der auch nie null ist... deswegen prüfen wir mal lieber auf die zahl 0
@@ -490,29 +492,40 @@ namespace HODOR.Members.Administration
         {
             int lizenzTyp = this.ddl_Typ.SelectedIndex;
             string majorRelease = this.ddl_MajorReleases.SelectedIndex.ToString();
-
-            if ((lizenzTyp != 0) && (ddl_licUser.SelectedIndex != 0) && (ddl_licProgramm.SelectedIndex != 0))
+            try
             {
-                Benutzer user = BenutzerDAO.getUserByKundenNrOrNull(ddl_licUser.SelectedItem.Text);
-                string progName = ddl_licProgramm.SelectedItem.Text;
-
-                if (lizenzTyp == 1)
+                if ((lizenzTyp != 0) && (ddl_licUser.SelectedIndex != 0) && (ddl_licProgramm.SelectedIndex != 0))
                 {
-                    Programm prog = ProgrammDAO.getProgrammByExactNameOrNull(progName);
+                    Benutzer user = BenutzerDAO.getUserByKundenNrOrNull(ddl_licUser.SelectedItem.Text);
+                    string progName = ddl_licProgramm.SelectedItem.Text;
 
-                    //string pattern = @"(?<!\d)(?=\d{1,2}\.\d{1,2}\.\d{4})";
-                    //string[] dateParts = Regex.Split(tb_EndDatum.Text, pattern);
-                    string[] dateParts = tb_EndDatum.Text.Split('.');
-                    DateTime endDate = new DateTime(Int32.Parse(dateParts[2]), Int32.Parse(dateParts[1]), Int32.Parse(dateParts[0]));
+                    if (lizenzTyp == 1)
+                    {
+                        Programm prog = ProgrammDAO.getProgrammByExactNameOrNull(progName);
 
-                    Lizenz lizenz = LizenzDAO.createAndGetZeitlizenzForUser(user, prog, endDate);
+                        //string pattern = @"(?<!\d)(?=\d{1,2}\.\d{1,2}\.\d{4})";
+                        //string[] dateParts = Regex.Split(tb_EndDatum.Text, pattern);
+                        string[] datePartsEnd = tb_EndDatum.Text.Split('.');
+                        DateTime endDate = new DateTime(Int32.Parse(datePartsEnd[2]), Int32.Parse(datePartsEnd[1]), Int32.Parse(datePartsEnd[0]));
+
+                        string[] datePartsStart = tb_EndDatum.Text.Split('.');
+                        DateTime startDate = new DateTime(Int32.Parse(datePartsStart[2]), Int32.Parse(datePartsStart[1]), Int32.Parse(datePartsStart[0]));
+
+                        Lizenz lizenz = LizenzDAO.createAndGetZeitlizenzForUser(user, prog, startDate, endDate);
+                        l_ErstellungsErgebnis.Text = "Die Lizenz wurde erstellt.";
+                    }
+                    else if (lizenzTyp == 2)
+                    {
+                        Int32 progId = ProgrammDAO.getProgrammByExactNameOrNull(progName).ProgrammID;
+                        Release release = ReleaseDAO.getSingleReleaseByNumberAndProgramm(progId, Int32.Parse(ddl_MajorReleases.SelectedItem.Text));
+                        Lizenz lizenz = LizenzDAO.createAndGetVersionslizenzForUser(user, release);
+                        l_ErstellungsErgebnis.Text = "Die Lizenz wurde erstellt.";
+                    }
                 }
-                else if (lizenzTyp == 2)
-                {
-                    Int32 progId = ProgrammDAO.getProgrammByExactNameOrNull(progName).ProgrammID;
-                    Release release = ReleaseDAO.getSingleReleaseByNumberAndProgramm(progId, Int32.Parse(ddl_MajorReleases.SelectedItem.Text));
-                    Lizenz lizenz = LizenzDAO.createAndGetVersionslizenzForUser(user, release);
-                }
+            }
+            catch (Exception)
+            {
+                l_ErstellungsErgebnis.Text = "Fehler beim Erstellen der Lizenz, bitte überprüfen Sie Ihre Eingaben.";
             }
         }
     }

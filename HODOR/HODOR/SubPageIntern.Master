@@ -2,9 +2,9 @@
     Inherits="HODOR.SubPageIntern" %>
 
 <asp:Content ID="NaviContent" ContentPlaceHolderID="NaviContentPlaceHolder" runat="server">
-    <asp:Menu ID="Menu1" runat="server" Orientation="Horizontal">
+    <asp:Menu ID="MainNaviMenu" runat="server" Orientation="Horizontal" OnPreRender="evaluateVisibility">
         <Items>
-            <asp:MenuItem NavigateUrl="~/Members/LandingPage.aspx" Text="Startseite" Value="Produkte">
+            <asp:MenuItem NavigateUrl="~/Members/LandingPage.aspx" Text="Startseite" Value="Startseite">
             </asp:MenuItem>
             <asp:MenuItem NavigateUrl="~/Members/Produkte.aspx" Text="Produkte" Value="Produkte">
             </asp:MenuItem>

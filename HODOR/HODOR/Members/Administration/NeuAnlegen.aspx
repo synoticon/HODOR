@@ -151,10 +151,12 @@
                 </asp:TableRow>
                 <asp:TableRow ID="tr_button" Visible="false" >
                     <asp:TableCell>
-                        <asp:Button ID="b_LizenzErstellen" runat="server" OnClick="b_LizenzErstellen_Click" />
+                        <asp:Button ID="b_LizenzErstellen" runat="server" OnClick="b_LizenzErstellen_Click" Text="Lizenz erstellen" />
                     </asp:TableCell>
                 </asp:TableRow>
             </asp:Table>
+            <br />
+            <asp:Label ID="l_ErstellungsErgebnis" runat="server" Text="" />
         </asp:View>
     </asp:MultiView>
 </asp:Content>

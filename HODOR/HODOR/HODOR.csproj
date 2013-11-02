@@ -71,6 +71,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Default.aspx" />
     <Content Include="Impressum.aspx" />
     <Content Include="LoadDirectory\myfile.txt" />
     <Content Include="Members\Administration\NeuAnlegen.aspx" />
@@ -83,9 +84,16 @@
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="SampleData.aspx" />
+    <Content Include="Members\Administration\SampleData.aspx" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Impressum.aspx.cs">
       <DependentUpon>Impressum.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -208,11 +216,11 @@
     <Compile Include="SubPageIntern.Master.designer.cs">
       <DependentUpon>SubPageIntern.Master</DependentUpon>
     </Compile>
-    <Compile Include="SampleData.aspx.cs">
+    <Compile Include="Members\Administration\SampleData.aspx.cs">
       <DependentUpon>SampleData.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="SampleData.aspx.designer.cs">
+    <Compile Include="Members\Administration\SampleData.aspx.designer.cs">
       <DependentUpon>SampleData.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -255,6 +263,7 @@
       <LastGenOutput>HODOR_Model.Designer.cs</LastGenOutput>
     </EntityDeploy>
     <Content Include="Members\Administration\Web.config" />
+    <Content Include="LoadDirectory\Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
