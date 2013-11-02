@@ -44,6 +44,8 @@
             <br />
             <asp:Button ID="b_upload" runat="server" OnClick="OnClick_b_upload" Text="Upload File" /><br />
             <asp:Label ID="l_message" runat="server"></asp:Label>
+
+            <h2>Vorhandenes Produkt bearbeiten</h2>
             <asp:Table ID="Table1" runat="server" BorderStyle="Dashed" BorderColor="Black" BorderWidth="1" CellPadding="10" GridLines="Both">
                 <asp:TableHeaderRow>
                     <asp:TableHeaderCell>

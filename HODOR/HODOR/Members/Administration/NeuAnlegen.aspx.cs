@@ -218,8 +218,10 @@ namespace HODOR.Members.Administration
 
         protected void SelectedChangeRelease(object sender, EventArgs e)
         {
-            DDL_SubRelease.Items.Clear();
-            DDL_SubRelease.Items.Add((new ListItem("---Select---", "null")));
+          DDL_SubRelease.Items.Clear();
+          DDL_SubRelease.Items.Add((new ListItem("---Select---", "null")));
+          DDL_Build.Items.Clear();
+          DDL_Build.Items.Add((new ListItem("---Select---", "null")));
             if (DDL_Release.SelectedValue != "null")
             {
                 foreach (Subrelease item in ReleaseDAO.getSingleReleaseByID(int.Parse(DDL_Release.SelectedValue)).Subreleases)
@@ -271,7 +273,7 @@ namespace HODOR.Members.Administration
                     }
                 }
 
-                // ta_Programmdiscription.Text = ProgrammDAO.getProgrammByProgrammIDOrNull(int.Parse(DDL_Programm.SelectedValue)).Beschreibung;
+                 ta_Programmdiscription.Text = ProgrammDAO.getProgrammByProgrammIDOrNull(int.Parse(DDL_Programm.SelectedValue)).Beschreibung;
             }
         }
 

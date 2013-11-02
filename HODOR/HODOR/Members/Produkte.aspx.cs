@@ -40,23 +40,20 @@ namespace HODOR
 
         protected void ClearAllDDL()
         {
+            DDL_Release.Items.Clear();
+            DDL_Release.Items.Add((new ListItem("---Select---", "null")));
             DDL_SubRelease.Items.Clear();
             DDL_SubRelease.Items.Add((new ListItem("---Select---", "null")));
             DDL_Build.Items.Clear();
             DDL_Build.Items.Add((new ListItem("---Select---", "null")));
-            DDL_Release.Items.Clear();
-            DDL_Release.Items.Add((new ListItem("---Select---", "null")));
             b_download.Visible = false;
             l_Builddiscription.Text = "";
             l_Releasediscription.Text = "";
             l_SubReleasediscription.Text = "";
-
         }
 
         protected void SelectProgrammView(Benutzer user)
-        {
-            
-            
+        {      
             if (HodorRoleProvider.isSupportAllowed(user))
             {
                 foreach (Programm item in ProgrammDAO.getAllProgramme())
@@ -98,8 +95,13 @@ namespace HODOR
 
         protected void SelectedChangeRelease(object sender, EventArgs e)
         {
-            DDL_SubRelease.Items.Clear();
-            DDL_SubRelease.Items.Add((new ListItem("---Select---", "null")));
+          DDL_SubRelease.Items.Clear();
+          DDL_SubRelease.Items.Add((new ListItem("---Select---", "null")));
+          DDL_Build.Items.Clear();
+          DDL_Build.Items.Add((new ListItem("---Select---", "null")));
+          b_download.Visible = false;
+          l_Builddiscription.Text = "";
+          l_SubReleasediscription.Text = "";
             if (DDL_Release.SelectedValue != "null")
             {
                 foreach (Subrelease item in ReleaseDAO.getSingleReleaseByID(int.Parse(DDL_Release.SelectedValue)).Subreleases)
@@ -116,8 +118,10 @@ namespace HODOR
 
         protected void SelectedChangeSubRelease(object sender, EventArgs e)
         {
-            DDL_Build.Items.Clear();
-            DDL_Build.Items.Add((new ListItem("---Select---", "null")));
+          DDL_Build.Items.Clear();
+          DDL_Build.Items.Add((new ListItem("---Select---", "null")));
+          b_download.Visible = false;
+          l_Builddiscription.Text = "";
             if (DDL_SubRelease.SelectedValue != "null")
             {
                 foreach (Subrelease item in ReleaseDAO.getSingleReleaseByID(int.Parse(DDL_Release.SelectedValue)).Subreleases)
@@ -152,8 +156,9 @@ namespace HODOR
                        
                     }
                 }
+              l_Programmdiscripion.Text = ProgrammDAO.getProgrammByProgrammIDOrNull(int.Parse(DDL_Programm.SelectedValue)).Beschreibung;
             }
-            l_Programmdiscripion.Text = ProgrammDAO.getProgrammByProgrammIDOrNull(int.Parse(DDL_Programm.SelectedValue)).Beschreibung;
+            
         }
 
         protected void SelectedChangeBuild(object sender, EventArgs e)
