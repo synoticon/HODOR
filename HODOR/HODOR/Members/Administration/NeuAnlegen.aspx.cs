@@ -69,7 +69,10 @@ namespace HODOR.Members.Administration
                 List<Rolle> roleList = HodorGlobals.getHodorContext().Rolles.ToList<Rolle>();
                 foreach (Rolle role in roleList)
                 {
-                    this.ddl_roles.Items.Add(new ListItem(role.Rollenname));
+                    if (ddl_roles.Items.FindByText(role.Rollenname) == null)
+                    {
+                        this.ddl_roles.Items.Add(new ListItem(role.Rollenname));
+                    }
                 }
             }
         }
