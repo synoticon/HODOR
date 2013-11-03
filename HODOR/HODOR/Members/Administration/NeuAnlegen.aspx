@@ -51,6 +51,7 @@
                     <asp:TableHeaderCell>
                     </asp:TableHeaderCell>
                     <asp:TableHeaderCell>
+                        Programm
                         <asp:DropDownList ID="DDL_Programm" runat="server" OnSelectedIndexChanged="SelectedChangeProgramm" AutoPostBack="true">
                             <asp:ListItem Text="---Select---" Value="null" />
                         </asp:DropDownList>

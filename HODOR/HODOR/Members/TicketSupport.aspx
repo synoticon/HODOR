@@ -20,7 +20,7 @@
         <contenttemplate>
                 <asp:View ID="ProfilView" runat="server">
                 </asp:View>
-                <asp:MultiView ID="MultiView1" runat="server" ActiveViewIndex="0">
+                <asp:MultiView ID="MultiView1" runat="server" ActiveViewIndex="-1">
                     <asp:View ID="DisplayView" runat="server">
                         <h2>Ticket Liste</h2>
                         <asp:Table ID="Table1" runat="server" BorderStyle="Dashed" BorderColor="Black" BorderWidth="1" CellPadding="10" GridLines="Both">
@@ -89,8 +89,10 @@
                     </asp:TableHeaderCell>
                 </asp:TableHeaderRow>
                               </asp:Table>
+                        <asp:Label ID="l_Ticketdescription" runat="server" Text="Beschreibung:" />
+                        <br />
                         <asp:TextBox ID="ta_Fallbeispiel" TextMode="multiline" Columns="20" Rows="15" runat="server" />
-                        </br>
+                        <br />
                         <asp:Button ID="b_erstell" runat="server" OnClick="OnClick_b_erstell" Text="Erstell"/>
                         <asp:Label  ID="l_error" runat="server" Text=""></asp:Label>
                     </asp:View>

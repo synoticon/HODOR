@@ -261,7 +261,7 @@ namespace HODOR.src.DAO
             SmtpClient smtp = new SmtpClient();
             MailMessage notification = new MailMessage();
             //Too bad we don't have a real domain to use, but this way we can at least send mails without the relay complaining about the previous non-existing domain
-            notification.From = new MailAddress("noreply@example.com");
+            //notification.From = new MailAddress("noreply@example.com");
             notification.Subject = "New build of " + prog.Name;
 
             //let's respect some privacy and send seperate mails
@@ -281,8 +281,6 @@ namespace HODOR.src.DAO
                 notification.Body = "Dear " + user.Name + "\n\n"
                     + "a new build of " + prog.Name + " has been uploaded. You may want to consider to upgrade your current version of " + prog.Name + ".\n\n"
                     + "Version: " + BuildDAO.getVersionStringForBuild(build) + "\n"
-                    + "Description of the new build is:\n"
-                    + build.Beschreibung + "\n\n"
                     + "Best regards\n"
                     + "HODOR Releasemanagement System";
 
@@ -290,14 +288,10 @@ namespace HODOR.src.DAO
                 {
                     smtp.Send(notification);
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     //Recipient unavailable: no reason to stop notifying other recipients
-                    if (!(ex is SmtpFailedRecipientsException))
-                    {
-                        //Something else occured... better re-throw (with this exceptionally intuitive synthax...)
-                        throw;
-                    }
+                    //OR: Mailrelai not configured properly
                 }
                 
             }

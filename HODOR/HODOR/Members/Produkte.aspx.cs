@@ -78,6 +78,7 @@ namespace HODOR
                 }
             }
         }
+
         protected void fillOutDDL_Release()
         {
             DDL_Release.Items.Clear();
@@ -91,6 +92,27 @@ namespace HODOR
                     DDL_Release.Items.Add(new ListItem(item.Releasenummer.ToString(), item.ReleaseID.ToString()));
                 }
             }
+            l_Programmdiscripion.Text = ProgrammDAO.getProgrammByProgrammIDOrNull(int.Parse(Request.QueryString["progID"])).Beschreibung;
+        }
+
+        protected void SelectedChangeProgramm(object sender, EventArgs e)
+        {
+          ClearAllDDL();
+          if (DDL_Programm.SelectedValue != "null")
+          {
+            foreach (Release item in BenutzerDAO.getAllReleasesOfProgrammLicensedForUser
+                   (BenutzerDAO.getUserByKundenNrOrNull(System.Threading.Thread.CurrentPrincipal.Identity.Name),
+                    ProgrammDAO.getProgrammByProgrammIDOrNull(int.Parse(DDL_Programm.SelectedValue))).ToList())
+            {
+              if (DDL_Release.Items.FindByText(item.Releasenummer.ToString()) == null)
+              {
+                DDL_Release.Items.Add(new ListItem(item.Releasenummer.ToString(), item.ReleaseID.ToString()));
+
+              }
+            }
+            l_Programmdiscripion.Text = ProgrammDAO.getProgrammByProgrammIDOrNull(int.Parse(DDL_Programm.SelectedValue)).Beschreibung;
+          }
+
         }
 
         protected void SelectedChangeRelease(object sender, EventArgs e)
@@ -141,25 +163,7 @@ namespace HODOR
             }
         }
 
-        protected void SelectedChangeProgramm(object sender, EventArgs e)
-        {
-            ClearAllDDL();
-            if (DDL_Programm.SelectedValue != "null")
-            {
-                foreach (Release item in BenutzerDAO.getAllReleasesOfProgrammLicensedForUser
-                       (BenutzerDAO.getUserByKundenNrOrNull(System.Threading.Thread.CurrentPrincipal.Identity.Name),
-                        ProgrammDAO.getProgrammByProgrammIDOrNull(int.Parse(DDL_Programm.SelectedValue))).ToList())
-                {
-                    if (DDL_Release.Items.FindByText(item.Releasenummer.ToString()) == null)
-                    {
-                        DDL_Release.Items.Add(new ListItem(item.Releasenummer.ToString(), item.ReleaseID.ToString()));
-                       
-                    }
-                }
-              l_Programmdiscripion.Text = ProgrammDAO.getProgrammByProgrammIDOrNull(int.Parse(DDL_Programm.SelectedValue)).Beschreibung;
-            }
-            
-        }
+     
 
         protected void SelectedChangeBuild(object sender, EventArgs e)
         {
