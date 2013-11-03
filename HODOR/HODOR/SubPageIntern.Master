@@ -1,4 +1,4 @@
-﻿<%@ Master Language="C#" MasterPageFile="~/HODOR.Master" AutoEventWireup="true" CodeFile="SubPageIntern.Master.cs"
+﻿<%@ Master Language="C#" MasterPageFile="~/HODOR.Master" AutoEventWireup="true" CodeBehind="SubPageIntern.Master.cs"
     Inherits="HODOR.SubPageIntern" %>
 
 <asp:Content ID="NaviContent" ContentPlaceHolderID="NaviContentPlaceHolder" runat="server">

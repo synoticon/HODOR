@@ -9,12 +9,6 @@
 <body>
     <form id="form1" runat="server" onsubmit="createDemoDataWithInput" defaultbutton="bt_expandedDemoData">
     <div>
-        <asp:Button ID="button" runat="server" OnClick="buttonClick" Text="CreateSingleDemoDataSet" />
-        <br />
-        <asp:Button ID="button2" runat="server" OnClick="buttonClick2" Text="CreateSomeUglyDemoDataSets" />
-        <br />
-        <asp:Button ID="button3" runat="server" OnClick="buttonClick3" Text="TestSomething (see code...)" />
-        <br />
         <asp:Label ID="label" runat="server" />
         <br />
         <br />

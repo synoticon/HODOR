@@ -20,6 +20,12 @@ namespace HODOR.Members.Administration
         {
             if(!IsPostBack)
             {
+                Benutzer user = BenutzerDAO.getUserByKundenNrOrNull(Page.User.Identity.Name);
+                if (user != null && user.Rolle.Rollenname.Equals("Supporter"))
+                {
+                    lb_Build.Visible = false;
+                }
+
                 string viewString = Request.QueryString["view"];
                 string nutzerNrString = Request.QueryString["nutzernr"];
                 string programString = Request.QueryString["programID"];

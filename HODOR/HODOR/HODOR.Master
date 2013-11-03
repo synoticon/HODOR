@@ -4,9 +4,9 @@
 <html>
 <head id="Head1" runat="server">
 
-    <script type="text/javascript" src="/Stylesheet/Stylesheet1.css"></script>
+    <script type="text/javascript" src="~/Stylesheet/Stylesheet1.css"></script>
 
-    <link rel="Stylesheet" href="/Stylesheet/Stylesheet1.css" type="text/css" />
+    <link rel="Stylesheet" href="~/Stylesheet/Stylesheet1.css" type="text/css" />
     <title>HODOR - Hyper Organised Deployment Order Revisioning</title>
 </head>
 <body>
