@@ -105,10 +105,10 @@
                     <asp:CalendarExtender ID="ce_endDate" runat="server" TargetControlID="tb_endDate" />
                 </td>
                 <td>
-                    <asp:LinkButton ID="UpdateButton" runat="server" CommandName="Ändern"
+                    <asp:LinkButton ID="UpdateButton" runat="server" CommandName="Update"
                         CausesValidation="true" Text="Ändern" />
-                    <asp:LinkButton ID="CancelButton" runat="server" CommandName="Abbrechen"
-                        CausesValidation="false" Text="Cancel" /><%-- Muss noch richtig eingerichtet werden, da der Abbruch noch nicht richtig durchgeführt wird --%>
+                    <asp:LinkButton ID="CancelButton" runat="server" CommandName="Cancel"
+                        CausesValidation="false" Text="Abbrechen" /><%-- Muss noch richtig eingerichtet werden, da der Abbruch noch nicht richtig durchgeführt wird --%>
                 </td>
             </tr>
         </EditItemTemplate>

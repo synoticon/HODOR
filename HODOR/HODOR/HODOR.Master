@@ -19,7 +19,7 @@
             </div>
             <div class="content-header-logo">
                 <div class="content-header-logo-img">
-                    <a href="../../Startseite.aspx">
+                    <a href="../LandingPage.aspx">
                         <img alt="HODOR - Startseite" src="../../images/HODOR_Logo.png" />
                     </a>
                 </div>
