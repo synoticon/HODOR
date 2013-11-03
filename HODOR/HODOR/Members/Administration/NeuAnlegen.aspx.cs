@@ -349,6 +349,7 @@ namespace HODOR.Members.Administration
                                 if (build.ReleaseID.ToString() == DDL_Build.SelectedValue)
                                 {
                                     build.Beschreibung = ta_Releasediscription.Text;
+                                    BenutzerDAO.sendMailToAllCustomersInformingAboutNewBuild(build);
                                     break;
                                 }
                             }
@@ -357,6 +358,7 @@ namespace HODOR.Members.Administration
 
 
                 }
+                
                 HodorGlobals.save();
             }
         }
