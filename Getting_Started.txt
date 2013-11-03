@@ -1,0 +1,3 @@
+Voraussetzung: < als eine Bildschirmseite
+User Accounts erwähnen: User, Supporter, Administator
+Vorgehensweise erläutern.
