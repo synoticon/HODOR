@@ -1,3 +1,15 @@
-Voraussetzung: < als eine Bildschirmseite
-User Accounts erwähnen: User, Supporter, Administator
-Vorgehensweise erläutern.
+﻿User:admin
+pw: admin
+Rolle des Accounts: Administrator
+
+Weitere Rollen: Support
+
+1. Datenbank-Script unter "/Datenbank/Skripte" Namens "DB_Schema_v1.0.sql" auf der Datenbank ausfuehren.
+2. Deployment Paket "Deploy_HODOR"im IIS Deployen
+3. Mailrelay Daten in der Web.conf eintragen und ggf Connectionstring aendern
+4. Auf die Webside zugreifen und einloggen
+5. Testen beginnen
+	Moeglichkeiten:
+	a. neue Testdaten ueber /SampleData.aspx erstellen
+	b. Neue Daten ueber den Menue Reiter Verwaltung den Linkbutton "Neu anlegen"
+	
