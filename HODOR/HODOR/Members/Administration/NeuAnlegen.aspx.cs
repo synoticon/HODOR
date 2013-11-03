@@ -394,6 +394,8 @@ namespace HODOR.Members.Administration
                 this.thc_eDatum.Visible = false;
                 this.tc_sDatum.Visible = false;
                 this.tc_eDatum.Visible = false;
+                this.tc_regexStartDate.Visible = false;
+                this.tc_regexEndDate.Visible = false;
 
                 this.thc_MajorRelease.Visible = false;
                 this.tc_MajorRelease.Visible = false;
@@ -432,6 +434,8 @@ namespace HODOR.Members.Administration
                 this.thc_eDatum.Visible = false;
                 this.tc_sDatum.Visible = false;
                 this.tc_eDatum.Visible = false;
+                this.tc_regexStartDate.Visible = false;
+                this.tc_regexEndDate.Visible = false;
 
                 if (ddl_licProgramm.SelectedIndex != 0)
                 {
@@ -464,6 +468,8 @@ namespace HODOR.Members.Administration
                 this.thc_eDatum.Visible = true;
                 this.tc_sDatum.Visible = true;
                 this.tc_eDatum.Visible = true;
+                this.tc_regexStartDate.Visible = true;
+                this.tc_regexEndDate.Visible = true;
 
                 tb_StartDatum.Text = DateTime.Now.Date.Day + "." + DateTime.Now.Date.Month + "." + DateTime.Now.Date.Year;
                 tb_EndDatum.Text = DateTime.Now.Date.Day + "." + DateTime.Now.Date.Month + "." + DateTime.Now.Date.Year;

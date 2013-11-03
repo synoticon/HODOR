@@ -1,0 +1,8 @@
+Hier alles Eintragen, was noch zu tun ist!
+- Getting Started fertigstellen
+- Eine Web.config generieren, die auch wirklich deploybar ist (kein Debug, keine zig auskommentierten Verbindungsstrings)
+- Benutzerbearbeitung fertigstellen (Timo? Ich (Aaron) habs versucht, komme mit dem kram da aber nicht zu rande)
+
+
+Zu guter letzt:
+- Deploybares Packet schnüren und abgeben

@@ -155,6 +155,22 @@
                     <asp:TableCell>
                         <asp:Button ID="b_LizenzErstellen" runat="server" OnClick="b_LizenzErstellen_Click" Text="Lizenz erstellen" />
                     </asp:TableCell>
+                    <asp:TableCell>
+                    </asp:TableCell>
+                    <asp:TableCell>
+                    </asp:TableCell>
+                    <asp:TableCell ID="tc_regexStartDate" Visible="false">
+                        <asp:RegularExpressionValidator ID="RegularExpressionValidator3" runat="server"
+                            ErrorMessage="Format incorrect!"
+                            ControlToValidate="tb_StartDatum"
+                            ValidationExpression="[\d]{1,2}\.[\d]{1,2}\.[\d]{4}" />
+                    </asp:TableCell>
+                    <asp:TableCell ID="tc_regexEndDate" Visible="false">
+                        <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server"
+                            ErrorMessage="Format incorrect!"
+                            ControlToValidate="tb_EndDatum"
+                            ValidationExpression="[\d]{1,2}\.[\d]{1,2}\.[\d]{4}" />
+                    </asp:TableCell>
                 </asp:TableRow>
             </asp:Table>
             <br />

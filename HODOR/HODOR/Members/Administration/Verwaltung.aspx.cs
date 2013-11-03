@@ -170,6 +170,16 @@ namespace HODOR.Members.Administration
 
         protected void DoSearch()
         {
+            //avoid NPE from empty search Strings
+            if (String.IsNullOrEmpty(tb_SearchInput.Text))
+            {
+                lb_Product.Items.Clear();
+                return;
+            }
+
+            //Don't show "No Result" label if one of the previous searches was without result
+            this.l_noCatch.Visible = false;
+
             List<Programm> foundPrograms = ProgrammDAO.getProgrammeWithNameContainingOrNull(tb_SearchInput.Text);
             if (foundPrograms.Count != 0)
             {

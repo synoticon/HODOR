@@ -75,6 +75,27 @@ namespace HODOR.src.DAO
             }
         }
 
+        public static Benutzer getUserByIDOrNull(Int32 userId)
+        {
+
+            List<Benutzer> userList = HodorGlobals.getHodorContext().Benutzers.Where(u => u.BenutzerID == userId).ToList<Benutzer>();
+
+            if (userList.Count == 1)
+            {
+                //everything ok
+                return userList[0];
+            }
+            else if (userList.Count == 0)
+            {
+                //no Program with that name found
+                return null;
+            }
+            else
+            {
+                throw new Exception("Entities for Benutzer are inconsistent. Duplicate (" + userList.Count + ") BenutzerID detected: " + userId.ToString());
+            }
+        }
+
         public static void setPasswordForUser(Benutzer user, String Password)
         {
             String passwordHash = getSaltedMD5Hash(Password);
@@ -247,7 +268,15 @@ namespace HODOR.src.DAO
             foreach (Benutzer user in usersToBeNotified)
             {
                 notification.To.Clear(); //don't want to send it to the previous recipients over and over again
-                notification.To.Add(new MailAddress(user.Email));
+                try
+                {
+                    notification.To.Add(new MailAddress(user.Email));
+                }
+                catch (Exception)
+                {
+                    //this user seems to have an invalid mailaddress. continue with other users
+                    continue;
+                }
 
                 notification.Body = "Dear " + user.Name + "\n\n"
                     + "a new build of " + prog.Name + " has been uploaded. You may want to consider to upgrade your current version of " + prog.Name + ".\n\n"
