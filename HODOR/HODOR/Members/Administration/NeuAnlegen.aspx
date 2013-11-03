@@ -8,6 +8,7 @@
     <asp:Label ID="l_Build" runat="server" Text="Was möchten Sie anlegen: " Font-Bold="true" Font-Size="Larger" /><br />
     <asp:LinkButton ID="lb_user" runat="server" OnCommand="MenuLink_Command" CommandName="User">Benutzer</asp:LinkButton><br />
     <asp:LinkButton ID="lb_product" runat="server" OnCommand="MenuLink_Command" CommandName="Product">Produkt</asp:LinkButton><br />
+    <asp:LinkButton ID="lb_lizenz" runat="server" OnCommand="MenuLink_Command" CommandName="Lizenz">Lizenz</asp:LinkButton><br />
 
     <br />
     <br />
@@ -33,7 +34,6 @@
         </asp:View>
 
         <asp:View ID="ProductView" runat="server">
-
             <asp:FileUpload ID="FileUpload1" runat="server" />
             <br />
             <asp:RegularExpressionValidator ID="regexpName" runat="server"

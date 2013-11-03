@@ -18,6 +18,10 @@ namespace HODOR.Members.Administration
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            string programString = Request.QueryString["programID"];
+            string releaseString = Request.QueryString["releasenummer"];
+            string subReleaseString = Request.QueryString["subreleasenummer"];
+                
             if(!IsPostBack)
             {
                 Benutzer user = BenutzerDAO.getUserByKundenNrOrNull(Page.User.Identity.Name);
@@ -28,9 +32,6 @@ namespace HODOR.Members.Administration
 
                 string viewString = Request.QueryString["view"];
                 string nutzerNrString = Request.QueryString["nutzernr"];
-                string programString = Request.QueryString["programID"];
-                string releaseString = Request.QueryString["releasenummer"];
-                string subReleaseString = Request.QueryString["subreleasenummer"];
 
                 if (viewString != null)
                 {
@@ -42,10 +43,31 @@ namespace HODOR.Members.Administration
                             this.lv_User.DataKeyNames = null;
                             editUser(nutzerNrString);   
                         }
+                        else if (subReleaseString != null)
+                        {
+                            this.lv_Product.Visible = false;
+                            this.lv_subRelease.Visible = false;
+
+                            showBuilds(subReleaseString);
+
+                            Programm prog = ProgrammDAO.getProgrammByProgrammIDOrNull(Convert.ToInt32(programString));
+                            string progName = prog.Name;
+
+                            this.l_SubReleaseNr.Text = subReleaseString;
+                            this.l_ProgrammName.Text = progName;
+
+                            this.l_BuildVon.Visible = true;
+                            this.l_SubReleaseNr.Visible = true;
+                            this.l_vonXY.Visible = true;
+                            this.l_ProgrammName.Visible = true;
+                        }
                         else if (programString != null)
                         {
-                            if (releaseString != null && subReleaseString == null)
+                            if (releaseString != null)
                             {
+                                this.lv_Product.Visible = false;
+                                this.lv_Build.Visible = false;
+
                                 showSubReleases(programString, releaseString);
 
                                 Programm prog = ProgrammDAO.getProgrammByProgrammIDOrNull(Convert.ToInt32(programString));
@@ -57,29 +79,21 @@ namespace HODOR.Members.Administration
                                 this.l_ProgrammName.Visible = true;
 
                             }
-                            else if (releaseString != null && subReleaseString != null)
-                            {
-                                showBuilds(programString, releaseString, subReleaseString);
-
-                                Programm prog = ProgrammDAO.getProgrammByProgrammIDOrNull(Convert.ToInt32(programString));
-                                string progName = prog.Name;
-
-                                this.l_SubReleaseNr.Text = subReleaseString;
-                                this.l_ProgrammName.Text = progName;
-
-                                this.l_BuildVon.Visible = true;
-                                this.l_SubReleaseNr.Visible = true;
-                                this.l_vonXY.Visible = true;
-                                this.l_ProgrammName.Visible = true;
-                            }
                         }
                     }
                 }
             }
             else
             {
-                string releaseQueryString = Request.QueryString["releasenummer"];
-                this.l_ReleaseNummer.Text = releaseQueryString;
+                this.l_ReleaseNummer.Text = releaseString;
+                if(programString != null && releaseString != null && subReleaseString == null)
+                {//Da die DataSourcen in den Fällen SubRelease und Build selbst gebaut sind, müssen hier die Datenquellen neu gebindet werden.
+                    showSubReleases(programString, releaseString);  
+                }
+                else if (programString != null && releaseString != null && subReleaseString == null)
+                {
+                    showBuilds(subReleaseString); 
+                }
             }
         }
 
@@ -113,16 +127,18 @@ namespace HODOR.Members.Administration
         protected void showSubReleases(string programID, string releaseNr)
         {
             Release release = ReleaseDAO.getSingleReleaseByNumberAndProgramm(Convert.ToInt32(programID), Convert.ToInt32(releaseNr));
-            List<Subrelease> subReleases = SubreleaseDAO.getAllSubReleasesByRelease(release);
-            
+            List<Subrelease> subReleases = release.Subreleases.OrderBy(s => s.Releasenummer).ToList();
+
+            this.l_ReleaseID.Text = release.ReleaseID.ToString();
+
             this.lv_subRelease.DataSource = subReleases;
             this.lv_subRelease.DataBind();
         }
 
-        protected void showBuilds(string programID, string releaseNr, string subReleaseNr)
+        protected void showBuilds(string subReleaseNr)
         {
             Subrelease subRelease = SubreleaseDAO.getSingleSubReleaseByID(Convert.ToInt32(subReleaseNr));
-            List<Build> buildList = BuildDAO.getAllBuildsBySubReleases(subRelease);
+            List<Build> buildList = subRelease.Builds.OrderBy(s => s.Releasenummer).ToList();
 
             this.lv_Build.DataSource = buildList;
             this.lv_Build.DataBind();
@@ -148,14 +164,26 @@ namespace HODOR.Members.Administration
                 {
                     if (this.cb_NutzerNr.Checked && !this.cb_Name.Checked)
                     {
+                        this.lv_Product.Visible = false;
+                        this.lv_subRelease.Visible = false;
+                        this.lv_Build.Visible = false;
+                        this.lv_User.Visible = true;
                         this.lv_User.DataSourceID = this.UserDataSourceByNutzerNr.ID;
                     }
                     else if (this.cb_Name.Checked && !this.cb_NutzerNr.Checked)
                     {
+                        this.lv_Product.Visible = false;
+                        this.lv_subRelease.Visible = false;
+                        this.lv_Build.Visible = false;
+                        this.lv_User.Visible = true;
                         this.lv_User.DataSourceID = this.UserDataSourceByName.ID;
                     }
                     else if (this.cb_Name.Checked && this.cb_NutzerNr.Checked)
                     {
+                        this.lv_Product.Visible = false;
+                        this.lv_subRelease.Visible = false;
+                        this.lv_Build.Visible = false;
+                        this.lv_User.Visible = true;
                         this.lv_User.DataSourceID = this.UserDataSourceByNutzerNrAndName.ID;
                     }
 
@@ -163,6 +191,10 @@ namespace HODOR.Members.Administration
                 }
                 else if (rb_ProductSearch.Checked)
                 {
+                    this.lv_User.Visible = false;
+                    this.lv_Product.Visible = true;
+                    this.lv_subRelease.Visible = true;
+                    this.lv_Build.Visible = true;
                     this.lb_Product.Items.Clear();
                     MultiView1.ActiveViewIndex = (int)SearchType.Product;
                     DoSearch();
@@ -264,8 +296,8 @@ namespace HODOR.Members.Administration
 
         protected void lv_subRelease_SelectedIndexChanging(object sender, ListViewSelectEventArgs e)
         {
-            ListViewItem item = (ListViewItem)lv_subRelease.Items[e.NewSelectedIndex];                  // <<<<<<<<<<<<<<<<<<<<<<<<<< Eventuell hier
-            Label lablId = (Label)item.FindControl("CONTROL_ID");
+            ListViewItem item = (ListViewItem)lv_subRelease.Items[e.NewSelectedIndex];
+            Label lablId = (Label)item.FindControl("l_test");
         }
 
         protected void lv_Build_SelectedIndexChanging(object sender, ListViewSelectEventArgs e)
@@ -295,7 +327,7 @@ namespace HODOR.Members.Administration
          */
         
         protected void lb_subRelease_Command(object sender, CommandEventArgs e)
-        {                                                                                   // <<<<<<<<<<<<<<<<<<<<<<<<<< Eventuell hier
+        {
             string[] arg = new string[2];
             arg = e.CommandArgument.ToString().Split(';');
             string queryString = "&programID=" + arg[0] + "&releasenummer=" + arg[1];
@@ -304,9 +336,9 @@ namespace HODOR.Members.Administration
 
         protected void lb_Builds_Command(object sender, CommandEventArgs e)
         {
-            string[] arg = new string[3];
+            string[] arg = new string[2];
             arg = e.CommandArgument.ToString().Split(';');
-            string queryString = "&programID=" + arg[0] + "&releasenummer=" + arg[1] + "&subreleasenummer=" + arg[2];
+            string queryString = "&programID=" + arg[0] + "&subreleasenummer=" + arg[1];
             Response.Redirect("~/Members/Administration/Verwaltung.aspx?view=ResultView" + queryString);
         }
 
@@ -315,6 +347,52 @@ namespace HODOR.Members.Administration
             string argument = e.CommandArgument.ToString();
             string queryString = "?nutzernr=" + argument;
             Response.Redirect("~/Members/Lizenzen.aspx" + queryString);
+        }
+
+        protected void lv_subRelease_ItemCanceling(object sender, ListViewCancelEventArgs e)
+        {
+            this.lv_subRelease.EditIndex = -1;
+
+            string programString = Request.QueryString["programID"];
+            string subReleaseString = Request.QueryString["subreleasenummer"];
+
+            showSubReleases(programString, subReleaseString);
+        }
+
+        protected void lb_delete_Command(object sender, CommandEventArgs e)
+        {
+            string[] arg = new string[2];
+            arg = e.CommandArgument.ToString().Split(';');
+            Subrelease sub = SubreleaseDAO.getSingleSubReleaseByID(Convert.ToInt32(arg[1]));
+            SubreleaseDAO.deleteSubrelease(sub);
+
+            string programString = Request.QueryString["programID"];
+            string subReleaseString = Request.QueryString["subreleasenummer"];
+
+            showSubReleases(programString, subReleaseString);
+        }
+
+        protected void lv_Build_ItemCanceling(object sender, ListViewCancelEventArgs e)
+        {
+            this.lv_subRelease.EditIndex = -1;
+
+            string programString = Request.QueryString["programID"];
+            string subReleaseString = Request.QueryString["subreleasenummer"];
+
+            showSubReleases(programString, subReleaseString);
+        }
+
+        protected void lb_delete_Command2(object sender, CommandEventArgs e)
+        {
+            string[] arg = new string[2];
+            arg = e.CommandArgument.ToString().Split(';');
+            Build build = BuildDAO.getBuildByIDOrNull(Convert.ToInt32(arg[1]));
+            BuildDAO.deleteBuild(build);
+
+            string programString = Request.QueryString["programID"];
+            string subReleaseString = Request.QueryString["subreleasenummer"];
+
+            showBuilds(subReleaseString);
         }
     }
 }

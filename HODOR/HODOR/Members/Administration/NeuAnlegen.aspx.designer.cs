@@ -49,6 +49,15 @@ namespace HODOR.Members.Administration {
         protected global::System.Web.UI.WebControls.LinkButton lb_product;
         
         /// <summary>
+        /// lb_lizenz-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lb_lizenz;
+        
+        /// <summary>
         /// is_registered-Steuerelement
         /// </summary>
         /// <remarks>
