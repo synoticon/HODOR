@@ -75,7 +75,7 @@
     <Content Include="Impressum.aspx" />
     <Content Include="LoadDirectory\myfile.txt" />
     <Content Include="Members\Administration\NeuAnlegen.aspx" />
-    <Content Include="Members\Administration\TicketSupport.aspx" />
+    <Content Include="Members\TicketSupport.aspx" />
     <Content Include="Members\Administration\Verwaltung.aspx" />
     <Content Include="Members\Lizenzen.aspx" />
     <Content Include="Members\Logout.aspx" />
@@ -115,11 +115,11 @@
     <Compile Include="Members\Administration\NeuAnlegen.aspx.designer.cs">
       <DependentUpon>NeuAnlegen.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Members\Administration\TicketSupport.aspx.cs">
+    <Compile Include="Members\TicketSupport.aspx.cs">
       <DependentUpon>TicketSupport.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Members\Administration\TicketSupport.aspx.designer.cs">
+    <Compile Include="Members\TicketSupport.aspx.designer.cs">
       <DependentUpon>TicketSupport.aspx</DependentUpon>
     </Compile>
     <Compile Include="FAQ.aspx.cs">

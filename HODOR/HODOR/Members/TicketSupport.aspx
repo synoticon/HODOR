@@ -20,7 +20,7 @@
         <contenttemplate>
                 <asp:View ID="ProfilView" runat="server">
                 </asp:View>
-                <asp:MultiView ID="MultiView1" runat="server" ActiveViewIndex="0">
+                <asp:MultiView ID="MultiView1" runat="server" ActiveViewIndex="-1">
                     <asp:View ID="DisplayView" runat="server">
                         <h2>Ticket Liste</h2>
                         <asp:Table ID="Table1" runat="server" BorderStyle="Dashed" BorderColor="Black" BorderWidth="1" CellPadding="10" GridLines="Both">

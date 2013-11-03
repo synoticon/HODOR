@@ -36,7 +36,6 @@ namespace HODOR
                         switch (item.Text)
                         {
                             case "Verwaltung":
-                            case "Ticket Support":
                                 itemsToRemove.Add(item);
                                 break;
                             default:
