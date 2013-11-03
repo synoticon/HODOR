@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <parameters>
   <setParameter name="IIS Web Application Name" value="HODOR" />
-  <setParameter name="HODOR_entities-Web.config Connection String" value="metadata=res://*/HODOR_Model.csdl|res://*/HODOR_Model.ssdl|res://*/HODOR_Model.msl;provider=System.Data.SqlClient;provider connection string=&quot;Data Source=localhost\SQLEXPRESS;Initial Catalog=HODOR;Integrated Security=True;MultipleActiveResultSets=True&quot;" />
+  <setParameter name="HODOR_entities-Web.config Connection String" value="metadata=res://*/HODOR_Model.csdl|res://*/HODOR_Model.ssdl|res://*/HODOR_Model.msl;provider=System.Data.SqlClient;provider connection string=&quot;Data Source=localhost;Initial Catalog=HODOR;Integrated Security=True;MultipleActiveResultSets=True&quot;" />
 </parameters>
