@@ -89,8 +89,10 @@
                     </asp:TableHeaderCell>
                 </asp:TableHeaderRow>
                               </asp:Table>
+                        <asp:Label ID="l_Ticketdescription" runat="server" Text="Beschreibung:" />
+                        <br />
                         <asp:TextBox ID="ta_Fallbeispiel" TextMode="multiline" Columns="20" Rows="15" runat="server" />
-                        </br>
+                        <br />
                         <asp:Button ID="b_erstell" runat="server" OnClick="OnClick_b_erstell" Text="Erstell"/>
                         <asp:Label  ID="l_error" runat="server" Text=""></asp:Label>
                     </asp:View>

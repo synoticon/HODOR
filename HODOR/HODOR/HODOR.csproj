@@ -84,7 +84,7 @@
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Members\Administration\SampleData.aspx" />
+    <Content Include="SampleData.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Default.aspx.cs">
@@ -100,13 +100,6 @@
     </Compile>
     <Compile Include="Impressum.aspx.designer.cs">
       <DependentUpon>Impressum.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Login.aspx.cs">
-      <DependentUpon>Login.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Login.aspx.designer.cs">
-      <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
     <Compile Include="Members\Administration\NeuAnlegen.aspx.cs">
       <DependentUpon>NeuAnlegen.aspx</DependentUpon>
@@ -216,11 +209,11 @@
     <Compile Include="SubPageIntern.Master.designer.cs">
       <DependentUpon>SubPageIntern.Master</DependentUpon>
     </Compile>
-    <Compile Include="Members\Administration\SampleData.aspx.cs">
+    <Compile Include="SampleData.aspx.cs">
       <DependentUpon>SampleData.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Members\Administration\SampleData.aspx.designer.cs">
+    <Compile Include="SampleData.aspx.designer.cs">
       <DependentUpon>SampleData.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -238,7 +231,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Themes\Standard\Logo.skin" />
-    <Content Include="Login.aspx" />
     <Content Include="images\NAVI_-_Button_Layout_Submenu.png" />
     <Content Include="Kontakt.aspx" />
     <Content Include="Members\Produkte.aspx" />

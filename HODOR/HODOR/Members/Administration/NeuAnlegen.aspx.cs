@@ -164,7 +164,8 @@ namespace HODOR.Members.Administration
                     if (newBuild == null)
                     {
                         newBuild = BuildDAO.createAndGetBuild(newSubRelease, int.Parse(splitfilename[3]), FileUpload1.FileName);
-                        message += "Neues Build erstellt:" + newBuild.Releasenummer;
+                        BenutzerDAO.sendMailToAllCustomersInformingAboutNewBuild(newBuild);
+                        message += "Neuen Build erstellt:" + newBuild.Releasenummer;
                     }
                     l_message.Text = message;
                 }
@@ -348,8 +349,7 @@ namespace HODOR.Members.Administration
                             {
                                 if (build.ReleaseID.ToString() == DDL_Build.SelectedValue)
                                 {
-                                    build.Beschreibung = ta_Releasediscription.Text;
-                                    BenutzerDAO.sendMailToAllCustomersInformingAboutNewBuild(build);
+                                    build.Beschreibung = ta_Builddiscription.Text;
                                     break;
                                 }
                             }
