@@ -33,7 +33,7 @@
         ConnectionString="name=HODOR_entities" DefaultContainerName="HODOR_entities"
         EnableFlattening="False" EntitySetName="Benutzers" AutoGenerateWhereClause="false"
         EnableUpdate="true" EnableDelete="true" EntityTypeFilter=""
-        Where="it.[NutzerNr] LIKE '%' + @Name + '%'">
+        Where="it.[Name] LIKE '%' + @Name + '%'">
         <WhereParameters>
             <asp:ControlParameter ControlID="tb_SearchInput" Name="Name" PropertyName="Text" Type="String" />
         </WhereParameters>
