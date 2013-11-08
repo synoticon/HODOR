@@ -76,7 +76,7 @@
         </asp:TableRow>
         <asp:TableHeaderRow>
             <asp:TableCell>
-                <asp:LinkButton ID="lb_Build" runat="server" PostBackUrl="~/Members/Administration/NeuAnlegen.aspx">Neu anlegen</asp:LinkButton><br />
+                <asp:Button ID="lb_Build" runat="server" PostBackUrl="~/Members/Administration/NeuAnlegen.aspx" Text="Neu anlegen" /><br />
             </asp:TableCell>
         </asp:TableHeaderRow>
     </asp:Table>
@@ -330,8 +330,7 @@
 
             <%-- SubRelease --%>
             <asp:ListView ID="lv_subRelease" runat="server" DataKeyNames="ReleaseID"
-                OnSelectedIndexChanging="lv_subRelease_SelectedIndexChanging" 
-                OnItemCanceling="lv_subRelease_ItemCanceling">
+                OnSelectedIndexChanging="lv_subRelease_SelectedIndexChanging">
                 <LayoutTemplate>
                     <table id="Table3" class="ExampleView" runat="server">
                         <tr id="Tr1" runat="server">
@@ -374,7 +373,7 @@
                             <%# Eval("Beschreibung") %>
                         </td>
                         <td class="action">
-                            <asp:LinkButton ID="lb_Builds" runat="server" Text="Builds"
+                            <asp:LinkButton ID="LinkButton1" runat="server" Text="Builds"
                                 OnCommand="lb_Builds_Command" CommandArgument='<%# Eval("ReleaseVonProgramm") + ";" + Eval("ReleaseID") %>' /><br />
                             <asp:LinkButton ID="lb_delete" runat="server" Text="Löschen"
                                 CommandArgument='<%# Eval("ReleaseVonProgramm") + ";" + Eval("ReleaseID") %>'
@@ -398,7 +397,7 @@
                             <%# Eval("Beschreibung") %>
                         </td>
                         <td class="action">
-                            <asp:LinkButton ID="lb_Builds" runat="server" Text="Builds"
+                            <asp:LinkButton ID="LinkButton1" runat="server" Text="Builds"
                                 OnCommand="lb_Builds_Command" CommandArgument='<%# Eval("ReleaseVonProgramm") + ";" + Eval("ReleaseID") %>' /><br />
                             <asp:LinkButton ID="lb_delete" runat="server" Text="Löschen"
                                 CommandArgument='<%# Eval("ReleaseVonProgramm") + ";" + Eval("ReleaseID") %>'
