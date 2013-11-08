@@ -14,15 +14,13 @@ namespace HODOR
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
-
             String Username = System.Threading.Thread.CurrentPrincipal.Identity.Name;
             Benutzer user = BenutzerDAO.getUserByKundenNrOrNull(Username);
 
             if (Request.QueryString.Count != 0)
             {
                 lb_programmname.Text = ProgrammDAO.getProgrammByProgrammIDOrNull(int.Parse(Request.QueryString["progID"])).Name;
-                
+
                 if (!IsPostBack)
                 {
                     fillOutDDL_Release();
@@ -32,9 +30,8 @@ namespace HODOR
             {
                 SelectProgrammView(user);
                 DDL_Programm.Visible = true;
-                
+
             }
-        
         }
 
 
@@ -210,6 +207,10 @@ namespace HODOR
                 }
                 if (buildToDownload != null)
                 {
+                    if (String.IsNullOrEmpty(buildToDownload.Datendateipfad))
+                    {
+                        throw new Exception("Leider ist ein Fehler aufgetreten. Bitte kontaktieren Sie Ihren Support. Fehlernummer: 404");
+                    }
                     System.String filename = buildToDownload.Datendateipfad;
 
                     // set the http content type to "APPLICATION/OCTET-STREAM
@@ -239,7 +240,8 @@ namespace HODOR
             catch (System.Exception exc)
             // file IO errors
             {
-                l_Builddiscription.Text = exc.Message;
+                this.Exception.Visible = true;
+                this.Exception.Text = exc.Message;
             }
 
         }

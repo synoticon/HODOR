@@ -375,6 +375,7 @@
                         <td class="action">
                             <asp:LinkButton ID="LinkButton1" runat="server" Text="Builds"
                                 OnCommand="lb_Builds_Command" CommandArgument='<%# Eval("ReleaseVonProgramm") + ";" + Eval("ReleaseID") %>' /><br />
+                            <asp:LinkButton ID="edit" runat="server" Text="Bearbeiten" PostBackUrl="~/Members/Produkte.aspx" /><br />
                             <asp:LinkButton ID="lb_delete" runat="server" Text="Löschen"
                                 CommandArgument='<%# Eval("ReleaseVonProgramm") + ";" + Eval("ReleaseID") %>'
                                 OnCommand="lb_delete_Command" OnClientClick="return confirm('Sind Sie sicher, dass Sie dieses Sub-Release löschen wolle?');" />
@@ -399,6 +400,7 @@
                         <td class="action">
                             <asp:LinkButton ID="LinkButton1" runat="server" Text="Builds"
                                 OnCommand="lb_Builds_Command" CommandArgument='<%# Eval("ReleaseVonProgramm") + ";" + Eval("ReleaseID") %>' /><br />
+                            <asp:LinkButton ID="edit" runat="server" Text="Bearbeiten" PostBackUrl="~/Members/Produkte.aspx" /><br />
                             <asp:LinkButton ID="lb_delete" runat="server" Text="Löschen"
                                 CommandArgument='<%# Eval("ReleaseVonProgramm") + ";" + Eval("ReleaseID") %>'
                                 OnCommand="lb_delete_Command" OnClientClick="return confirm('Sind Sie sicher, dass Sie dieses Sub-Release löschen wolle?');" />
@@ -453,6 +455,7 @@
                             <%# Eval("Beschreibung") %>
                         </td>
                         <td class="action">
+                            <asp:LinkButton ID="edit" runat="server" Text="Bearbeiten" PostBackUrl="~/Members/Produkte.aspx" /><br />
                             <asp:LinkButton ID="lb_delete" runat="server" Text="Löschen"
                                 CommandArgument='<%# Eval("ReleaseVonProgramm") + ";" + Eval("ReleaseID") %>'
                                 OnCommand="lb_delete_Command2" OnClientClick="return confirm('Sind Sie sicher, dass Sie dieses Build löschen wolle?');" />
@@ -475,6 +478,7 @@
                             <%# Eval("Beschreibung") %>
                         </td>
                         <td class="action">
+                            <asp:LinkButton ID="edit" runat="server" Text="Bearbeiten" PostBackUrl="~/Members/Produkte.aspx" /><br />
                             <asp:LinkButton ID="lb_delete" runat="server" Text="Löschen"
                                 CommandArgument='<%# Eval("ReleaseVonProgramm") + ";" + Eval("ReleaseID") %>'
                                 OnCommand="lb_delete_Command2" OnClientClick="return confirm('Sind Sie sicher, dass Sie dieses Build löschen wolle?');" />

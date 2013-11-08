@@ -60,7 +60,9 @@
                 </asp:TableRow>
             </asp:Table>
 
-
+            <br />
+            <br />
+            <asp:Label ID="Exception" runat="server" Text="" Visible="false" Font-Bold="true" BackColor="LightCoral"/>
 
 
 
