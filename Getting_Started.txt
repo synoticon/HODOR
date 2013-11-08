@@ -37,6 +37,7 @@
 	5.2 Dateinamensschema für den Upload neuer Builds: Programmname_Releasenummer_Subreleasenummer_Buildnummer.Dateiendung
 		Programm,Release,Subrelease und Build werden wenn nötig angelegt.
 	5.3 Applikation ist nur mit .NET 4.0 im IIS und SQL Server 2012 getestet.
+	5.4 Neben dem Datenbankschema befinden sich im Ordner "Datenbank" auch einige Kommentierte Hilfsskripte
 
 Weitere Rollen:
 Supporter: Bearbeiten und nicht neu Erstellen (abgesehen von Tickets)
