@@ -394,5 +394,34 @@ namespace HODOR.Members.Administration
 
             showBuilds(subReleaseString);
         }
+
+        protected void lv_subRelease_ItemEditing(object sender, ListViewEditEventArgs e)
+        {
+            ListViewItem item = (ListViewItem)lv_subRelease.Items[e.NewEditIndex];
+            
+            if (item != null)
+            {
+                Label label = (Label)item.FindControl("l_test") as Label;
+                if (label != null)
+                {
+                    int relNr = Convert.ToInt32(label.Text);
+                    if (relNr > 0)
+                    {
+                        Programm prog = ProgrammDAO.getProgrammByExactNameOrNull(this.l_ProgrammName.Text);
+                        Release rel = ReleaseDAO.getSingleReleaseByNumberAndProgramm(prog.ProgrammID, relNr);
+                        Subrelease subRel = SubreleaseDAO.getSingleSubReleaseByID(rel.ReleaseID);
+                        if (subRel != null)
+                        {
+                            Label relLabel = (Label)item.FindControl("l_ReleaseNummerEdit") as Label;
+                            relLabel.Text = subRel.Releasenummer.ToString();
+                            Label relDatLabel = (Label)item.FindControl("l_ReleaseDatumEdit") as Label;
+                            relDatLabel.Text = subRel.Releasedatum.ToString();
+                            TextBox besch = (TextBox)item.FindControl("tb_BeschreibdungEdit") as TextBox;
+                            besch.Text = subRel.Beschreibung;
+                        }
+                    }
+                }
+            }
+        }
     }
 }

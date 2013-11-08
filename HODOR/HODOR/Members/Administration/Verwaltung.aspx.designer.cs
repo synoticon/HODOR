@@ -154,7 +154,7 @@ namespace HODOR.Members.Administration {
         /// Automatisch generiertes Feld
         /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lb_Build;
+        protected global::System.Web.UI.WebControls.Button lb_Build;
         
         /// <summary>
         /// MultiView1-Steuerelement
