@@ -155,6 +155,9 @@ namespace HODOR.Members.Administration
         {
            
         }
+      /// <summary>
+      /// Setzt die Dropdownfelder auf Urzustand zurück
+      /// </summary>
         protected void ClearAllDDL()
         {
             DDL_SubRelease.Items.Clear();

@@ -1,0 +1,9 @@
+﻿<parameters>
+  <parameter name="IIS Web Application Name" defaultValue="HODOR" tags="IisApp">
+    <parameterEntry kind="ProviderPath" scope="IisApp" match="^H:\\Schule\\GitPortable\\App\\Git\\\.hodor-repo\\HODOR\\HODOR\\HODOR\\obj\\Release\\Package\\PackageTmp$" />
+    <parameterEntry kind="ProviderPath" scope="setAcl" match="^H:\\Schule\\GitPortable\\App\\Git\\\.hodor-repo\\HODOR\\HODOR\\HODOR\\obj\\Release\\Package\\PackageTmp$" />
+  </parameter>
+  <parameter name="HODOR_entities-Web.config Connection String" defaultValue="metadata=res://*/HODOR_Model.csdl|res://*/HODOR_Model.ssdl|res://*/HODOR_Model.msl;provider=System.Data.SqlClient;provider connection string=&quot;Data Source=localhost;Initial Catalog=HODOR;Integrated Security=True;MultipleActiveResultSets=True&quot;">
+    <parameterEntry kind="XmlFile" scope="H:\\Schule\\GitPortable\\App\\Git\\\.hodor-repo\\HODOR\\HODOR\\HODOR\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='HODOR_entities']/@connectionString" />
+  </parameter>
+</parameters>

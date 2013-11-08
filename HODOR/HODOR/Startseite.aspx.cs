@@ -29,22 +29,28 @@ namespace HODOR
         }
         protected void OnClick_LoginButton(object sender, EventArgs e)
         {
-          Benutzer user = BenutzerDAO.getUserMatchingKundenNrAndPasswordOrNull(UserName.Text, Password.Text);
-          if (user != null)
+          try
           {
-            GenericIdentity identity = new GenericIdentity(user.NutzerNr);
-            RolePrincipal principal = new RolePrincipal(identity);
-            System.Threading.Thread.CurrentPrincipal = principal;
+            Benutzer user = BenutzerDAO.getUserMatchingKundenNrAndPasswordOrNull(UserName.Text, Password.Text);
+            if (user != null)
+            {
+              GenericIdentity identity = new GenericIdentity(user.NutzerNr);
+              RolePrincipal principal = new RolePrincipal(identity);
+              System.Threading.Thread.CurrentPrincipal = principal;
 
-            FormsAuthentication.SetAuthCookie(user.NutzerNr, false);
-             
-           Response.Redirect("Members/LandingPage.aspx");
+              FormsAuthentication.SetAuthCookie(user.NutzerNr, false);
+
+              Response.Redirect("Members/LandingPage.aspx");
+            }
+            else
+            {
+              FailureText.Text = "Login fehlgeschlagen.";
+            }
           }
-          else
+          catch (Exception)
           {
-            FailureText.Text = "Login fehlgeschlagen.";
+            FailureText.Text = "Es ist ein unbekannter Fehler beim Login aufgetreten";
           }
-
         }
 
     }
