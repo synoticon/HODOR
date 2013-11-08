@@ -80,21 +80,15 @@
                         Beschreibung:
                     </asp:TableCell>
                     <asp:TableCell>
-                        <asp:TextBox ID="ta_Programmdiscription" TextMode="multiline" Columns="20" Rows="15" runat="server" />
-                    </asp:TableCell>
-                    <asp:TableCell>
-                        <asp:TextBox ID="ta_Releasediscription" TextMode="multiline" Columns="20" Rows="15" runat="server" />
-                    </asp:TableCell>
-                    <asp:TableCell>
-                        <asp:TextBox ID="ta_SubReleasediscription" TextMode="multiline" Columns="20" Rows="15" runat="server" />
-                    </asp:TableCell>
-                    <asp:TableCell>
-                        <asp:TextBox ID="ta_Builddiscription" TextMode="multiline" Columns="20" Rows="15" runat="server" />
+                        <asp:TextBox ID="ta_Programmdescription" TextMode="multiline" Columns="20" Rows="15" runat="server" />
+                    </asp:TableCell><asp:TableCell>
+                        <asp:TextBox ID="ta_Releasedescription" TextMode="multiline" Columns="20" Rows="15" runat="server" />
+                    </asp:TableCell><asp:TableCell>
+                        <asp:TextBox ID="ta_SubReleasedescription" TextMode="multiline" Columns="20" Rows="15" runat="server" />
+                    </asp:TableCell><asp:TableCell>
+                        <asp:TextBox ID="ta_Builddescription" TextMode="multiline" Columns="20" Rows="15" runat="server" />
 
-                    </asp:TableCell>
-                </asp:TableRow>
-            </asp:Table>
-            <asp:Button ID="b_save" OnClick="OnClick_b_save" Text="Save" runat="server" />
+                    </asp:TableCell></asp:TableRow></asp:Table><asp:Button ID="b_save" OnClick="OnClick_b_save" Text="Save" runat="server" />
         </asp:View>
 
         <asp:View ID="LizenzView" runat="server">
@@ -105,77 +99,54 @@
                 <asp:TableHeaderRow BackColor="LightGray" >
                     <asp:TableHeaderCell>
                         <asp:Label ID="l_Typ" runat="server" Text="Lizenz Typ" />
-                    </asp:TableHeaderCell>
-                    <asp:TableHeaderCell ID="thc_User" Visible="false">
+                    </asp:TableHeaderCell><asp:TableHeaderCell ID="thc_User" Visible="false">
                         <asp:Label ID="l_User" runat="server" Text="Benutzer"/>
-                    </asp:TableHeaderCell>
-                    <asp:TableHeaderCell ID="thc_Program" Visible="false">
+                    </asp:TableHeaderCell><asp:TableHeaderCell ID="thc_Program" Visible="false">
                         <asp:Label ID="l_Program" runat="server" Text="Programm"/>
-                    </asp:TableHeaderCell>
-                    <asp:TableHeaderCell ID="thc_MajorRelease" Visible="false">
+                    </asp:TableHeaderCell><asp:TableHeaderCell ID="thc_MajorRelease" Visible="false">
                         <asp:Label ID="l_MajorRelease" runat="server" Text="Major-Release" />
-                    </asp:TableHeaderCell>
-                    <asp:TableHeaderCell ID="thc_sDatum" Visible="false">
+                    </asp:TableHeaderCell><asp:TableHeaderCell ID="thc_sDatum" Visible="false">
                         <asp:Label ID="l_StartDatum" runat="server" Text="Von" />
-                    </asp:TableHeaderCell>
-                    <asp:TableHeaderCell ID="thc_eDatum" Visible="false">
+                    </asp:TableHeaderCell><asp:TableHeaderCell ID="thc_eDatum" Visible="false">
                         <asp:Label ID="l_EndDatum" runat="server" Text="Bis" />
-                    </asp:TableHeaderCell>
-                    <asp:TableHeaderCell>
-                    </asp:TableHeaderCell>
-                </asp:TableHeaderRow>
-                <asp:TableRow>
+                    </asp:TableHeaderCell><asp:TableHeaderCell>
+                    </asp:TableHeaderCell></asp:TableHeaderRow><asp:TableRow>
                     <asp:TableCell>
                         <asp:DropDownList ID="ddl_Typ" runat="server" OnSelectedIndexChanged="ddl_Typ_SelectedIndexChanged" AutoPostBack="true">
                             <asp:ListItem Text="---Select---" Value="null" />
                         </asp:DropDownList>
-                    </asp:TableCell>
-                    <asp:TableCell ID="tc_User" Visible="false">
+                    </asp:TableCell><asp:TableCell ID="tc_User" Visible="false">
                         <asp:DropDownList ID="ddl_licUser" runat="server" AutoPostBack="true">
                             <asp:ListItem Text="---Select---" Value="null" />
                         </asp:DropDownList>
-                    </asp:TableCell>
-                    <asp:TableCell ID="tc_Program" Visible="false">
+                    </asp:TableCell><asp:TableCell ID="tc_Program" Visible="false">
                         <asp:DropDownList ID="ddl_licProgramm" runat="server" OnSelectedIndexChanged="ddl_Programm_SelectedIndexChanged" AutoPostBack="true">
                             <asp:ListItem Text="---Select---" Value="null" />
                         </asp:DropDownList>
-                    </asp:TableCell>
-                    <asp:TableCell ID="tc_MajorRelease" Visible="false">
+                    </asp:TableCell><asp:TableCell ID="tc_MajorRelease" Visible="false">
                         <asp:DropDownList ID="ddl_MajorReleases" runat="server">
                             <asp:ListItem Text="---Select---" Value="null" />
                         </asp:DropDownList>
-                    </asp:TableCell>
-                    <asp:TableCell ID="tc_sDatum" Visible="false">
+                    </asp:TableCell><asp:TableCell ID="tc_sDatum" Visible="false">
                         <asp:TextBox ID="tb_StartDatum" runat="server" Text="dfsdf" />
-                    </asp:TableCell>
-                    <asp:TableCell ID="tc_eDatum" Visible="false">
+                    </asp:TableCell><asp:TableCell ID="tc_eDatum" Visible="false">
                         <asp:TextBox ID="tb_EndDatum" runat="server" Text="afadsf" />
-                    </asp:TableCell>
-                </asp:TableRow>
-                <asp:TableRow ID="tr_button" Visible="false" >
+                    </asp:TableCell></asp:TableRow><asp:TableRow ID="tr_button" Visible="false" >
                     <asp:TableCell>
                         <asp:Button ID="b_LizenzErstellen" runat="server" OnClick="b_LizenzErstellen_Click" Text="Lizenz erstellen" />
-                    </asp:TableCell>
-                    <asp:TableCell>
-                    </asp:TableCell>
-                    <asp:TableCell>
-                    </asp:TableCell>
-                    <asp:TableCell ID="tc_regexStartDate" Visible="false">
+                    </asp:TableCell><asp:TableCell>
+                    </asp:TableCell><asp:TableCell>
+                    </asp:TableCell><asp:TableCell ID="tc_regexStartDate" Visible="false">
                         <asp:RegularExpressionValidator ID="RegularExpressionValidator3" runat="server"
                             ErrorMessage="Format incorrect!"
                             ControlToValidate="tb_StartDatum"
                             ValidationExpression="[\d]{1,2}\.[\d]{1,2}\.[\d]{4}" />
-                    </asp:TableCell>
-                    <asp:TableCell ID="tc_regexEndDate" Visible="false">
+                    </asp:TableCell><asp:TableCell ID="tc_regexEndDate" Visible="false">
                         <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server"
                             ErrorMessage="Format incorrect!"
                             ControlToValidate="tb_EndDatum"
                             ValidationExpression="[\d]{1,2}\.[\d]{1,2}\.[\d]{4}" />
-                    </asp:TableCell>
-                </asp:TableRow>
-            </asp:Table>
-            <br />
-            <asp:Label ID="l_ErstellungsErgebnis" runat="server" Text="" />
+                    </asp:TableCell></asp:TableRow></asp:Table><br /><asp:Label ID="l_ErstellungsErgebnis" runat="server" Text="" />
         </asp:View>
     </asp:MultiView>
 </asp:Content>

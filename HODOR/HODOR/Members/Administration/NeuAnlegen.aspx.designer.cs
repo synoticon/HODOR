@@ -283,40 +283,40 @@ namespace HODOR.Members.Administration {
         protected global::System.Web.UI.WebControls.DropDownList DDL_Build;
         
         /// <summary>
-        /// ta_Programmdiscription-Steuerelement
+        /// ta_Programmdescription-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox ta_Programmdiscription;
+        protected global::System.Web.UI.WebControls.TextBox ta_Programmdescription;
         
         /// <summary>
-        /// ta_Releasediscription-Steuerelement
+        /// ta_Releasedescription-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox ta_Releasediscription;
+        protected global::System.Web.UI.WebControls.TextBox ta_Releasedescription;
         
         /// <summary>
-        /// ta_SubReleasediscription-Steuerelement
+        /// ta_SubReleasedescription-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox ta_SubReleasediscription;
+        protected global::System.Web.UI.WebControls.TextBox ta_SubReleasedescription;
         
         /// <summary>
-        /// ta_Builddiscription-Steuerelement
+        /// ta_Builddescription-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox ta_Builddiscription;
+        protected global::System.Web.UI.WebControls.TextBox ta_Builddescription;
         
         /// <summary>
         /// b_save-Steuerelement

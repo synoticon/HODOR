@@ -34,11 +34,12 @@
 
                 <td>
                     <asp:Label ID="l_rolle" runat="server" MaxLength="255" TextMode="SingleLine" /></td>
+
         </table>
         <br></br>
         <asp:Button ID="b_edit" runat="server" OnClick="b_edit_Click" Text="Bearbeiten"  Visible="false" />
         <br></br>
-        <br></br>
+        <asp:Button ID="b_licenz" runat="server" Text="Lizenzen Anzeigen" OnClick="b_licenz_Click"/>
         <br></br>
 
       <h2><asp:LinkButton ID="Product" runat="server" OnCommand="MenuLink_Command" CommandName="Product">Produkte</asp:LinkButton>

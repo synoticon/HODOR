@@ -85,31 +85,31 @@ namespace HODOR {
         protected global::System.Web.UI.WebControls.DropDownList DDL_Build;
         
         /// <summary>
-        /// l_Releasediscription-Steuerelement
+        /// l_Releasedescription-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label l_Releasediscription;
+        protected global::System.Web.UI.WebControls.Label l_Releasedescription;
         
         /// <summary>
-        /// l_SubReleasediscription-Steuerelement
+        /// l_SubReleasedescription-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label l_SubReleasediscription;
+        protected global::System.Web.UI.WebControls.Label l_SubReleasedescription;
         
         /// <summary>
-        /// l_Builddiscription-Steuerelement
+        /// l_Builddescription-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Um dies zu ändern, verschieben Sie die Felddeklaration aus der Designerdatei in eine Code-Behind-Datei.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label l_Builddiscription;
+        protected global::System.Web.UI.WebControls.Label l_Builddescription;
         
         /// <summary>
         /// b_download-Steuerelement

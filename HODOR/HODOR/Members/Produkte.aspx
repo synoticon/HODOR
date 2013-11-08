@@ -47,13 +47,13 @@
                         Beschreibung:
                     </asp:TableCell>
                     <asp:TableCell>
-                        <asp:Label ID="l_Releasediscription" runat="server" Text="" />
+                        <asp:Label ID="l_Releasedescription" runat="server" Text="" />
                     </asp:TableCell>
                       <asp:TableCell>
-                        <asp:Label ID="l_SubReleasediscription" runat="server" Text="" />
+                        <asp:Label ID="l_SubReleasedescription" runat="server" Text="" />
                     </asp:TableCell>
                       <asp:TableCell>
-                        <asp:Label ID="l_Builddiscription" runat="server" Text="" />
+                        <asp:Label ID="l_Builddescription" runat="server" Text="" />
                            <br />
                            <asp:Button ID="b_download" runat="server" OnClick="OnClick_b_download" Text="Download" Visible="false"/>
                     </asp:TableCell>

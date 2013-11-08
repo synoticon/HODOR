@@ -180,7 +180,9 @@ namespace HODOR.Members.Administration
             }
 
         }
-
+        /// <summary>
+        /// Setzt die Dropdownfelder und die Beschreibungsfelder auf Urzustand zurück
+        /// </summary>
         protected void ClearAllDDL()
         {
             DDL_SubRelease.Items.Clear();
@@ -189,12 +191,15 @@ namespace HODOR.Members.Administration
             DDL_Build.Items.Add((new ListItem("---Select---", "null")));
             DDL_Release.Items.Clear();
             DDL_Release.Items.Add((new ListItem("---Select---", "null")));
-            ta_Builddiscription.Text = "";
-            ta_Releasediscription.Text = "";
-            ta_SubReleasediscription.Text = "";
+            ta_Builddescription.Text = "";
+            ta_Releasedescription.Text = "";
+            ta_SubReleasedescription.Text = "";
 
         }
-
+        /// <summary>
+        /// befüllt die Dropdownlists mit Programmdaten des übergebenen Benutzers
+        /// </summary>
+        /// <param name="user"></param>
         protected void SelectProgrammView(Benutzer user)
         {
             if (HodorRoleProvider.isSupportAllowed(user))
@@ -236,7 +241,7 @@ namespace HODOR.Members.Administration
                         DDL_SubRelease.Items.Add((new ListItem(item.Releasenummer.ToString(), item.ReleaseID.ToString())));
                     }
                 }
-                ta_Releasediscription.Text = ReleaseDAO.getSingleReleaseByID(int.Parse(DDL_Release.SelectedValue)).Beschreibung;
+                ta_Releasedescription.Text = ReleaseDAO.getSingleReleaseByID(int.Parse(DDL_Release.SelectedValue)).Beschreibung;
             }
         }
 
@@ -250,7 +255,7 @@ namespace HODOR.Members.Administration
                 {
                     if (item.ReleaseID == int.Parse(DDL_SubRelease.SelectedValue))
                     {
-                        ta_SubReleasediscription.Text = item.Beschreibung;
+                        ta_SubReleasedescription.Text = item.Beschreibung;
                         foreach (Build build in item.Builds)
                         {
                             if (DDL_Build.Items.FindByText(build.ReleaseID.ToString()) == null)
@@ -278,7 +283,7 @@ namespace HODOR.Members.Administration
                     }
                 }
 
-                 ta_Programmdiscription.Text = ProgrammDAO.getProgrammByProgrammIDOrNull(int.Parse(DDL_Programm.SelectedValue)).Beschreibung;
+                 ta_Programmdescription.Text = ProgrammDAO.getProgrammByProgrammIDOrNull(int.Parse(DDL_Programm.SelectedValue)).Beschreibung;
             }
         }
 
@@ -295,7 +300,7 @@ namespace HODOR.Members.Administration
                         {
                             if (build.ReleaseID.ToString() == DDL_Build.SelectedValue)
                             {
-                                ta_Builddiscription.Text = build.Beschreibung;
+                                ta_Builddescription.Text = build.Beschreibung;
                             }
                         }
                     }
@@ -306,21 +311,21 @@ namespace HODOR.Members.Administration
 
         protected void OnClick_b_save(object sender, EventArgs e)
         {
-            if (ta_Programmdiscription != null)
+            if (ta_Programmdescription != null)
             {
-              ProgrammDAO.getProgrammByProgrammIDOrNull(int.Parse(DDL_Programm.SelectedValue)).Beschreibung = ta_Programmdiscription.Text;
+              ProgrammDAO.getProgrammByProgrammIDOrNull(int.Parse(DDL_Programm.SelectedValue)).Beschreibung = ta_Programmdescription.Text;
             }
 
-            if (ta_Releasediscription != null)
+            if (ta_Releasedescription != null)
             {
                 if (DDL_Release.SelectedValue != "null")
                 {
-                    ReleaseDAO.getSingleReleaseByID(int.Parse(DDL_Release.SelectedValue)).Beschreibung = ta_Releasediscription.Text;
+                    ReleaseDAO.getSingleReleaseByID(int.Parse(DDL_Release.SelectedValue)).Beschreibung = ta_Releasedescription.Text;
                 }
 
             }
 
-            if (ta_SubReleasediscription != null)
+            if (ta_SubReleasedescription != null)
             {
                 if (DDL_SubRelease.SelectedValue != "null")
                 {
@@ -328,7 +333,7 @@ namespace HODOR.Members.Administration
                     {
                         if (item.ReleaseID == int.Parse(DDL_SubRelease.SelectedValue))
                         {
-                            item.Beschreibung = ta_SubReleasediscription.Text;
+                            item.Beschreibung = ta_SubReleasedescription.Text;
                             break;
                         }
                     }
@@ -336,7 +341,7 @@ namespace HODOR.Members.Administration
 
             }
 
-            if (ta_Builddiscription != null)
+            if (ta_Builddescription != null)
             {
                 if (DDL_Build.SelectedValue != "null")
                 {
@@ -349,7 +354,7 @@ namespace HODOR.Members.Administration
                             {
                                 if (build.ReleaseID.ToString() == DDL_Build.SelectedValue)
                                 {
-                                    build.Beschreibung = ta_Builddiscription.Text;
+                                    build.Beschreibung = ta_Builddescription.Text;
                                     break;
                                 }
                             }

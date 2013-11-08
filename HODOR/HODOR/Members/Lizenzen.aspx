@@ -115,6 +115,6 @@
     </asp:ListView>
 
     <br />
-    <asp:LinkButton ID="lb_Build" runat="server" OnClick="lb_Build_Click" >Neu anlegen</asp:LinkButton><br />
+    <asp:LinkButton ID="lb_Build" runat="server" OnClick="lb_Build_Click" Visible="False" >Neu anlegen</asp:LinkButton><br />
 
 </asp:Content>
