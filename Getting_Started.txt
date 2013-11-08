@@ -1,27 +1,43 @@
-﻿User:admin
-pw:	 admin
-Rolle des Accounts: Administrator
+﻿Schritte zum Starten:
+
+1. Falls nötig Datenbank aufsetzen, wenn sie im DB-Server nicht bereits vorhanden ist (auf HHBNT8 ist dies bereits erledigt). Dazu:
+	1.1 Eine Verbindung zum Datenbank Server mit dem SQL Server Management Studio herstellen.
+	1.2 Per Rechstklick auf den Punkt "Databases" unter dem entsprechenden Serverknoten links im Serverbrowser den Punkt "New Database..." anklicken
+	1.3 Für Testumgebungen und kleinere Systeme reicht es hier einfach die Standardwerte zu belassen und lediglich einen Namen für die Datenbank anzugeben (z.B. HODOR)
+	1.4 Danach den Dialog mit "Ok" bestätigen.
+	1.5 Nun den "Databases" Knoten ausklappen und einen Rechtsklick auf die zuvor erstellte Datenbank tätigen. Im Kontextmenü dann "New Query..." auswählen
+	1.6 In das Query-Fenster nun den Inhalt der Datei "DB_Schema_v1.0.sql" aus dem Ordner "Datenbank" kopieren.
+	1.7 Nun mit F5 oder dem Execute Button in der Menüzeile das Skript ausführen. Sollten in der Ausgabe unten keine Fehler erscheinen, ist die Datenbank nun erstellt.
+	
+2. Applikation (HODOR) starten
+	2.a Deployment im IIS (Derzeit ist das Deployment Paket leider Defekt. Es wurde lediglich der vollständigkeit halber beigefügt.)
+		2.a.1 IIS Seite einrichten
+		2.a.2 Application Pool der Seite auf .NET 4.0 einstellen
+		2.a.3 Inhalt der Zip HODOR_deploy.zip aus dem Abgabeordner "Deployment/IIS_Deploy" in den physischen Pfad der IIS-Seite kopieren
+		2.a.4 Mailrelay Daten in der Web.conf eintragen und ggf. Connectionstring ändern
+		2.a.5 IIS-Seite neu starten
+		2.a.6 Weiter bei Punkt 3
+	
+	2.b Projekt in Visual Studio öffnen und starten
+		2.b.1 Die Projektdatei HODOR.sln aus dem Ordner "VS_Projekt\HODOR" der Abgabe mit Visual Studio öffnen.
+		2.b.2 Mailrelay Daten in der Web.conf eintragen und ggf. Connectionstring ändern
+		2.b.3 Projekt mit dem üblichen Startbutton starten
+	
+3. Nun sollte sich der Browser mit der Loginseite öffnen. Dort die Admindaten (Kundennummer: admin Passwort: admin) eingeben und den Login Button betätigen
+
+4. Daten erstellen
+	4.a. neue Testdaten über /SampleData.aspx erstellen
+		4.a.1. Hierzu einfach <Url>:port/SampleData.aspx aufrufen, die verschiedenen geforderten Daten eingeben und bestätigen
+		4.a.2. Sollte ein User erstellt worden sein, so entspricht sein Passwort seiner Kundennummer
+		4.a.   ANMERKUNG: SampleData.aspx ist nur für Testzwecke und sollte vor Produktivsetzung entfernt werden! Außerdem beinhalten die Demo-Builds keine herunterladbaren Datendateien!
+	4.b. Neue Daten über den Menü Reiter Verwaltung den Linkbutton "Neu anlegen". Dies wäre auch der Weg für den produktiven Einsatz.
+	
+5. Wichtige Zusätzliche Informationen:
+	5.1 FireFox ist der getestete und supportete Browser.
+	5.2 Dateinamensschema für den Upload neuer Builds: Programmname_Releasenummer_Subreleasenummer_Buildnummer.Dateiendung
+		Programm,Release,Subrelease und Build werden wenn nötig angelegt.
+	5.3 Applikation ist nur mit .NET 4.0 im IIS und SQL Server 2012 getestet.
 
 Weitere Rollen:
-
-Supporter: Bearbeiten und nicht neu Erstellen(abgesehen von Tickets)
-
-Member: Darf nur Programme sehen und Downloaden die fuer ihn lizensiert sind und Tickets erstellen
-
-Schritte zum Starten:
-
-1. Datenbank-Script unter "Datenbank" Namens "RebuildDatabase.sql" auf der Datenbank ausfuehren.
-2. Deployment Paket "Deployment/IIS_Deploy" im IIS Deployen
-3. Mailrelay Daten in der Web.conf eintragen und ggf. Connectionstring aendern
-4. Auf die Website zugreifen und einloggen
-5. Testen beginnen
-	Moeglichkeiten:
-	a. neue Testdaten ueber /SampleData.aspx erstellen
-	b. Neue Daten ueber den Menue Reiter Verwaltung den Linkbutton "Neu anlegen"
-	
-
-	Known Bug:
-	Editierung der Build und Subreleases ueber Verwatung bei der Produktverwatung funktioniert nicht.
-	
-	Dateinamensschema: Programmname_Releasenummer_Subreleasenummer_Buildnummer.Dateiendung
-	
+Supporter: Bearbeiten und nicht neu Erstellen (abgesehen von Tickets)
+Member: Darf nur Programme sehen und Downloaden für die er eine Lizenz hat und Tickets erstellen

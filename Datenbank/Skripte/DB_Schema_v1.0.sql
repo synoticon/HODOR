@@ -1,4 +1,9 @@
 --@author: Aaron
+/*
+**	Dieses Skript erstellt das Schema, inklusive Indizes und elementarer Datensätze für HODOR.
+**	Es sollte auf leere Datenbanken angewandt werden, die noch keine HODOR Tabellen beinhalten.
+*/
+
 
 /*
 **	0. Schema anlegen, wenn noch nicht vorhanden

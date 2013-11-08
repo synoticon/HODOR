@@ -1,4 +1,11 @@
 --@author: Aaron
+/*
+**	Dieses Skript dient zum "Resetten" einer HODOR-Datenbank, die eventuell noch ein altes Schema verwendet.
+**	Es funktioniert aber auch für aktuelle HODOR Datenbanken, hat dort aber ausser der Neuanlegung der elementaren Datensätze
+**	kein anderes Ergebnis, als das clearALLEntriesFromDB.sql-Skript.
+**	Es handelt sich hierbei um eine Kombination des deleteALL_TABLES_FromDB.sql Skriptes und des DB_Schema_v1.0.sql-Skripts.
+*/
+
 --Get rid of obsolete tables only if they still exist
 IF EXISTS (SELECT * FROM sys.tables WHERE name = 'Modul_Zu_Subrelease')
 BEGIN

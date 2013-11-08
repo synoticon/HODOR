@@ -1,4 +1,10 @@
 --@author: Aaron
+/*
+**	Dieses Skript löscht alle Tabellen von HODOR aus einer Datenbank.
+**	Nötig wurde dies durch die geteilte Datenbank mit anderen Gruppen, deren Tabellen logischerweise durch ein löschen und neukreieren der
+**	gesamten Datenbank verloren gehen würden.
+**
+*/
 --Get rid of obsolete tables only if they still exist
 IF EXISTS (SELECT * FROM sys.tables WHERE name = 'Modul_Zu_Subrelease')
 BEGIN

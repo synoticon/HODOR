@@ -1,4 +1,9 @@
 --@author: Aaron
+/*
+**	Dieses Skript löscht alle Datenbankeinträge mit Ausnahme der grundliegenen Einträge, welche bereits bei der Datenbankerstellung erzeugt werden
+**	und elementar für Betrieb und Nutzung von HODOR sind.
+**
+*/
 DELETE FROM gr1.SupportTicket;
 GO
 DELETE FROM gr1.Download_History;
