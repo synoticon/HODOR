@@ -164,26 +164,20 @@ namespace HODOR.Members.Administration
                 {
                     if (this.cb_NutzerNr.Checked && !this.cb_Name.Checked)
                     {
-                        this.lv_Product.Visible = false;
-                        this.lv_subRelease.Visible = false;
-                        this.lv_Build.Visible = false;
-                        this.lv_User.Visible = true;
+                        unvisible();
+
                         this.lv_User.DataSourceID = this.UserDataSourceByNutzerNr.ID;
                     }
                     else if (this.cb_Name.Checked && !this.cb_NutzerNr.Checked)
                     {
-                        this.lv_Product.Visible = false;
-                        this.lv_subRelease.Visible = false;
-                        this.lv_Build.Visible = false;
-                        this.lv_User.Visible = true;
+                        unvisible();
+
                         this.lv_User.DataSourceID = this.UserDataSourceByName.ID;
                     }
                     else if (this.cb_Name.Checked && this.cb_NutzerNr.Checked)
                     {
-                        this.lv_Product.Visible = false;
-                        this.lv_subRelease.Visible = false;
-                        this.lv_Build.Visible = false;
-                        this.lv_User.Visible = true;
+                        unvisible();
+
                         this.lv_User.DataSourceID = this.UserDataSourceByNutzerNrAndName.ID;
                     }
 
@@ -200,6 +194,14 @@ namespace HODOR.Members.Administration
                     DoSearch();
                 }
             }
+        }
+
+        protected void unvisible()
+        {
+            this.lv_Product.Visible = false;
+            this.lv_subRelease.Visible = false;
+            this.lv_Build.Visible = false;
+            this.lv_User.Visible = true;
         }
 
         /*
@@ -353,10 +355,9 @@ namespace HODOR.Members.Administration
         {
             this.lv_subRelease.EditIndex = -1;
 
-            string programString = Request.QueryString["programID"];
-            string subReleaseString = Request.QueryString["subreleasenummer"];
+            List<string> queryStrings = getStrings();
 
-            showSubReleases(programString, subReleaseString);
+            showSubReleases(queryStrings[0], queryStrings[1]);
         }
 
         protected void lb_delete_Command(object sender, CommandEventArgs e)
@@ -366,20 +367,18 @@ namespace HODOR.Members.Administration
             Subrelease sub = SubreleaseDAO.getSingleSubReleaseByID(Convert.ToInt32(arg[1]));
             SubreleaseDAO.deleteSubrelease(sub);
 
-            string programString = Request.QueryString["programID"];
-            string subReleaseString = Request.QueryString["subreleasenummer"];
+            List<string> queryStrings = getStrings();
 
-            showSubReleases(programString, subReleaseString);
+            showSubReleases(queryStrings[0], queryStrings[1]);
         }
 
         protected void lv_Build_ItemCanceling(object sender, ListViewCancelEventArgs e)
         {
             this.lv_subRelease.EditIndex = -1;
 
-            string programString = Request.QueryString["programID"];
-            string subReleaseString = Request.QueryString["subreleasenummer"];
+            List<string> queryStrings = getStrings();
 
-            showSubReleases(programString, subReleaseString);
+            showSubReleases(queryStrings[0], queryStrings[1]);
         }
 
         protected void lb_delete_Command2(object sender, CommandEventArgs e)
@@ -389,39 +388,22 @@ namespace HODOR.Members.Administration
             Build build = BuildDAO.getBuildByIDOrNull(Convert.ToInt32(arg[1]));
             BuildDAO.deleteBuild(build);
 
+            List<string> queryStrings = getStrings();
+
+            showBuilds(queryStrings[1]);
+        }
+
+        protected List<string> getStrings()
+        {
+            List<string> queryStrings = new List<string>();
+
             string programString = Request.QueryString["programID"];
             string subReleaseString = Request.QueryString["subreleasenummer"];
 
-            showBuilds(subReleaseString);
-        }
+            queryStrings.Add(subReleaseString);
+            queryStrings.Add(programString);
 
-        protected void lv_subRelease_ItemEditing(object sender, ListViewEditEventArgs e)
-        {
-            ListViewItem item = (ListViewItem)lv_subRelease.Items[e.NewEditIndex];
-            
-            if (item != null)
-            {
-                Label label = (Label)item.FindControl("l_test") as Label;
-                if (label != null)
-                {
-                    int relNr = Convert.ToInt32(label.Text);
-                    if (relNr > 0)
-                    {
-                        Programm prog = ProgrammDAO.getProgrammByExactNameOrNull(this.l_ProgrammName.Text);
-                        Release rel = ReleaseDAO.getSingleReleaseByNumberAndProgramm(prog.ProgrammID, relNr);
-                        Subrelease subRel = SubreleaseDAO.getSingleSubReleaseByID(rel.ReleaseID);
-                        if (subRel != null)
-                        {
-                            Label relLabel = (Label)item.FindControl("l_ReleaseNummerEdit") as Label;
-                            relLabel.Text = subRel.Releasenummer.ToString();
-                            Label relDatLabel = (Label)item.FindControl("l_ReleaseDatumEdit") as Label;
-                            relDatLabel.Text = subRel.Releasedatum.ToString();
-                            TextBox besch = (TextBox)item.FindControl("tb_BeschreibdungEdit") as TextBox;
-                            besch.Text = subRel.Beschreibung;
-                        }
-                    }
-                }
-            }
+            return queryStrings;
         }
     }
 }
